@@ -1,3 +1,3 @@
 <% 
-    response.sendRedirect("pages/welcome.jsp");
+    response.sendRedirect("./besoin-insertion");
 %>
