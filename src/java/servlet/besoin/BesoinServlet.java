@@ -11,6 +11,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import model.Person;
 
 /**
  *
@@ -33,11 +34,9 @@ public class BesoinServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         
         // Add attribute to request
-        request.setAttribute("pageTitle", "Insertion des besoins");     // Ceci est indispensable pour envoyer le titre de la page
-        request.setAttribute("jspPage", "./besoin/besoin_insertion.jsp");     // Lien vers le page a includer
         
         // dispatch to target servlet
-        RequestDispatcher dispatch = request.getRequestDispatcher("./pages/welcome.jsp");
+        RequestDispatcher dispatch = request.getRequestDispatcher("./pages/besoin/besoin_insertion.jsp");
         dispatch.forward(request, response);
         
     }
