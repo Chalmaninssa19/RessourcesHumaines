@@ -1,0 +1,19 @@
+.task-list {
+  overflow-y: auto;
+  overflow-x: hidden;
+  max-height: 200px;
+  padding-right: 10px;
+} 
+.table .list-action {
+  font-size: 18px;
+}
+.table .primary {
+  color: #da8cff;
+}
+.table .danger {
+  color: #fe7c96;
+}
+.table .to-right {
+  text-align: right;
+  padding-right: 30px;
+}/*# sourceMappingURL=besoin-insertion.css.map */
