@@ -204,6 +204,13 @@
                                 <i class="mdi mdi-contacts menu-icon"></i>
                             </a>
                         </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">
+                                <span class="menu-title"> Profile </span>
+                                <i class="mdi mdi-user menu-icon"></i>
+                            </a>
+                        </li>
                     </ul>
                 </nav>
                 <!-- partial -->
