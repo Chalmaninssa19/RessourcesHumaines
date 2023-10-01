@@ -1,3 +1,7 @@
+CREATE DATABASE gestionEntreprise;
+
+\c gestionentreprise;
+
 CREATE SCHEMA IF NOT EXISTS "public";
 
 CREATE SEQUENCE "public".adresse_idadresse_seq START WITH 1 INCREMENT BY 1;

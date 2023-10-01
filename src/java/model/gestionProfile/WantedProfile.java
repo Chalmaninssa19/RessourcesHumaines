@@ -20,7 +20,7 @@ public class WantedProfile extends Model {
     @Champs
     private String poste;
     @Champs(mapcol="id", name="idService")
-    private Service service;;
+    private Service service;
     private List<DiplomeNote> diplomeNote;
     private List<ExperienceNote> experienceNote;
     private List<SalaireNote> salaireNote;
