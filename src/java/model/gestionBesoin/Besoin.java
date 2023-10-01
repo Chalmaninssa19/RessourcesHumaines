@@ -79,12 +79,11 @@ public class Besoin extends Model {
     public Besoin (){
     }
 
-    public Besoin(Service service, Timestamp creationDate, String description, List<Task> tasks, List<WorkLoad> workLoad, Integer status) {
+    public Besoin(Service service, Timestamp creationDate, String description, List<Task> tasks, Integer status) {
         this.service = service;
         this.creationDate = creationDate;
         this.description = description;
         this.tasks = tasks;
-        this.workLoad = workLoad;
         this.status = status;
     }
 
