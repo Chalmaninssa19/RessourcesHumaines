@@ -14,3 +14,6 @@ nbproject/project.properties
 /dist/
 build/web/WEB-INF/classes/framework/database/annotation/Champs.class
 *.class
+nbproject/ant-deploy.xml
+*.properties
+*.xml
