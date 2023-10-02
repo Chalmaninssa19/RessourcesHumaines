@@ -17,3 +17,4 @@ build/web/WEB-INF/classes/framework/database/annotation/Champs.class
 nbproject/ant-deploy.xml
 *.properties
 *.xml
+src/java/framework/database/utilitaire/GConnection.java

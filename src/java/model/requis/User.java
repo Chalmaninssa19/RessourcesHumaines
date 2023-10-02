@@ -17,6 +17,7 @@ import java.util.ArrayList;
  * @author Chalman
  */
 public class User extends Model {
+    private int idUser;
     @Champs
     private String name;
     @Champs( mapcol="id", name="id_service")
@@ -50,7 +51,7 @@ public class User extends Model {
         return username;
     }
 
-    public void setUsername(String username) {
+    public void setUsername(String username) throws Exception {
         this.username = username;
     }
 
@@ -58,7 +59,7 @@ public class User extends Model {
         return password;
     }
 
-    public void setPassword(String password) {
+    public void setPassword(String password) throws Exception {
         this.password = password;
     }
 
@@ -112,6 +113,60 @@ public class User extends Model {
         }
     }
     
+    // vérifier les champs depuis l'affichage
+    public static void checkLoginForm(String username, String password) throws Exception {
+         // check form value
+        if (username == null || username.trim().equals("")) {
+            throw new Exception("Le nom d'utilisateur ne doit pas être vide ou null");
+        }
+        
+        if (password == null || password.trim().equals("")) {
+            throw new Exception("Le mot de passe ne doit pas être vide ou null");
+        }
+    }
+    
+    // Fonction pour authentifier un utilisateur
+    public static User checkLogin(String username, String password) throws Exception {
+        checkLoginForm(username, password);
+        
+        String query = "SELECT * FROM v_user_service WHERE username = '%s' and password = '%s'";
+        query = String.format(query, username, password);
+        
+        Connection connection = null;
+        Statement statement = null;
+        ResultSet resultset = null;
+        
+        try {
+            connection = GConnection.getSimpleConnection();
+            statement = connection.createStatement();
+            resultset = statement.executeQuery(query);
+            
+            if (resultset.next()) {
+                User user = new User();
+                user.setId(resultset.getInt("id_utilisateur"));
+                user.setUsername(resultset.getString("username"));
+                user.setMail(resultset.getString("mail"));
+                //user.setPassword(resultset.getString("password"));
+                
+                Service service = new Service();
+                service.setIdService(resultset.getInt("id_service"));
+                service.setService(resultset.getString("service"));
+                
+                user.setService(service);
+                
+                System.out.println("User : " + user.getUsername());
+                return user;
+            }
+            
+            throw new Exception("Vérifier votre nom d'utilisateur ou mot de passe !");
+        } catch (Exception e) {
+            if (resultset != null) resultset.close();
+            if (statement != null) statement.close();
+            if (connection != null) connection.close();
+            throw e;
+        }
+    }
+    
     //Avoir tous les users
     public ArrayList<User> getAll(Connection conn)  throws Exception { 
         return this.findAll(conn);
@@ -120,5 +175,13 @@ public class User extends Model {
     //Recuperer un user par son id
     public User getById(Connection conn, Integer idUser) throws Exception {
         return this.findOneWhere(conn, "id ="+idUser);
+    }
+    
+    public static void main(String[] args) {
+        try {
+            User.checkLogin("Andry Info", "Andry111");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
