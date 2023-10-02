@@ -22,7 +22,7 @@ public class DiplomeNote extends Model {
     @Champs(mapcol = "id", name = "idDiplome")
     private Diplome diplome;
     @Champs
-    private Double note;
+    private double note;
 
 ///Getters and setters
     public Diplome getDiplome() {
