@@ -19,7 +19,7 @@ public class WorkLoad extends Model {
     @Champs
     private Integer wantedProfile;
     @Champs
-    private Double quantity;
+    private Integer quantity;
     @Champs(mapcol="id", name="idUnity")
     private Unity unity;
     
@@ -31,10 +31,10 @@ public class WorkLoad extends Model {
         this.wantedProfile = wantedProfile;
     }
 
-    public Double getQuantity() {
+    public Integer getQuantity() {
         return quantity;
     }
-    public void setQuantity(Double quantity) {
+    public void setQuantity(Integer quantity) {
         this.quantity = quantity;
     }
 
@@ -51,7 +51,7 @@ public class WorkLoad extends Model {
     public WorkLoad() {   
     }
 
-    public WorkLoad(Integer wantedProfile, Double quantity, Unity unity) {
+    public WorkLoad(Integer wantedProfile, Integer quantity, Unity unity) {
         this.wantedProfile = wantedProfile;
         this.quantity = quantity;
         this.unity = unity;

@@ -5,10 +5,10 @@
  */
 package model.gestionBesoin;
 
-import framework.database.annotation.Champs;
-import framework.database.utilitaire.GConnection;
 import java.sql.Connection;
-import java.sql.Timestamp;
+import java.sql.Date;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import model.Model;
@@ -19,18 +19,22 @@ import model.requis.Service;
  * @author Chalman
  */
 public class Besoin extends Model {
-    @Champs(mapcol="id", name="idService")
+    private Integer idBesoin;
     private Service service;
-    @Champs
-    private Timestamp creationDate;
-    @Champs
+    private Date creationDate;
     private String description;
     private List<Task> tasks;
     private List<WorkLoad> workLoad;
-    @Champs
     private Integer status;
     
 ///Getters and setters
+    public Integer getIdBesoin() {
+        return idBesoin;
+    }
+    public void setIdBesoin(Integer idBesoin) {
+        this.idBesoin = idBesoin;
+    }
+    
     public Service getService() {
         return service;
     }
@@ -38,10 +42,10 @@ public class Besoin extends Model {
         this.service = service;
     }
 
-    public Timestamp getCreationDate() {
+    public Date getCreationDate() {
         return creationDate;
     }
-    public void setCreationDate(Timestamp creationDate) {
+    public void setCreationDate(Date creationDate) {
         this.creationDate = creationDate;
     }
 
@@ -73,52 +77,80 @@ public class Besoin extends Model {
         this.status = status;
     }
    
-    
-
 ///Constructors
     public Besoin (){
     }
 
-    public Besoin(Service service, Timestamp creationDate, String description, List<Task> tasks, Integer status) {
+    public Besoin(Integer idBesoin, Service service, Date creationDate, String description, Integer status) {
+        this.idBesoin = idBesoin;
         this.service = service;
         this.creationDate = creationDate;
         this.description = description;
-        this.tasks = tasks;
+        this.status = status;
+    }
+    
+    public Besoin(Service service, Date creationDate, String description, Integer status) {
+        this.service = service;
+        this.creationDate = creationDate;
+        this.description = description;
         this.status = status;
     }
 
-///Fonctions
-    //Creer un besoin dans la base
-    public void create(Connection con) throws Exception {
-        boolean b = true ;
-        try{
-            if (con==null){
-                con = GConnection.getSimpleConnection();
-                b = false ;
-            }
-            con.setAutoCommit(false);
-            int zoneId = this.sequence("idBesoinSeq",con);
-            this.setId(zoneId);
-            super.create(con);
-            con.commit();
-        }catch (Exception exe) {
-            //System.out.println(exe.getMessage());
-            con.rollback();
-            throw exe;
-        }finally {
-            if (con!=null && !b){
-                con.close();
-            }
+///Fonctions de la classe
+    //Creer un besoin
+    public void create(Connection conn)  throws Exception { 
+        Statement work = conn.createStatement();
+        String req = "INSERT INTO besoin (id_besoin, id_service, creation_date, description, status) VALUES (DEFAULT,"+this.getService().getIdService()+","+this.getCreationDate()+","+this.getDescription()+","+this.getStatus()+")";
+        work.execute(req);
+        conn.setAutoCommit(true);
+    }
+    
+    //Avoir tous les besoins
+    public static ArrayList<Besoin> getAll(Connection conn)  throws Exception { 
+        Statement work = conn.createStatement();
+        String req = "select * from besoin";
+        ResultSet result = work.executeQuery(req);
+        ArrayList<Besoin> besoins = new ArrayList<>();
+        int i = 1;
+        while(result.next()) {
+            Besoin besoin = new Besoin(result.getInt(1), Service.getById(conn,result.getInt(2)), result.getDate(3), result.getString(4), result.getInt(5));
+            besoins.add(besoin);
         }
+        
+        return besoins;
     }
     
-    //Recuperer toutes les besoins
-    public ArrayList<Besoin> getAll(Connection conn)  throws Exception { 
-        return this.findAll(conn);
+    //Recuperer une service par son id
+    public static Besoin getById(Connection conn, Integer idBesoin) throws Exception {
+        Statement work = conn.createStatement();
+        String req = "select * from besoin where id_besoin = "+idBesoin;
+        ResultSet result = work.executeQuery(req);
+        Besoin besoin = new Besoin();
+        int i = 1;
+        while(result.next()) {
+            besoin.setIdBesoin(result.getInt(1));
+            besoin.setService(Service.getById(conn, result.getInt(2)));
+            besoin.setCreationDate(result.getDate(3));
+            besoin.setDescription(result.getString(4));
+            besoin.setStatus(result.getInt(5));
+        }
+        
+        return besoin;
     }
     
-    //Recuperer un besoin par son id
-    public Besoin findById(Connection conn, Integer idBesoin) throws Exception {
-        return this.findOneWhere(conn, "id ="+idBesoin);
+    //Modifier un besoin
+    public void update(Connection conn)  throws Exception { 
+        Statement work = conn.createStatement();
+        String req = "UPDATE besoin SET id_service="+this.getService().getIdService()+", creation_date="+this.getCreationDate()+", description='"+this.getDescription()+"', status="+this.getStatus()+" WHERE id_besoin="+this.getIdBesoin();
+        work.execute(req);
+        conn.setAutoCommit(true);
+    }
+    
+    //Supprimer un besoin
+    public void delete(Connection conn)  throws Exception { 
+        Statement work = conn.createStatement();
+        String req = "DELETE from besoin WHERE id_besoin="+this.getIdBesoin();
+        work.execute(req);
+        conn.setAutoCommit(true);
     }
 }

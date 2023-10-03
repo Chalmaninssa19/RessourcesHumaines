@@ -4,9 +4,25 @@
         <servlet-name>BesoinServlet</servlet-name>
         <servlet-class>servlet.besoin.BesoinServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>Besoin2Servlet</servlet-name>
+        <servlet-class>servlet.besoin.Besoin2Servlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AddTaskServlet</servlet-name>
+        <servlet-class>servlet.besoin.AddTaskServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>BesoinServlet</servlet-name>
         <url-pattern>/BesoinServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Besoin2Servlet</servlet-name>
+        <url-pattern>/besoin2Servlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddTaskServlet</servlet-name>
+        <url-pattern>/addTaskServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

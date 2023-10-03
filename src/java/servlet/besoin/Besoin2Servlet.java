@@ -5,7 +5,6 @@
  */
 package servlet.besoin;
 
-import framework.database.utilitaire.GConnection;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -22,20 +21,19 @@ import javax.servlet.http.HttpSession;
 import model.gestionBesoin.Besoin;
 import model.gestionBesoin.Task;
 import model.gestionBesoin.Unity;
+import model.gestionBesoin.WorkLoad;
 import model.requis.Service;
 import utilitaire.Util;
 
-public class BesoinServlet extends HttpServlet {
+public class Besoin2Servlet extends HttpServlet {
 
      protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
           res.setContentType("text/plain");
           PrintWriter out = res.getWriter();
-          
+          Connection connex = null;
           try {
-                Connection connex = GConnection.getSimpleConnection();
-                Service service = Service.getById(connex, 1);
-                req.setAttribute("service", service);
-                connex.close();
+
+              
           } catch (Exception exe) {
                req.setAttribute("erreur", exe.getMessage());
           }
@@ -46,20 +44,19 @@ public class BesoinServlet extends HttpServlet {
      protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
           res.setContentType("text/plain");
           PrintWriter out = res.getWriter();
+          Connection connex = null;
           try {
-              Connection connex = GConnection.getSimpleConnection();
-              Service service = Service.getById(connex, 1);
-                      
-              //Date dateNow = new Date("2023-10-01");
-              List<Task> tasks = new ArrayList<>();
-                
-              Besoin besoin = new Besoin(service, null, req.getParameter("description"), 1);
-              ArrayList<Unity> unitys = Unity.getAll(connex);
+              Unity unity = new Unity("heure", 1);
+              WorkLoad workLoad = new WorkLoad(1, 20, unity);
+
               HttpSession session = req.getSession();
-              session.setAttribute("besoin", besoin); 
-              req.setAttribute("unitys", unitys);
+              //Mettre l'escale termine
+              Besoin besoin = (Besoin)session.getAttribute("besoin");
+              List<WorkLoad> workLoads = new ArrayList<>();
+              workLoads.add(workLoad);
+              besoin.setWorkLoad(workLoads);
+              besoin.create(connex);
               
-              connex.close();
           } catch (Exception exe) {
                req.setAttribute("erreur", exe.getMessage());
           }

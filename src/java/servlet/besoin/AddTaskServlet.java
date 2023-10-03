@@ -25,7 +25,7 @@ import model.gestionBesoin.Unity;
 import model.requis.Service;
 import utilitaire.Util;
 
-public class BesoinServlet extends HttpServlet {
+public class AddTaskServlet extends HttpServlet {
 
      protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
           res.setContentType("text/plain");
@@ -33,8 +33,7 @@ public class BesoinServlet extends HttpServlet {
           
           try {
                 Connection connex = GConnection.getSimpleConnection();
-                Service service = Service.getById(connex, 1);
-                req.setAttribute("service", service);
+               
                 connex.close();
           } catch (Exception exe) {
                req.setAttribute("erreur", exe.getMessage());
@@ -47,23 +46,17 @@ public class BesoinServlet extends HttpServlet {
           res.setContentType("text/plain");
           PrintWriter out = res.getWriter();
           try {
-              Connection connex = GConnection.getSimpleConnection();
-              Service service = Service.getById(connex, 1);
-                      
-              //Date dateNow = new Date("2023-10-01");
-              List<Task> tasks = new ArrayList<>();
-                
-              Besoin besoin = new Besoin(service, null, req.getParameter("description"), 1);
-              ArrayList<Unity> unitys = Unity.getAll(connex);
+              String task = req.getParameter("task");
               HttpSession session = req.getSession();
-              session.setAttribute("besoin", besoin); 
-              req.setAttribute("unitys", unitys);
+              session.setAttribute("tasks", task);
               
-              connex.close();
+            // Vous pouvez renvoyer une réponse au client si nécessaire
+            res.setContentType("text/plain");
+            res.getWriter().write(task);
           } catch (Exception exe) {
                req.setAttribute("erreur", exe.getMessage());
           }
-          RequestDispatcher dispat = req.getRequestDispatcher("pages/besoin/besoin_insertion2.jsp");
-          dispat.forward(req, res);
+          //RequestDispatcher dispat = req.getRequestDispatcher("pages/besoin/besoin_insertion2.jsp");
+          //dispat.forward(req, res);
     }
 }
