@@ -206,7 +206,7 @@
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link" href="#">
+                            <a class="nav-link" href="/RessourceHumaine/ProfileServlet">
                                 <span class="menu-title"> Profile </span>
                                 <i class="mdi mdi-user menu-icon"></i>
                             </a>

@@ -6,6 +6,12 @@
 package model.gestionProfile;
 
 import framework.database.annotation.Champs;
+import framework.database.utilitaire.GConnection;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 import model.Model;
 
 /**
@@ -42,5 +48,26 @@ public class Salaire extends Model {
         this.status = status;
     }
 ///Fonctions
-
+    public List<Salaire> getAllSalaire(Connection con) throws Exception {
+        try {
+            if (con == null) {
+                con = GConnection.getSimpleConnection();
+            }
+            String request = " select * from salaire where status = 1 ";
+            List<Salaire> listeSalaire = new ArrayList<>();
+            Statement s = con.createStatement();
+            ResultSet rs = s.executeQuery(request);
+            while (rs.next()) {
+                Salaire sa = new Salaire(rs.getString(2), rs.getInt(3));
+                listeSalaire.add(sa);
+            }
+            return listeSalaire;
+        } catch (Exception exe) {
+            throw exe;
+        } finally {
+            if (con != null) {
+                con.close();
+            }
+        }
+    }
 }

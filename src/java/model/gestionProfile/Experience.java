@@ -6,6 +6,12 @@
 package model.gestionProfile;
 
 import framework.database.annotation.Champs;
+import framework.database.utilitaire.GConnection;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 import model.Model;
 
 /**
@@ -44,5 +50,26 @@ public class Experience extends Model {
     }
 
 ///Fonctions
-  
+      public List<Experience> getAllExperience(Connection con) throws Exception {
+        try {
+            if (con == null) {
+                con = GConnection.getSimpleConnection();
+            }
+            String request = " select * from experience where status = 1 ";
+            List<Experience> listeExperience = new ArrayList<>();
+            Statement s = con.createStatement();
+            ResultSet rs = s.executeQuery(request);
+            while (rs.next()) {
+                Experience e = new Experience(rs.getString(2), rs.getInt(3));
+                listeExperience.add(e);
+            }
+            return listeExperience;
+        } catch (Exception exe) {
+            throw exe;
+        } finally {
+            if (con != null) {
+                con.close();
+            }
+        }
+    }
 }
