@@ -31,8 +31,16 @@ public class User extends Model {
     @Champs
     private Integer status;
     
+    public int getIdUser() {    
+        return idUser;
+    }
+
 ///Getters and setters
-    public String getName() {    
+    public void setIdUser(int idUser) {
+        this.idUser = idUser;    
+    }
+
+    public String getName() {
         return name;
     }
     public void setName(String name) {
