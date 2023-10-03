@@ -8,13 +8,21 @@ package servlet.besoin;
 import framework.database.utilitaire.GConnection;
 import java.io.IOException;
 import java.io.PrintWriter;
+<<<<<<< Updated upstream
+=======
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+>>>>>>> Stashed changes
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
-import javax.servlet.RequestDispatcher;
-import javax.servlet.http.HttpSession;
+import jakarta.servlet.RequestDispatcher;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpSession;
 import model.gestionBesoin.Besoin;
 import model.gestionBesoin.Task;
 import model.gestionBesoin.Unity;
@@ -27,6 +35,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import model.Person;
 
+@WebServlet(name="BesoinServlet", urlPatterns = {"/besoin-insertion"})
 public class BesoinServlet extends HttpServlet {
 
      protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {

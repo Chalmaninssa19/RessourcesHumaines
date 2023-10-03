@@ -14,7 +14,7 @@
     </servlet>
     <servlet-mapping>
         <servlet-name>BesoinServlet</servlet-name>
-        <url-pattern>/BesoinServlet</url-pattern>
+        <url-pattern>/besoin-insertion</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>Besoin2Servlet</servlet-name>
