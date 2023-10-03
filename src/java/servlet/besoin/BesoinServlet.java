@@ -8,10 +8,6 @@ package servlet.besoin;
 import framework.database.utilitaire.GConnection;
 import java.io.IOException;
 import java.io.PrintWriter;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.Timestamp;
@@ -24,6 +20,12 @@ import model.gestionBesoin.Task;
 import model.gestionBesoin.Unity;
 import model.requis.Service;
 import utilitaire.Util;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import model.Person;
 
 public class BesoinServlet extends HttpServlet {
 

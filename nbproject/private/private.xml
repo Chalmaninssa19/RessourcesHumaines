@@ -2,16 +2,6 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group>
-            <file>file:/E:/cours/course%20itu/s5/tovo/RessourcesHumaines/src/java/model/gestionBesoin/WorkLoad.java</file>
-            <file>file:/E:/cours/course%20itu/s5/tovo/RessourcesHumaines/src/java/model/gestionBesoin/Besoin.java</file>
-            <file>file:/E:/cours/course%20itu/s5/tovo/RessourcesHumaines/src/java/servlet/besoin/BesoinServlet.java</file>
-            <file>file:/E:/cours/course%20itu/s5/tovo/RessourcesHumaines/src/java/model/requis/Service.java</file>
-            <file>file:/E:/cours/course%20itu/s5/tovo/RessourcesHumaines/src/java/framework/database/utilitaire/GConnection.java</file>
-            <file>file:/E:/cours/course%20itu/s5/tovo/RessourcesHumaines/BaseTovo.sql</file>
-            <file>file:/E:/cours/course%20itu/s5/tovo/RessourcesHumaines/src/java/utilitaire/Util.java</file>
-            <file>file:/E:/cours/course%20itu/s5/tovo/RessourcesHumaines/src/java/servlet/besoin/Besoin2Servlet.java</file>
-            <file>file:/E:/cours/course%20itu/s5/tovo/RessourcesHumaines/src/java/model/gestionBesoin/Unity.java</file>
-        </group>
+        <group/>
     </open-files>
 </project-private>
