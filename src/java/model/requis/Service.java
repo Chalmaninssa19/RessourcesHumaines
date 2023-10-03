@@ -16,6 +16,7 @@ import java.util.ArrayList;
  * @author Chalman
  */
 public class Service extends Model {
+    private int idService;
     @Champs
     private String service;
     @Champs  
@@ -53,6 +54,16 @@ public class Service extends Model {
     public void setStatus(Integer status) {
         this.status = status;
     }
+
+    public int getIdService() {
+        return idService;
+    }
+
+    public void setIdService(int idService) {
+        this.idService = idService;
+    }
+    
+    
 
 ///Constructors
     public Service() {
