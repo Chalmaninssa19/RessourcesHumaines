@@ -10,9 +10,11 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import javax.imageio.ImageIO;
 import model.gestionBesoin.Besoin;
 import model.gestionBesoin.Task;
 import model.gestionProfile.WantedProfile;
@@ -22,6 +24,7 @@ import org.apache.pdfbox.pdmodel.PDPageContentStream;
 import org.apache.pdfbox.pdmodel.common.PDRectangle;
 import org.apache.pdfbox.pdmodel.font.PDType1Font;
 import org.apache.pdfbox.pdmodel.graphics.image.PDImageXObject;
+import org.apache.pdfbox.rendering.PDFRenderer;
 
 /**
  *
@@ -147,14 +150,18 @@ public class AnnonceExportPDFServlet extends HttpServlet {
                 String renseignement = "Pour tout renseignement, conntactez nous : " + societyContact;
                 writeText(contentStream, 65, dynamicY, renseignement);
 
-                dynamicY -= lineHeight;
-                //writeText(contentStream, 65, dynamicY, path);
-
+                
             }
+            
+            // Exportation en image
+            PDFRenderer pdfRenderer = new PDFRenderer(document);
+            BufferedImage image = pdfRenderer.renderImage(0);
+            ImageIO.write(image, "PNG", new File(getServletContext().getRealPath("/annonces/" + dateBesoin + "_" + serviceName + "_" + "annonce.png")));
 
-            String path = getServletContext().getRealPath("/annonces/" + dateBesoin + "_" + serviceName + "_" + "annonce.pdf");
-
-            document.save(path);
+            // Exportation en pdf
+            document.save(getServletContext().getRealPath("/annonces/" + dateBesoin + "_" + serviceName + "_" + "annonce.pdf"));
+            
+            // Affichage a l'écran
             document.save(response.getOutputStream());
         } catch (IOException e) {
             e.printStackTrace();
