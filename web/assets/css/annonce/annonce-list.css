@@ -20,7 +20,7 @@
   z-index: 10;
 }
 .relative-position .besoin-information p {
-  font-size: 14px;
+  font-size: 12px;
   margin: 0;
 }
 
@@ -39,3 +39,7 @@
 .pdf-container .pdf-image-view:hover {
   transform: scale(1.05);
 }/*# sourceMappingURL=annonce-list.css.map */
+
+.same-height {
+  height: 40px !important;
+}

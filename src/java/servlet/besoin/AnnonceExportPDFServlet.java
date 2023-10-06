@@ -25,6 +25,7 @@ import org.apache.pdfbox.pdmodel.common.PDRectangle;
 import org.apache.pdfbox.pdmodel.font.PDType1Font;
 import org.apache.pdfbox.pdmodel.graphics.image.PDImageXObject;
 import org.apache.pdfbox.rendering.PDFRenderer;
+import util.pdf.PDFRealisationUtil;
 
 /**
  *
@@ -45,7 +46,7 @@ public class AnnonceExportPDFServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("application/pdf");
-        response.setHeader("Content-Disposition", "inline; filename=example.pdf");
+        response.setHeader("Content-Disposition", "inline; filename=annonce.pdf");
 
         // Bien remplir ces données et tout doit aller automatiquement
         String logoPath = "/assets/images/entreprise_logo.png";
@@ -76,20 +77,22 @@ public class AnnonceExportPDFServlet extends HttpServlet {
             document.addPage(page);
 
             try (PDPageContentStream contentStream = new PDPageContentStream(document, page)) {
+                PDFRealisationUtil outil = new PDFRealisationUtil();
+                
                 // Ajout du logo dans la page
                 PDImageXObject logo = PDImageXObject.createFromFile(getServletContext().getRealPath("/") + logoPath, document);
                 contentStream.drawImage(logo, 50, 720, 80, 80);
 
                 // Annonce de recrutement
                 contentStream.setFont(PDType1Font.HELVETICA_BOLD, 12);
-                writeText(contentStream, 65, 690, societyName + " recrute !");
+                outil.writeText(contentStream, 65, 690, societyName + " recrute !");
 
                 // Description du besoin
                 int dynamicY = 660;     // pour que la hauteur s'adapte en fonction du nombres de ligne
                 int lineHeight = 20;
 
                 contentStream.setFont(PDType1Font.HELVETICA, 12);
-                int line = writeMultilineText(contentStream, 65, dynamicY, besoin.getDescription(), lineHeight);
+                int line = outil.writeMultilineText(contentStream, 65, dynamicY, besoin.getDescription(), lineHeight, 70);
                 dynamicY -= lineHeight * (line + 1);
 
                 contentStream.setLineWidth(1);
@@ -102,33 +105,33 @@ public class AnnonceExportPDFServlet extends HttpServlet {
 
                 // Liste des taches a faire
                 contentStream.setFont(PDType1Font.HELVETICA, 12);
-                writeText(contentStream, 65, dynamicY, "Vos missions : ");
+                outil.writeText(contentStream, 65, dynamicY, "Vos missions : ");
                 dynamicY -= lineHeight;
 
                 contentStream.setFont(PDType1Font.HELVETICA, 12);
                 for (Task task : tasks) {
-                    writeText(contentStream, 65, dynamicY, "-  " + task.getTask());
+                    outil.writeText(contentStream, 65, dynamicY, "-  " + task.getTask());
                     dynamicY -= lineHeight;
                 }
 
                 // Liste des profil cherché
                 dynamicY -= lineHeight;
                 contentStream.setFont(PDType1Font.HELVETICA, 12);
-                writeText(contentStream, 65, dynamicY, "Intégrer notre équipe en étant :");
+                outil.writeText(contentStream, 65, dynamicY, "Intégrer notre équipe en étant :");
                 dynamicY -= lineHeight;     // Saut à la ligne
 
                 for (WantedProfile profile : wantedProfiles) {
                     contentStream.setFont(PDType1Font.HELVETICA, 12);
-                    writeText(contentStream, 65, dynamicY, "-  " + profile.getPoste() + " : ");
+                    outil.writeText(contentStream, 65, dynamicY, "-  " + profile.getPoste() + " : ");
                     dynamicY -= lineHeight;
 
                     contentStream.setFont(PDType1Font.HELVETICA, 10);
                     // Info a propos du diplome
-                    writeText(contentStream, 75, dynamicY, "-  Titulaire d'un " + "Master en MBDS");
+                    outil.writeText(contentStream, 75, dynamicY, "-  Titulaire d'un " + "Master en MBDS");
                     dynamicY -= lineHeight;
 
                     // Info a propos de l'éxpérience
-                    writeText(contentStream, 75, dynamicY, "-  Ayant plus de " + "2 ans d'éxpérience");
+                    outil.writeText(contentStream, 75, dynamicY, "-  Ayant plus de " + "2 ans d'éxpérience");
                     dynamicY -= lineHeight;
                     dynamicY -= lineHeight;
                 }
@@ -137,18 +140,18 @@ public class AnnonceExportPDFServlet extends HttpServlet {
                 dynamicY -= lineHeight;
                 contentStream.setFont(PDType1Font.HELVETICA, 12);
                 String conclusion = "Veuillez postuler depuis notre site web, tout en envoyant les dossier justificative et un photo de vous en pièce jointe, voilà le lien";
-                line = writeMultilineText(contentStream, 65, dynamicY, conclusion, lineHeight);
+                line = outil.writeMultilineText(contentStream, 65, dynamicY, conclusion, lineHeight, 70);
                 dynamicY -= (line * lineHeight);
 
                 // Link text
                 dynamicY -= lineHeight;
-                writeText(contentStream, 65, dynamicY, link);
+                outil.writeText(contentStream, 65, dynamicY, link);
                 dynamicY -= lineHeight;
 
                 // Renseignements
                 dynamicY -= lineHeight;
                 String renseignement = "Pour tout renseignement, conntactez nous : " + societyContact;
-                writeText(contentStream, 65, dynamicY, renseignement);
+                outil.writeText(contentStream, 65, dynamicY, renseignement);
 
                 
             }
@@ -167,47 +170,6 @@ public class AnnonceExportPDFServlet extends HttpServlet {
             e.printStackTrace();
         }
 
-    }
-
-    protected static List<String> toMultilinesText(String text) {
-        String[] multiwords = text.split(" ");      // Séparation par espaces
-
-        List<String> stringListes = new ArrayList<>();
-
-        int limit = 70;
-        int carac = 0;
-        String tempResult = "";
-
-        for (String multiword : multiwords) {
-            carac += multiword.length();
-            if (carac > limit) {
-                carac = 0;
-                stringListes.add(tempResult);
-                tempResult = "";
-            } else {
-                tempResult += " " + multiword;
-            }
-        }
-        stringListes.add(tempResult);
-
-        return stringListes;
-    }
-
-    protected static int writeMultilineText(PDPageContentStream contentStream, int x, int y, String text, int lineHeight) throws IOException {
-        List<String> multilines = toMultilinesText(text);
-
-        for (int i = 0; i < multilines.size(); i++) {
-            writeText(contentStream, x, y - (lineHeight * i), multilines.get(i));
-        }
-
-        return multilines.size();
-    }
-
-    protected static void writeText(PDPageContentStream contentStream, int x, int y, String text) throws IOException {
-        contentStream.beginText();
-        contentStream.newLineAtOffset(x, y);
-        contentStream.showText(text);
-        contentStream.endText();
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

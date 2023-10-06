@@ -1,3 +1,3 @@
 <% 
-    response.sendRedirect("./annonce-export");
+    response.sendRedirect("./candidature-export");
 %>
