@@ -10,6 +10,7 @@ import framework.database.utilitaire.GConnection;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.List;
 import model.Model;
 
@@ -51,6 +52,27 @@ public class SalaireNote extends Model {
     }
 
 ///Fonctions
+    //inserer salaireNote
+    public void createSalaireNote(int id_wanted_profile, int id_salaire, Connection con) throws Exception {
+        boolean b = true;
+        try {
+            if (con == null) {
+                con = GConnection.getSimpleConnection();
+                b = false;
+            }
+            String requete = "insert into salaire_note values (" + id_wanted_profile + ", " + id_salaire + ", " + this.getNote() + ")";
+            System.out.println(requete);
+            Statement s = con.createStatement();
+            s.executeUpdate(requete);
+        } catch (Exception exe) {
+            throw exe;
+        } finally {
+            if (con != null && !b) {
+                con.close();
+            }
+        }
+    }
+
     public List<SalaireNote> findBestSalaire(List<Integer> lsindice, Connection con) throws Exception {
         boolean b = true;
         try {
@@ -58,20 +80,19 @@ public class SalaireNote extends Model {
                 con = GConnection.getSimpleConnection();
                 b = false;
             }
-            List<SalaireNote> bestSalaire = null;
+            List<SalaireNote> bestSalaire = new ArrayList<>();
             Statement s = con.createStatement();
             for (int i = 0; i < lsindice.size(); i++) {
-                ResultSet rs = s.executeQuery("SELECT idwantedprofile, idSalaire, note, Salaire, status FROM v_Salairenote where status = 1 and idwantedprofile = " + lsindice.get(i) + " order by note desc\n"
+                ResultSet rs = s.executeQuery("SELECT id_wanted_profile, id_salaire, note, Salaire, status FROM v_salaire_note where status = 1 and id_wanted_profile = " + lsindice.get(i) + " order by note desc\n"
                         + "limit 1; ");
                 while (rs.next()) {
-                    Salaire a = new Salaire(rs.getString(2), rs.getInt(3));
-                    SalaireNote dn = new SalaireNote(a, rs.getDouble(4));
+                    Salaire a = new Salaire(rs.getDouble(4), rs.getInt(5));
+                    SalaireNote dn = new SalaireNote(a, rs.getDouble(3));
                     bestSalaire.add(dn);
                 }
             }
             return bestSalaire;
         } catch (Exception exe) {
-            con.rollback();
             throw exe;
         } finally {
             if (con != null && !b) {

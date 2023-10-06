@@ -6,6 +6,12 @@
 package model.gestionProfile;
 
 import framework.database.annotation.Champs;
+import framework.database.utilitaire.GConnection;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 import model.Model;
 
 /**
@@ -13,15 +19,17 @@ import model.Model;
  * @author Chalman
  */
 public class Sexe extends Model {
+
     @Champs
     private String sexe;
     @Champs
     private Integer status;
-    
+
 ///Getters and setters
     public String getSexe() {
         return sexe;
     }
+
     public void setSexe(String sexe) {
         this.sexe = sexe;
     }
@@ -29,6 +37,7 @@ public class Sexe extends Model {
     public Integer getStatus() {
         return status;
     }
+
     public void setStatus(Integer status) {
         this.status = status;
     }
@@ -36,12 +45,56 @@ public class Sexe extends Model {
 ///Constructors
     public Sexe() {
     }
-    
+
     public Sexe(String sexe, Integer status) {
         this.sexe = sexe;
         this.status = status;
     }
-    
-///Fonctions
 
+///Fonctions
+    //avoir l'idCorrespondant au sexe choisi
+    public int getIdByName(String sexe, Connection con) throws Exception {
+        try {
+            if (con == null) {
+                con = GConnection.getSimpleConnection();
+            }
+            int id = 0;
+            String request = " select id_sexe from sexe where status = 1 and sexe = '" + sexe + "'";
+            Statement s = con.createStatement();
+            ResultSet rs = s.executeQuery(request);
+            while (rs.next()) {
+                id = rs.getInt(1);
+            }
+            return id;
+        } catch (Exception exe) {
+            throw exe;
+        } finally {
+            if (con != null) {
+                con.close();
+            }
+        }
+    }
+
+    public List<Sexe> getAllSexe(Connection con) throws Exception {
+        try {
+            if (con == null) {
+                con = GConnection.getSimpleConnection();
+            }
+            String request = " select * from sexe where status = 1";
+            List<Sexe> listeSexe = new ArrayList<>();
+            Statement s = con.createStatement();
+            ResultSet rs = s.executeQuery(request);
+            while (rs.next()) {
+                Sexe se = new Sexe(rs.getString(2), rs.getInt(3));
+                listeSexe.add(se);
+            }
+            return listeSexe;
+        } catch (Exception exe) {
+            throw exe;
+        } finally {
+            if (con != null) {
+                con.close();
+            }
+        }
+    }
 }
