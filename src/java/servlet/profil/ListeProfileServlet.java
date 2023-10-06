@@ -6,29 +6,29 @@
 package servlet.profil;
 
 import com.google.gson.Gson;
-import jakarta.servlet.RequestDispatcher;
 import java.io.IOException;
-import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+import java.io.PrintWriter;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import model.gestionProfile.Adresse;
-import model.gestionProfile.Diplome;
-import model.gestionProfile.DonneeProfile;
-import model.gestionProfile.Experience;
-import model.gestionProfile.Salaire;
-import model.gestionProfile.Sexe;
+import model.gestionProfile.AdresseNote;
+import model.gestionProfile.BestCritere;
+import model.gestionProfile.DiplomeNote;
+import model.gestionProfile.ExperienceNote;
+import model.gestionProfile.SalaireNote;
+import model.gestionProfile.SexeNote;
 import model.gestionProfile.WantedProfile;
 
 /**
  *
  * @author Fy Botas
  */
-public class ProfileServlet extends HttpServlet {
+public class ListeProfileServlet extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -50,41 +50,36 @@ public class ProfileServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        Diplome d = new Diplome();
-        Adresse a = new Adresse();
-        Experience e = new Experience();
-        Salaire s = new Salaire();
-        Sexe se = new Sexe();
+        // Récupérer les indices des profils recherchés
+        WantedProfile wp = new WantedProfile();
+        DiplomeNote dn = new DiplomeNote();
+        AdresseNote an = new AdresseNote();
+        SalaireNote san = new SalaireNote();
+        SexeNote sen = new SexeNote();
+        ExperienceNote en = new ExperienceNote();
+        HttpSession session = request.getSession();
+        session.setAttribute("wantedprofile", wp);
         try {
-            List<Diplome> listeDiplome = d.getAllDiplome(null);
-            request.setAttribute("listeDiplome", listeDiplome);
-            List<Adresse> listeAdresse = a.getAllAdresse(null);
-            request.setAttribute("listeAdresse", listeAdresse);
-            List<Experience> listeExperience = e.getAllExperience(null);
-            request.setAttribute("listeExperience", listeExperience);
-            List<Salaire> listeSalaire = s.getAllSalaire(null);
-            request.setAttribute("listeSalaire", listeSalaire);
-            List<Sexe> listeSexe = se.getAllSexe(null);
-            request.setAttribute("listeSexe", listeSexe);
-
-            DonneeProfile dp = new DonneeProfile(listeDiplome, listeAdresse, listeExperience, listeSexe, listeSalaire);
-
+            List<Integer> lsIndice = wp.getIdWantedProfile(null);
+            List<String> lsPoste = wp.getPostById(null);
+            List<DiplomeNote> bestDiplome = dn.findBestDiplome(lsIndice, null);
+            List<AdresseNote> bestAdresse = an.findBestAdresse(lsIndice, null);
+            List<SexeNote> bestSexe = sen.findBestSexe(lsIndice, null);
+            List<ExperienceNote> bestExperience = en.findBestExperience(lsIndice, null);
+            List<SalaireNote> bestSalaire = san.findBestSalaire(lsIndice, null);
+            BestCritere bc = new BestCritere(lsPoste,bestDiplome, bestAdresse, bestSexe, bestSalaire, bestExperience);
             Gson gson = new Gson();
-            String jsonLists = gson.toJson(dp);
-            
-            response.getWriter().print(jsonLists);
-
-// Ajoutez cet objet JSON comme attribut à la requête
-            request.setAttribute("jsonLists", jsonLists);
+            String json = gson.toJson(bc);
+            response.setContentType("application/json");
+            response.getWriter().write(json);
         } catch (Exception ex) {
-            Logger.getLogger(ProfileServlet.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ListeProfileServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
     }
 
     /**

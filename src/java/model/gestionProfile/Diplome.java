@@ -52,6 +52,30 @@ public class Diplome extends Model {
     }
 
 ///Fonctions
+    
+    //avoir l'idCorrespondant au diplome choisi
+    public int getIdByName(String diplome, Connection con) throws Exception {
+        try {
+            if (con == null) {
+                con = GConnection.getSimpleConnection();
+            }
+            int id = 0;
+            String request = " select id_diplome from diplome where status = 1 and diplome = '" + diplome + "'";
+            Statement s = con.createStatement();
+            ResultSet rs = s.executeQuery(request);
+            while (rs.next()) {
+                id = rs.getInt(1);
+            }
+            return id;
+        } catch (Exception exe) {
+            throw exe;
+        } finally {
+            if (con != null) {
+                con.close();
+            }
+        }
+    }
+
     public List<Diplome> getAllDiplome(Connection con) throws Exception {
         try {
             if (con == null) {

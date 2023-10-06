@@ -8,6 +8,14 @@
         <servlet-name>ProfileServlet</servlet-name>
         <servlet-class>servlet.profil.ProfileServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ListeProfileServlet</servlet-name>
+        <servlet-class>servlet.profil.ListeProfileServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CreateSession</servlet-name>
+        <servlet-class>servlet.profil.CreateSessionServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>AjaxProfileServlet</servlet-name>
         <url-pattern>/AjaxProfileServlet</url-pattern>
@@ -15,6 +23,14 @@
     <servlet-mapping>
         <servlet-name>ProfileServlet</servlet-name>
         <url-pattern>/ProfileServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ListeProfileServlet</servlet-name>
+        <url-pattern>/ListeProfileServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CreateSession</servlet-name>
+        <url-pattern>/CreateSession</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

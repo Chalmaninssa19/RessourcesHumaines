@@ -19,15 +19,17 @@ import model.Model;
  * @author Chalman
  */
 public class Experience extends Model {
+
     @Champs
     private String experience;
     @Champs
     private Integer status;
-    
+
 ///Getters and setters
     public String getExperience() {
         return experience;
     }
+
     public void setExperience(String experience) {
         this.experience = experience;
     }
@@ -35,13 +37,13 @@ public class Experience extends Model {
     public Integer getStatus() {
         return status;
     }
+
     public void setStatus(Integer status) {
         this.status = status;
     }
-   
 
 ///Constructors
-    public Experience() {   
+    public Experience() {
     }
 
     public Experience(String experience, Integer status) {
@@ -50,7 +52,30 @@ public class Experience extends Model {
     }
 
 ///Fonctions
-      public List<Experience> getAllExperience(Connection con) throws Exception {
+    //avoir l'idCorrespondant au experience choisi
+    public int getIdByName(String experience, Connection con) throws Exception {
+        try {
+            if (con == null) {
+                con = GConnection.getSimpleConnection();
+            }
+            int id = 0;
+            String request = " select id_experience from experience where status = 1 and experience = '" + experience + "'";
+            Statement s = con.createStatement();
+            ResultSet rs = s.executeQuery(request);
+            while (rs.next()) {
+                id = rs.getInt(1);
+            }
+            return id;
+        } catch (Exception exe) {
+            throw exe;
+        } finally {
+            if (con != null) {
+                con.close();
+            }
+        }
+    }
+
+    public List<Experience> getAllExperience(Connection con) throws Exception {
         try {
             if (con == null) {
                 con = GConnection.getSimpleConnection();

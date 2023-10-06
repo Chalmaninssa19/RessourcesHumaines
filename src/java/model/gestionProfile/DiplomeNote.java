@@ -10,6 +10,7 @@ import framework.database.utilitaire.GConnection;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.List;
 import model.Model;
 
@@ -51,6 +52,27 @@ public class DiplomeNote extends Model {
     }
 
 ///Fonctions
+    //inserer diplomeNote
+    public void createDiplomeNote(int id_wanted_profile, int id_diplome, Connection con) throws Exception {
+        boolean b = true;
+        try {
+            if (con == null) {
+                con = GConnection.getSimpleConnection();
+                b = false;
+            }
+            String requete = "insert into diplome_note values (" + id_wanted_profile + ", " + id_diplome + ", " + this.getNote() + ")";
+            System.out.println(requete);
+            Statement s = con.createStatement();
+            s.executeUpdate(requete);
+        } catch (Exception exe) {
+            throw exe;
+        } finally {
+            if (con != null && !b) {
+                con.close();
+            }
+        }
+    }
+
     //Avoir toutes les notes des diplomes qui sont actifs 
     public List<DiplomeNote> selectDiplomeNote(Connection con) throws Exception {
         boolean b = true;
@@ -64,7 +86,6 @@ public class DiplomeNote extends Model {
             con.commit();
             return listeDiplomeNote;
         } catch (Exception exe) {
-            con.rollback();
             throw exe;
         } finally {
             if (con != null && !b) {
@@ -90,7 +111,6 @@ public class DiplomeNote extends Model {
             }
             return ld;
         } catch (Exception exe) {
-            con.rollback();
             throw exe;
         } finally {
             if (con != null && !b) {
@@ -101,26 +121,25 @@ public class DiplomeNote extends Model {
 
     //avoir le meilleur diplome c'est à dire qui a un note élevé
     public List<DiplomeNote> findBestDiplome(List<Integer> lsindice, Connection con) throws Exception {
-        boolean b = true;
+        boolean b= true;
         try {
             if (con == null) {
                 con = GConnection.getSimpleConnection();
                 b = false;
             }
-            List<DiplomeNote> bestDiplome = null;
+            List<DiplomeNote> bestDiplome = new ArrayList<>();
             Statement s = con.createStatement();
             for (int i = 0; i < lsindice.size(); i++) {
-                ResultSet rs = s.executeQuery("SELECT idwantedprofile, iddiplome, note, diplome, status FROM v_diplomenote where status = 1 and idwantedprofile = " + lsindice.get(i) + " order by note desc\n"
+                ResultSet rs = s.executeQuery("SELECT id_wanted_profile, id_diplome, note, diplome, status FROM v_diplome_note where status = 1 and id_wanted_profile = " + lsindice.get(i) + " order by note desc\n"
                         + "limit 1; ");
                 while (rs.next()) {
-                    Diplome d = new Diplome(rs.getString(2), rs.getInt(3));
-                    DiplomeNote dn = new DiplomeNote(d, rs.getDouble(4));
+                    Diplome d = new Diplome(rs.getString(4), rs.getInt(5));
+                    DiplomeNote dn = new DiplomeNote(d, rs.getDouble(3));
                     bestDiplome.add(dn);
                 }
             }
             return bestDiplome;
         } catch (Exception exe) {
-            con.rollback();
             throw exe;
         } finally {
             if (con != null && !b) {

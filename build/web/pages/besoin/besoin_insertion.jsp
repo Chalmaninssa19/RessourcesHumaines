@@ -1,16 +1,29 @@
+<!-- <%@ page contentType="text/html; charset=UTF-8" %> -->
+<%@page import=" java.util.List "%>
+<%@page import=" model.gestionProfile.Diplome "%>
+<%@page import=" model.gestionProfile.Adresse "%>
+<%@page import=" model.gestionProfile.Salaire "%>
+<%@page import=" model.gestionProfile.Sexe "%>
+<%@page import=" model.gestionProfile.Experience "%>
+<%
+    List<Diplome> listeDiplome = (List<Diplome>) request.getAttribute("listeDiplome");
+    List<Adresse> listeAdresse = (List<Adresse>) request.getAttribute("listeAdresse");
+    List<Experience> listeExperience = (List<Experience>) request.getAttribute("listeExperience");
+    List<Salaire> listeSalaire = (List<Salaire>) request.getAttribute("listeSalaire");
+    List<Sexe> listeSexe = (List<Sexe>) request.getAttribute("listeSexe");
+%>
 <!DOCTYPE html>
 <html lang="en">
+
     <head>
         <!-- Required meta tags -->
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <% 
-            String pageTitle = (String) request.getAttribute("pageTitle");
-        %>
-        <title><%= pageTitle %></title>
+        <title>Insertion des besoins</title>
 
         <!-- plugins:css -->
         <link rel="stylesheet" href="../../assets/vendors/mdi/css/materialdesignicons.min.css">
+        <link rel="stylesheet" href="../../assets/css/besoin/besoin-insertion.css">
         <link rel="stylesheet" href="../../assets/vendors/css/vendor.bundle.base.css">
         <!-- endinject -->
         <!-- Plugin css for this page -->
@@ -22,13 +35,19 @@
         <!-- End layout styles -->
         <link rel="shortcut icon" href="../../assets/images/favicon.ico" />
     </head>
+
     <body>
         <div class="container-scroller">
-            <!-- partial:./partials/_navbar.html -->
+            <!-- partial:../../partials/_navbar.html -->
             <nav class="navbar default-layout-navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
                 <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
-                    <a class="navbar-brand brand-logo" href="./index.html"><img src="../../assets/images/logo.svg" alt="logo" /></a>
-                    <a class="navbar-brand brand-logo-mini" href="./index.html"><img src="../../assets/images/logo-mini.svg" alt="logo" /></a>
+                    <a class="d-flex align-items-center d-navbar-brand brand-logo"
+                       style="text-decoration: none; color: #da8cff;" href="../../index.html">
+                        <i class="mdi mdi-account-box" style="font-size: 35px;margin-right: 25px;"></i>
+                        <h2 style="margin: 0;">GRH</h2>
+                    </a>
+                    <a class="navbar-brand brand-logo-mini" href="../../index.html"><img
+                            src="../../assets/images/logo-mini.svg" alt="logo" /></a>
                 </div>
                 <div class="navbar-menu-wrapper d-flex align-items-stretch">
                     <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
@@ -40,13 +59,15 @@
                                 <div class="input-group-prepend bg-transparent">
                                     <i class="input-group-text border-0 mdi mdi-magnify"></i>
                                 </div>
-                                <input type="text" class="form-control bg-transparent border-0" placeholder="Search projects">
+                                <input type="text" class="form-control bg-transparent border-0"
+                                       placeholder="Search projects">
                             </div>
                         </form>
                     </div>
                     <ul class="navbar-nav navbar-nav-right">
                         <li class="nav-item nav-profile dropdown">
-                            <a class="nav-link dropdown-toggle" id="profileDropdown" href="#" data-bs-toggle="dropdown" aria-expanded="false">
+                            <a class="nav-link dropdown-toggle" id="profileDropdown" href="#" data-bs-toggle="dropdown"
+                               aria-expanded="false">
                                 <div class="nav-profile-img">
                                     <img src="../../assets/images/faces/face1.jpg" alt="image">
                                     <span class="availability-status online"></span>
@@ -69,19 +90,23 @@
                             </a>
                         </li>
                         <li class="nav-item dropdown">
-                            <a class="nav-link count-indicator dropdown-toggle" id="messageDropdown" href="#" data-bs-toggle="dropdown" aria-expanded="false">
+                            <a class="nav-link count-indicator dropdown-toggle" id="messageDropdown" href="#"
+                               data-bs-toggle="dropdown" aria-expanded="false">
                                 <i class="mdi mdi-email-outline"></i>
                                 <span class="count-symbol bg-warning"></span>
                             </a>
-                            <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="messageDropdown">
+                            <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list"
+                                 aria-labelledby="messageDropdown">
                                 <h6 class="p-3 mb-0">Messages</h6>
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item preview-item">
                                     <div class="preview-thumbnail">
-                                        <img src="./assets/images/faces/face4.jpg" alt="image" class="profile-pic">
+                                        <img src="../../assets/images/faces/face4.jpg" alt="image" class="profile-pic">
                                     </div>
-                                    <div class="preview-item-content d-flex align-items-start flex-column justify-content-center">
-                                        <h6 class="preview-subject ellipsis mb-1 font-weight-normal">Mark send you a message</h6>
+                                    <div
+                                        class="preview-item-content d-flex align-items-start flex-column justify-content-center">
+                                        <h6 class="preview-subject ellipsis mb-1 font-weight-normal">Mark send you a message
+                                        </h6>
                                         <p class="text-gray mb-0"> 1 Minutes ago </p>
                                     </div>
                                 </a>
@@ -90,8 +115,10 @@
                                     <div class="preview-thumbnail">
                                         <img src="../../assets/images/faces/face2.jpg" alt="image" class="profile-pic">
                                     </div>
-                                    <div class="preview-item-content d-flex align-items-start flex-column justify-content-center">
-                                        <h6 class="preview-subject ellipsis mb-1 font-weight-normal">Cregh send you a message</h6>
+                                    <div
+                                        class="preview-item-content d-flex align-items-start flex-column justify-content-center">
+                                        <h6 class="preview-subject ellipsis mb-1 font-weight-normal">Cregh send you a
+                                            message</h6>
                                         <p class="text-gray mb-0"> 15 Minutes ago </p>
                                     </div>
                                 </a>
@@ -100,8 +127,10 @@
                                     <div class="preview-thumbnail">
                                         <img src="../../assets/images/faces/face3.jpg" alt="image" class="profile-pic">
                                     </div>
-                                    <div class="preview-item-content d-flex align-items-start flex-column justify-content-center">
-                                        <h6 class="preview-subject ellipsis mb-1 font-weight-normal">Profile picture updated</h6>
+                                    <div
+                                        class="preview-item-content d-flex align-items-start flex-column justify-content-center">
+                                        <h6 class="preview-subject ellipsis mb-1 font-weight-normal">Profile picture updated
+                                        </h6>
                                         <p class="text-gray mb-0"> 18 Minutes ago </p>
                                     </div>
                                 </a>
@@ -110,11 +139,13 @@
                             </div>
                         </li>
                         <li class="nav-item dropdown">
-                            <a class="nav-link count-indicator dropdown-toggle" id="notificationDropdown" href="#" data-bs-toggle="dropdown">
+                            <a class="nav-link count-indicator dropdown-toggle" id="notificationDropdown" href="#"
+                               data-bs-toggle="dropdown">
                                 <i class="mdi mdi-bell-outline"></i>
                                 <span class="count-symbol bg-danger"></span>
                             </a>
-                            <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="notificationDropdown">
+                            <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list"
+                                 aria-labelledby="notificationDropdown">
                                 <h6 class="p-3 mb-0">Notifications</h6>
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item preview-item">
@@ -123,9 +154,11 @@
                                             <i class="mdi mdi-calendar"></i>
                                         </div>
                                     </div>
-                                    <div class="preview-item-content d-flex align-items-start flex-column justify-content-center">
+                                    <div
+                                        class="preview-item-content d-flex align-items-start flex-column justify-content-center">
                                         <h6 class="preview-subject font-weight-normal mb-1">Event today</h6>
-                                        <p class="text-gray ellipsis mb-0"> Just a reminder that you have an event today </p>
+                                        <p class="text-gray ellipsis mb-0"> Just a reminder that you have an event today
+                                        </p>
                                     </div>
                                 </a>
                                 <div class="dropdown-divider"></div>
@@ -135,7 +168,8 @@
                                             <i class="mdi mdi-settings"></i>
                                         </div>
                                     </div>
-                                    <div class="preview-item-content d-flex align-items-start flex-column justify-content-center">
+                                    <div
+                                        class="preview-item-content d-flex align-items-start flex-column justify-content-center">
                                         <h6 class="preview-subject font-weight-normal mb-1">Settings</h6>
                                         <p class="text-gray ellipsis mb-0"> Update dashboard </p>
                                     </div>
@@ -147,7 +181,8 @@
                                             <i class="mdi mdi-link-variant"></i>
                                         </div>
                                     </div>
-                                    <div class="preview-item-content d-flex align-items-start flex-column justify-content-center">
+                                    <div
+                                        class="preview-item-content d-flex align-items-start flex-column justify-content-center">
                                         <h6 class="preview-subject font-weight-normal mb-1">Launch Admin</h6>
                                         <p class="text-gray ellipsis mb-0"> New admin wow! </p>
                                     </div>
@@ -167,14 +202,15 @@
                             </a>
                         </li>
                     </ul>
-                    <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" data-toggle="offcanvas">
+                    <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button"
+                            data-toggle="offcanvas">
                         <span class="mdi mdi-menu"></span>
                     </button>
                 </div>
             </nav>
             <!-- partial -->
             <div class="container-fluid page-body-wrapper">
-                <!-- partial:./partials/_sidebar.html -->
+                <!-- partial:../../partials/_sidebar.html -->
                 <nav class="sidebar sidebar-offcanvas" id="sidebar">
                     <ul class="nav">
                         <li class="nav-item nav-profile">
@@ -192,38 +228,615 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="./index.html">
+                            <a class="nav-link" href="../../index.html">
                                 <span class="menu-title">Dashboard</span>
                                 <i class="mdi mdi-home menu-icon"></i>
                             </a>
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link" href="./pages/icons/mdi.html">
+                            <a class="nav-link" href="../../pages/icons/mdi.html">
                                 <span class="menu-title">Recrutements</span>
                                 <i class="mdi mdi-contacts menu-icon"></i>
                             </a>
                         </li>
-
-                        <li class="nav-item">
-                            <a class="nav-link" href="/RessourceHumaine/ProfileServlet">
-                                <span class="menu-title"> Profile </span>
-                                <i class="mdi mdi-user menu-icon"></i>
-                            </a>
-                        </li>
                     </ul>
                 </nav>
+
+                <!-- Modal pour l'insertion d'un nouveau profil -->
+                <div class="modal fade" id="newProfil" tabindex="-1" aria-labelledby="newProfilLabel" aria-hidden="true">
+                    <div class="modal-dialog  modal-xl modal-dialog-centered">
+                        <div class="modal-content card-body">
+                            <div class="modal-header">
+                                <h1 class="modal-title fs-5" id="newProfilLabel">Insertion nouveau profile</h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                <hr>
+                            </div>
+
+                            <form class="forms-sample" method="get" action="/RessourceHumaine/AjaxProfileServlet">
+                                <div class="form-group row">
+                                    <label for="profileName" class="col-sm-2 col-form-label"> Poste </label>
+                                    <div class="col-sm-5">
+                                        <input type="text" class="form-control" id="profileName" name="poste">
+                                    </div>
+                                </div>
+
+                                <hr>
+
+                                <div class="row">
+                                    <div class="side-by-side col-md-6">
+                                        <!-- Section diplome -->
+                                        <div class="diplome">
+                                            <div
+                                                class="form-group row d-flex align-items-center justify-content-center">
+                                                <label for="diplomeChoice"
+                                                       class="col-sm-2 col-form-label">Diplome</label>
+                                                <div class="col-sm-5 reduce-padding">
+                                                    <select name="diplome" id="diplomeChoice"
+                                                            class="form-control form-control-sm form-select">
+
+
+                                                    </select>
+                                                </div>
+                                                <div class="col-sm-2 reduce-padding">
+                                                    <input type="number" class="form-control form-control-sm" name="diplomeNote" id="diplomeNote"
+                                                           placeholder="Note">
+                                                </div>
+                                                <div class="col-sm-2 reduce-padding">
+                                                    <button type="submit"
+                                                            class="btn btn-gradient-primary btn-sm" id="submitButton"> Ajouter </button>
+                                                </div>
+                                            </div>
+                                            <div class="profil-critere-container">
+                                                <div class="row d-flex align-items-center border-bottom" id="diplomeCase">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <script>
+                                        document.addEventListener("DOMContentLoaded", function () {
+                                            var boutonSubmit = document.getElementById("submitButton");
+                                            boutonSubmit.addEventListener("click", function (event) {
+                                                event.preventDefault();
+                                                var diplome = document.getElementById("diplomeChoice").value;
+                                                var diplomeNote = document.getElementById("diplomeNote").value;
+                                                var diplomeCase = document.getElementById("diplomeCase");
+                                                var xhr = new XMLHttpRequest();
+                                                xhr.open("POST", "/RessourceHumaine/AjaxProfileServlet", true);
+                                                xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+                                                xhr.onload = function () {
+                                                    if (xhr.status === 200) {
+                                                        var donnees = JSON.parse(xhr.responseText);
+                                                        for (var i = 0; i < donnees.length; i++) {
+                                                            var donnee = donnees[i];
+                                                            var donneeSpliter = donnee.split(":");
+                                                            var paragraphe1 = document.createElement("div");
+                                                            paragraphe1.className = "col-sm-7";
+                                                            paragraphe1.textContent = donneeSpliter[0];
+                                                            var paragraphe2 = document.createElement("div");
+                                                            paragraphe2.className = "col-sm-2";
+                                                            paragraphe2.textContent = donneeSpliter[1];
+                                                            var paragraphe3 = document.createElement("div");
+                                                            paragraphe3.className = "col-sm-2";
+                                                            var dele = document.createElement("i");
+                                                            dele.className = "remove mdi mdi-close-circle-outline";
+                                                            paragraphe3.appendChild(dele);
+                                                            diplomeCase.appendChild(paragraphe1);
+                                                            diplomeCase.appendChild(paragraphe2);
+                                                            diplomeCase.appendChild(paragraphe3);
+                                                        }
+                                                    } else {
+                                                        alert("Erreur lors de la requête : " + xhr.status);
+                                                    }
+                                                };
+
+                                                // Envoyez les données au Servlet
+                                                var formData = "diplome=" + encodeURIComponent(diplome) + "&diplomenote=" + encodeURIComponent(diplomeNote);
+                                                xhr.send(formData);
+
+                                                return false;
+                                            });
+                                        });
+                                    </script>
+
+                                    <div class="side-by-side col-md-6">
+                                        <div class="experience">
+                                            <div
+                                                class="form-group row d-flex align-items-center justify-content-center">
+                                                <label for="experienceChoice"
+                                                       class="col-sm-2 col-form-label">Experience</label>
+                                                <div class="col-sm-5 reduce-padding">
+                                                    <select name="experience" id="experienceChoice"
+                                                            class="form-control form-control-sm form-select">
+
+
+                                                    </select>
+                                                </div>
+                                                <div class="col-sm-2 reduce-padding">
+                                                    <input type="number" class="form-control form-control-sm" name="experienceNote" id="experienceNote"
+                                                           placeholder="Note">
+                                                </div>
+                                                <div class="col-sm-2 reduce-padding">
+                                                    <button type="submit"
+                                                            class="btn btn-gradient-primary btn-sm" id="submitExperienceButton"> Ajouter </button>
+                                                </div>
+                                            </div>
+                                            <div class="profil-critere-container">
+                                                <div class="row d-flex align-items-center border-bottom" id="experienceCase">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <script>
+                                        document.addEventListener("DOMContentLoaded", function () {
+                                            var boutonSubmit = document.getElementById("submitExperienceButton");
+                                            boutonSubmit.addEventListener("click", function (event) {
+                                                event.preventDefault();
+                                                var diplome = document.getElementById("experienceChoice").value;
+                                                var diplomeNote = document.getElementById("experienceNote").value;
+                                                var diplomeCase = document.getElementById("experienceCase");
+                                                var xhr = new XMLHttpRequest();
+                                                xhr.open("POST", "/RessourceHumaine/AjaxProfileServlet", true);
+                                                xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+                                                xhr.onload = function () {
+                                                    if (xhr.status === 200) {
+                                                        var donnees = JSON.parse(xhr.responseText);
+                                                        for (var i = 0; i < donnees.length; i++) {
+                                                            var donnee = donnees[i];
+                                                            var donneeSpliter = donnee.split(":");
+                                                            var paragraphe1 = document.createElement("div");
+                                                            paragraphe1.className = "col-sm-7";
+                                                            paragraphe1.textContent = donneeSpliter[0];
+                                                            var paragraphe2 = document.createElement("div");
+                                                            paragraphe2.className = "col-sm-2";
+                                                            paragraphe2.textContent = donneeSpliter[1];
+                                                            var paragraphe3 = document.createElement("div");
+                                                            paragraphe3.className = "col-sm-2";
+                                                            var dele = document.createElement("i");
+                                                            dele.className = "remove mdi mdi-close-circle-outline";
+                                                            paragraphe3.appendChild(dele);
+                                                            diplomeCase.appendChild(paragraphe1);
+                                                            diplomeCase.appendChild(paragraphe2);
+                                                            diplomeCase.appendChild(paragraphe3);
+                                                        }
+                                                    } else {
+                                                        alert("Erreur lors de la requête : " + xhr.status);
+                                                    }
+                                                };
+
+                                                // Envoyez les données au Servlet
+                                                var formData = "experience=" + encodeURIComponent(diplome) + "&experiencenote=" + encodeURIComponent(diplomeNote);
+                                                xhr.send(formData);
+
+                                                return false;
+                                            });
+                                        });
+                                    </script>
+
+                                    <div class="side-by-side col-md-6">
+                                        <div class="salaire mt-3">
+                                            <div
+                                                class="form-group row d-flex align-items-center justify-content-center">
+                                                <label for="salaireChoice"
+                                                       class="col-sm-2 col-form-label">Salaire</label>
+                                                <div class="col-sm-5 reduce-padding">
+                                                    <select name="salaire" id="salaireChoice"
+                                                            class="form-control form-control-sm form-select">
+
+
+                                                    </select>
+                                                </div>
+                                                <div class="col-sm-2 reduce-padding">
+                                                    <input type="number" class="form-control form-control-sm" name="salaireNote" id="salaireNote"
+                                                           placeholder="Note">
+                                                </div>
+                                                <div class="col-sm-2 reduce-padding">
+                                                    <button type="submit"
+                                                            class="btn btn-gradient-primary btn-sm" id="submitSalaireButton"> Ajouter </button>
+                                                </div>
+                                            </div>
+                                            <div class="profil-critere-container">
+                                                <div class="row d-flex align-items-center border-bottom" id="salaireCase">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <script>
+                                        document.addEventListener("DOMContentLoaded", function () {
+                                            var boutonSubmit = document.getElementById("submitSalaireButton");
+                                            boutonSubmit.addEventListener("click", function (event) {
+                                                event.preventDefault();
+                                                var diplome = document.getElementById("salaireChoice").value;
+                                                var diplomeNote = document.getElementById("salaireNote").value;
+                                                var diplomeCase = document.getElementById("salaireCase");
+                                                var xhr = new XMLHttpRequest();
+                                                xhr.open("POST", "/RessourceHumaine/AjaxProfileServlet", true);
+                                                xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+                                                xhr.onload = function () {
+                                                    if (xhr.status === 200) {
+                                                        var donnees = JSON.parse(xhr.responseText);
+                                                        for (var i = 0; i < donnees.length; i++) {
+                                                            var donnee = donnees[i];
+                                                            var donneeSpliter = donnee.split(":");
+                                                            var paragraphe1 = document.createElement("div");
+                                                            paragraphe1.className = "col-sm-7";
+                                                            paragraphe1.textContent = donneeSpliter[0];
+                                                            var paragraphe2 = document.createElement("div");
+                                                            paragraphe2.className = "col-sm-2";
+                                                            paragraphe2.textContent = donneeSpliter[1];
+                                                            var paragraphe3 = document.createElement("div");
+                                                            paragraphe3.className = "col-sm-2";
+                                                            var dele = document.createElement("i");
+                                                            dele.className = "remove mdi mdi-close-circle-outline";
+                                                            paragraphe3.appendChild(dele);
+                                                            diplomeCase.appendChild(paragraphe1);
+                                                            diplomeCase.appendChild(paragraphe2);
+                                                            diplomeCase.appendChild(paragraphe3);
+                                                        }
+                                                    } else {
+                                                        alert("Erreur lors de la requête : " + xhr.status);
+                                                    }
+                                                };
+
+                                                // Envoyez les données au Servlet
+                                                var formData = "salaire=" + encodeURIComponent(diplome) + "&salairenote=" + encodeURIComponent(diplomeNote);
+                                                xhr.send(formData);
+
+                                                return false;
+                                            });
+                                        });
+                                    </script>
+
+                                    <div class="side-by-side col-md-6">
+                                        <div class="sexe mt-3">
+                                            <div
+                                                class="form-group row d-flex align-items-center justify-content-center">
+                                                <label for="sexeChoice"
+                                                       class="col-sm-2 col-form-label">Sexe</label>
+                                                <div class="col-sm-5 reduce-padding">
+                                                    <select name="sexe" id="sexeChoice"
+                                                            class="form-control form-control-sm form-select">
+
+
+                                                    </select>
+                                                </div>
+                                                <div class="col-sm-2 reduce-padding">
+                                                    <input type="number" class="form-control form-control-sm" name="sexeNote" id="sexeNote"
+                                                           placeholder="Note">
+                                                </div>
+                                                <div class="col-sm-2 reduce-padding">
+                                                    <button type="submit"
+                                                            class="btn btn-gradient-primary btn-sm" id="submitSexeButton"> Ajouter </button>
+                                                </div>
+                                            </div>
+                                            <div class="profil-critere-container">
+                                                <div class="row d-flex align-items-center border-bottom" id="sexeCase">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <script>
+                                        document.addEventListener("DOMContentLoaded", function () {
+                                            var boutonSubmit = document.getElementById("submitSexeButton");
+                                            boutonSubmit.addEventListener("click", function (event) {
+                                                event.preventDefault();
+                                                var diplome = document.getElementById("sexeChoice").value;
+                                                var diplomeNote = document.getElementById("sexeNote").value;
+                                                var diplomeCase = document.getElementById("sexeCase");
+                                                var xhr = new XMLHttpRequest();
+                                                xhr.open("POST", "/RessourceHumaine/AjaxProfileServlet", true);
+                                                xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+                                                xhr.onload = function () {
+                                                    if (xhr.status === 200) {
+                                                        var donnees = JSON.parse(xhr.responseText);
+                                                        for (var i = 0; i < donnees.length; i++) {
+                                                            var donnee = donnees[i];
+                                                            var donneeSpliter = donnee.split(":");
+                                                            var paragraphe1 = document.createElement("div");
+                                                            paragraphe1.className = "col-sm-7";
+                                                            paragraphe1.textContent = donneeSpliter[0];
+                                                            var paragraphe2 = document.createElement("div");
+                                                            paragraphe2.className = "col-sm-2";
+                                                            paragraphe2.textContent = donneeSpliter[1];
+                                                            var paragraphe3 = document.createElement("div");
+                                                            paragraphe3.className = "col-sm-2";
+                                                            var dele = document.createElement("i");
+                                                            dele.className = "remove mdi mdi-close-circle-outline";
+                                                            paragraphe3.appendChild(dele);
+                                                            diplomeCase.appendChild(paragraphe1);
+                                                            diplomeCase.appendChild(paragraphe2);
+                                                            diplomeCase.appendChild(paragraphe3);
+                                                        }
+                                                    } else {
+                                                        alert("Erreur lors de la requête : " + xhr.status);
+                                                    }
+                                                };
+
+                                                // Envoyez les données au Servlet
+                                                var formData = "sexe=" + encodeURIComponent(diplome) + "&sexenote=" + encodeURIComponent(diplomeNote);
+                                                xhr.send(formData);
+
+                                                return false;
+                                            });
+                                        });
+                                    </script>
+
+                                    <div class="side-by-side col-md-6">
+                                        <div class="adresse mt-3">
+                                            <div
+                                                class="form-group row d-flex align-items-center justify-content-center">
+                                                <label for="adresseChoice"
+                                                       class="col-sm-2 col-form-label">Adresse</label>
+                                                <div class="col-sm-5 reduce-padding">
+                                                    <select name="adresse" id="adresseChoice"
+                                                            class="form-control form-control-sm form-select">
+
+
+                                                    </select>
+                                                </div>
+                                                <div class="col-sm-2 reduce-padding">
+                                                    <input type="number" class="form-control form-control-sm" name="adresseNote" id="adresseNote"
+                                                           placeholder="Note">
+                                                </div>
+                                                <div class="col-sm-2 reduce-padding">
+                                                    <button type="submit"
+                                                            class="btn btn-gradient-primary btn-sm" id="submitAdresseButton"> Ajouter </button>
+                                                </div>
+                                            </div>
+                                            <div class="profil-critere-container">
+                                                <div class="row d-flex align-items-center border-bottom" id="adresseCase">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <script>
+                                        document.addEventListener("DOMContentLoaded", function () {
+                                            var boutonSubmit = document.getElementById("submitAdresseButton");
+                                            boutonSubmit.addEventListener("click", function (event) {
+                                                event.preventDefault();
+                                                var diplome = document.getElementById("adresseChoice").value;
+                                                var diplomeNote = document.getElementById("adresseNote").value;
+                                                var diplomeCase = document.getElementById("adresseCase");
+                                                var xhr = new XMLHttpRequest();
+                                                xhr.open("POST", "/RessourceHumaine/AjaxProfileServlet", true);
+                                                xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+                                                xhr.onload = function () {
+                                                    if (xhr.status === 200) {
+                                                        var donnees = JSON.parse(xhr.responseText);
+                                                        for (var i = 0; i < donnees.length; i++) {
+                                                            var donnee = donnees[i];
+                                                            var donneeSpliter = donnee.split(":");
+                                                            var paragraphe1 = document.createElement("div");
+                                                            paragraphe1.className = "col-sm-7";
+                                                            paragraphe1.textContent = donneeSpliter[0];
+                                                            var paragraphe2 = document.createElement("div");
+                                                            paragraphe2.className = "col-sm-2";
+                                                            paragraphe2.textContent = donneeSpliter[1];
+                                                            var paragraphe3 = document.createElement("div");
+                                                            paragraphe3.className = "col-sm-2";
+                                                            var dele = document.createElement("i");
+                                                            dele.className = "remove mdi mdi-close-circle-outline";
+                                                            paragraphe3.appendChild(dele);
+                                                            diplomeCase.appendChild(paragraphe1);
+                                                            diplomeCase.appendChild(paragraphe2);
+                                                            diplomeCase.appendChild(paragraphe3);
+                                                        }
+                                                    } else {
+                                                        alert("Erreur lors de la requête : " + xhr.status);
+                                                    }
+                                                };
+
+                                                // Envoyez les données au Servlet
+                                                var formData = "adresse=" + encodeURIComponent(diplome) + "&adressenote=" + encodeURIComponent(diplomeNote);
+                                                xhr.send(formData);
+
+                                                return false;
+                                            });
+                                        });
+                                    </script>
+
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                    <input type="submit" class="btn btn-gradient-primary" value="Valider">
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Modal pour le choix d'un profil -->
+                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                     aria-hidden="true">
+                    <div class="modal-dialog  modal-xl modal-dialog-centered">
+                        <div class="modal-content card-body">
+                            <div class="modal-header">
+                                <h1 class="modal-title fs-5" id="exampleModalLabel"> Poste </h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                <hr>
+                            </div>
+                            <div class="modal-body">
+                                <button type="submit" class="btn btn-gradient-primary me-2" data-bs-toggle="modal" id="nouveauProfile"
+                                        data-bs-target="#newProfil">Crée un nouveau profile</button>
+
+                                <div class="mt-4">
+                                    <h4 class="card-title mb-4">Liste des anciens profiles existants</h4>
+                                    <div class="row profile-list" id="profile-list">
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-gradient-primary">Valider</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
                 <!-- partial -->
                 <div class="main-panel">
                     <div class="content-wrapper">
+                        <div class="row">
+                            <div class="col-md-6 grid-margin stretch-card">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h4 class="card-title">Service : Informatique</h4>
+                                        <p class="card-description"> Veuillez bien remplir les formulaires et bien décrire
+                                            vos demandes </p>
+                                        <form class="forms-sample">
+                                            <div class="form-group">
+                                                <label for="besoinDescription">Description du besoin</label>
+                                                <textarea name="" id="besoinDescription" class="form-control" cols="30"
+                                                          rows="10"></textarea>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="exampleInputEmail1">Liste des taches</label>
+                                                <div class="row d-flex align-items-center">
+                                                    <div class="col-md-6">
+                                                        <input type="text" class="form-control" id="exampleInputEmail1"
+                                                               placeholder="Nouvelle tache">
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <button type="submit"
+                                                                class="btn btn-gradient-primary me-2">Ajouter</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group task-list">
+                                                <div class="list-wrapper">
+                                                    <ul class="d-flex flex-column-reverse todo-list todo-list-custom">
+                                                        <li>
+                                                            <div class="form-check">
+                                                                <label class="form-check-label"> Réalisation du system
+                                                                    d'information de l'entreprise </label>
+                                                            </div>
+                                                            <i class="remove mdi mdi-close-circle-outline"></i>
+                                                        </li>
+                                                        <li>
+                                                            <div class="form-check">
+                                                                <label class="form-check-label"> Réalisation du system
+                                                                    d'information de l'entreprise </label>
+                                                            </div>
+                                                            <i class="remove mdi mdi-close-circle-outline"></i>
+                                                        </li>
+                                                        <li>
+                                                            <div class="form-check">
+                                                                <label class="form-check-label"> Réalisation du system
+                                                                    d'information de l'entreprise </label>
+                                                            </div>
+                                                            <i class="remove mdi mdi-close-circle-outline"></i>
+                                                        </li>
+                                                        <li>
+                                                            <div class="form-check">
+                                                                <label class="form-check-label"> Call John </label>
+                                                            </div>
+                                                            <i class="remove mdi mdi-close-circle-outline"></i>
+                                                        </li>
+                                                        <li>
+                                                            <div class="form-check">
+                                                                <label class="form-check-label"> Call John </label>
+                                                            </div>
+                                                            <i class="remove mdi mdi-close-circle-outline"></i>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6 grid-margin stretch-card">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h4 class="">Charge de travail et profil recherché</h4>
+                                        <button data-bs-toggle="modal" data-bs-target="#exampleModal"
+                                                class="btn btn-gradient-primary me-1" id="profileModal">Choisir le
+                                            profil</button>
+                                        <form class="forms-sample mt-3">
+                                            <div class="row d-flex align-items-start">
+                                                <div class="form-group col-md-4">
+                                                    <label for="volumeHorraire">Volume horraire</label>
+                                                    <input type="number" class="form-control" id="volumeHorraire"
+                                                           placeholder="40">
+                                                </div>
+                                                <div class="form-group col-md-4">
+                                                    <label for="unitySelect">Unité</label>
+                                                    <select name="" id="unitySelect" class="form-control-sm form-select">
+                                                        <option value="">h / S</option>
+                                                        <option value="">H / J</option>
+                                                    </select>
+                                                </div>
+                                                <div class="form-group col-md-4">
+                                                    <label for="unitySelect">Unité</label>
+                                                    <button type="submit"
+                                                            class="btn btn-gradient-primary me-2">Ajouter</button>
+                                                </div>
+                                            </div>
+                                            <div class="form-group task-list mt-3" style="height: 250px;">
+                                                <div class="list-wrapper">
+                                                    <table class="table">
+                                                        <tr>
+                                                            <td>Développeur fullstack JS</td>
+                                                            <td class="to-right">40 h / S</td>
+                                                            <td><i
+                                                                    class="list-action primary mdi mdi-comment-question-outline"></i>
+                                                            </td>
+                                                            <td><i
+                                                                    class="list-action danger mdi mdi-close-circle-outline"></i>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>DevOps 5 ans d'experience</td>
+                                                            <td class="to-right">1 H / J</td>
+                                                            <td><i
+                                                                    class="list-action primary mdi mdi-comment-question-outline"></i>
+                                                            </td>
+                                                            <td><i
+                                                                    class="list-action danger mdi mdi-close-circle-outline"></i>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Developpeur junior</td>
+                                                            <td class="to-right">4 H / J</td>
+                                                            <td><i
+                                                                    class="list-action primary mdi mdi-comment-question-outline"></i>
+                                                            </td>
+                                                            <td><i
+                                                                    class="list-action danger mdi mdi-close-circle-outline"></i>
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                            <button type="submit" class="btn btn-gradient-primary me-2">Envoye du
+                                                besoin</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
 
                     </div>
                     <!-- content-wrapper ends -->
                     <!-- partial:/partials/_footer.html -->
                     <footer class="footer">
                         <div class="container-fluid d-flex justify-content-between">
-                            <span class="text-muted d-block text-center text-sm-start d-sm-inline-block">Copyright � bootstrapdash.com 2021</span>
-                            <span class="float-none float-sm-end mt-1 mt-sm-0 text-end"> Free <a href="https://www.bootstrapdash.com/bootstrap-admin-template/" target="_blank">Bootstrap admin template</a> from Bootstrapdash.com</span>
+                            <span class="text-muted d-block text-center text-sm-start d-sm-inline-block">Copyright �
+                                bootstrapdash.com 2021</span>
+                            <span class="float-none float-sm-end mt-1 mt-sm-0 text-end"> Free <a
+                                    href="https://www.bootstrapdash.com/bootstrap-admin-template/" target="_blank">Bootstrap
+                                    admin template</a> from Bootstrapdash.com</span>
                         </div>
                     </footer>
                     <!-- partial -->
@@ -239,12 +852,290 @@
         <!-- Plugin js for this page -->
         <!-- End plugin js for this page -->
         <!-- inject:js -->
+        <script>
+                                        document.addEventListener("DOMContentLoaded", function () {
+                                            var boutonOuvrirModal = document.getElementById("profileModal");
+
+                                            var profilListe = document.getElementById("profile-list");
+
+
+                                            boutonOuvrirModal.addEventListener("click", function () {
+                                                var xhr = new XMLHttpRequest();
+
+                                                xhr.open("GET", "/RessourceHumaine/ListeProfileServlet", true);
+                                                xhr.setRequestHeader("Content-Type", "application/json");
+
+
+                                                xhr.onload = function () {
+                                                    if (xhr.readyState === 4 && xhr.status === 200) {
+
+                                                        var jsonResponse = JSON.parse(xhr.responseText);
+
+                                                        var ListePoste = jsonResponse.listePost;
+                                                        var BestDiplomeNote = jsonResponse.listeDiplomeNote;
+                                                        var BestAdresseNote = jsonResponse.listeAdresseNote;
+                                                        var BestSexeNote = jsonResponse.listeSexeNote;
+                                                        var BestExperienceNote = jsonResponse.listeExperienceNote;
+                                                        var BestSalaireNote = jsonResponse.listeSalaireNote;
+
+                                                        for (var i = 0; i < BestDiplomeNote.length; i++) {
+                                                            var profileCard = document.createElement("div");
+
+                                                            profileCard.classList.add("profile-card");
+
+                                                            var removeFloating = document.createElement("div");
+                                                            removeFloating.classList.add("remove-floating");
+
+                                                            var removeIcon = document.createElement("i");
+                                                            removeIcon.classList.add("remove", "mdi", "mdi-close-circle-outline");
+
+                                                            removeIcon.onclick = function () {
+                                                                // Placez ici le code que vous souhaitez exécuter lorsque l'icône est cliquée
+                                                                alert("L'icône a été cliquée !");
+                                                            };
+
+                                                            var profileTitle = document.createElement("h5");
+                                                            profileTitle.classList.add("profile-title");
+                                                            profileTitle.textContent = ListePoste[i];
+
+                                                            var ul = document.createElement("ul");
+
+                                                            var profileDiplome = document.createElement("li");
+                                                            profileDiplome.classList.add("profile-diplome");
+                                                            profileDiplome.textContent = BestDiplomeNote[i].diplome.diplome;
+                                                            ul.appendChild(profileDiplome);
+
+                                                            var profileAdresse = document.createElement("li");
+                                                            profileAdresse.classList.add("profile-adress");
+                                                            profileAdresse.textContent = BestAdresseNote[i].adresse.adresse;
+                                                            ul.appendChild(profileAdresse);
+
+                                                            var profileSexe = document.createElement("li");
+                                                            profileSexe.classList.add("profile-sexe");
+                                                            profileSexe.textContent = BestSexeNote[i].sexe.sexe;
+                                                            ul.appendChild(profileSexe);
+
+                                                            var profileExperience = document.createElement("li");
+                                                            profileExperience.classList.add("profile-experience");
+                                                            profileExperience.textContent = BestExperienceNote[i].experience.experience;
+                                                            ul.appendChild(profileExperience);
+
+                                                            var profileSalary = document.createElement("li");
+                                                            profileSalary.classList.add("profile-salary");
+                                                            profileSalary.textContent = BestSalaireNote[i].salaire.salaire.toLocaleString('fr-FR') + " Ar";
+                                                            ul.appendChild(profileSalary);
+
+                                                            removeFloating.appendChild(removeIcon);
+
+                                                            profileCard.appendChild(removeFloating);
+                                                            profileCard.appendChild(profileTitle);
+                                                            profileCard.appendChild(ul);
+
+                                                            var donneeCard = document.createElement("div");
+                                                            donneeCard.classList.add("card");
+
+                                                            donneeCard.appendChild(profileCard);
+
+                                                            var profileLayout = document.createElement("div");
+                                                            profileLayout.classList.add("col-md-3");
+                                                            profileLayout.classList.add("stretch-card");
+                                                            profileLayout.classList.add("grid-margin");
+
+                                                            profileLayout.appendChild(profileCard);
+
+                                                            profilListe.appendChild(profileLayout);
+                                                        }
+
+                                                    } else {
+                                                        alert("Une erreur s'est produite lors de la récupération des données.");
+                                                    }
+                                                };
+
+                                                // Envoyez la requête AJAX
+                                                xhr.send();
+                                            });
+                                        });
+
+        </script>
+
+        <!-- script pour ajouter les données du diplomes -->
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+                var xhr = new XMLHttpRequest();
+
+                // Configurez la requête AJAX
+                xhr.open("GET", "/RessourceHumaine/ProfileServlet", true);
+                xhr.setRequestHeader("Content-Type", "application/json");
+
+                xhr.onload = function () {
+                    if (xhr.readyState === 4 && xhr.status === 200) {
+                        var responseData = JSON.parse(xhr.responseText);
+                        var listeDiplome = responseData.listeDiplome;
+
+                        var selectDiplome = document.getElementById("diplomeChoice");
+
+                        // Parcourez la liste des diplômes et ajoutez-les au select
+                        for (var i = 0; i < listeDiplome.length; i++) {
+                            var diplome = listeDiplome[i].diplome;
+                            var option = document.createElement("option");
+                            option.value = diplome;
+                            option.textContent = diplome;
+                            selectDiplome.appendChild(option);
+                        }
+                    } else {
+                        alert("Une erreur s'est produite lors de la récupération des données.");
+                    }
+                };
+
+                // Envoyez la requête AJAX
+                xhr.send();
+            });
+        </script>
+
+        <!-- script pour ajouter les données du adresse -->
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+                var xhr = new XMLHttpRequest();
+
+                // Configurez la requête AJAX
+                xhr.open("GET", "/RessourceHumaine/ProfileServlet", true);
+                xhr.setRequestHeader("Content-Type", "application/json");
+
+                xhr.onload = function () {
+                    if (xhr.readyState === 4 && xhr.status === 200) {
+                        var responseData = JSON.parse(xhr.responseText);
+                        var listeAdresse = responseData.listeAdresse;
+
+                        var selectAdresse = document.getElementById("adresseChoice");
+
+                        // Parcourez la liste des diplômes et ajoutez-les au select
+                        for (var i = 0; i < listeAdresse.length; i++) {
+                            var adresse = listeAdresse[i].adresse;
+                            var option = document.createElement("option");
+                            option.value = adresse;
+                            option.textContent = adresse;
+                            selectAdresse.appendChild(option);
+                        }
+                    } else {
+                        alert("Une erreur s'est produite lors de la récupération des données.");
+                    }
+                };
+
+                // Envoyez la requête AJAX
+                xhr.send();
+            });
+        </script>
+
+
+        <!-- script pour ajouter les données du experience -->
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+                var xhr = new XMLHttpRequest();
+
+                // Configurez la requête AJAX
+                xhr.open("GET", "/RessourceHumaine/ProfileServlet", true);
+                xhr.setRequestHeader("Content-Type", "application/json");
+
+                xhr.onload = function () {
+                    if (xhr.readyState === 4 && xhr.status === 200) {
+                        var responseData = JSON.parse(xhr.responseText);
+                        var listeExperience = responseData.listeExperience;
+
+                        var selectExperience = document.getElementById("experienceChoice");
+
+                        // Parcourez la liste des diplômes et ajoutez-les au select
+                        for (var i = 0; i < listeExperience.length; i++) {
+                            var experience = listeExperience[i].experience;
+                            var option = document.createElement("option");
+                            option.value = experience;
+                            option.textContent = experience;
+                            selectExperience.appendChild(option);
+                        }
+                    } else {
+                        alert("Une erreur s'est produite lors de la récupération des données.");
+                    }
+                };
+
+                // Envoyez la requête AJAX
+                xhr.send();
+            });
+        </script>
+
+        <!-- script pour ajouter les données du salaire -->
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+                var xhr = new XMLHttpRequest();
+
+                // Configurez la requête AJAX
+                xhr.open("GET", "/RessourceHumaine/ProfileServlet", true);
+                xhr.setRequestHeader("Content-Type", "application/json");
+
+                xhr.onload = function () {
+                    if (xhr.readyState === 4 && xhr.status === 200) {
+                        var responseData = JSON.parse(xhr.responseText);
+                        var listeSalaire = responseData.listeSalaire;
+
+                        var selectSalaire = document.getElementById("salaireChoice");
+
+                        // Parcourez la liste des diplômes et ajoutez-les au select
+                        for (var i = 0; i < listeSalaire.length; i++) {
+                            var salaire = listeSalaire[i].salaire;
+                            var option = document.createElement("option");
+                            option.value = salaire;
+                            option.textContent = salaire;
+                            selectSalaire.appendChild(option);
+                        }
+                    } else {
+                        alert("Une erreur s'est produite lors de la récupération des données.");
+                    }
+                };
+
+                // Envoyez la requête AJAX
+                xhr.send();
+            });
+        </script>
+
+        <!-- script pour ajouter les données du sexe -->
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+                var xhr = new XMLHttpRequest();
+
+                // Configurez la requête AJAX
+                xhr.open("GET", "/RessourceHumaine/ProfileServlet", true);
+                xhr.setRequestHeader("Content-Type", "application/json");
+
+                xhr.onload = function () {
+                    if (xhr.readyState === 4 && xhr.status === 200) {
+                        var responseData = JSON.parse(xhr.responseText);
+                        var listeSexe = responseData.listeSexe;
+
+                        var selectSexe = document.getElementById("sexeChoice");
+
+                        // Parcourez la liste des diplômes et ajoutez-les au select
+                        for (var i = 0; i < listeSexe.length; i++) {
+                            var sexe = listeSexe[i].sexe;
+                            var option = document.createElement("option");
+                            option.value = sexe;
+                            option.textContent = sexe;
+                            selectSexe.appendChild(option);
+                        }
+                    } else {
+                        alert("Une erreur s'est produite lors de la récupération des données.");
+                    }
+                };
+
+                // Envoyez la requête AJAX
+                xhr.send();
+            });
+        </script>
+
+
         <script src="../../assets/js/off-canvas.js"></script>
         <script src="../../assets/js/hoverable-collapse.js"></script>
         <script src="../../assets/js/misc.js"></script>
-        <script src="../../assets/js/my_custom_js/template/automated_title.js"></script>
         <!-- endinject -->
         <!-- Custom js for this page -->
         <!-- End custom js for this page -->
     </body>
+
 </html>

@@ -19,15 +19,17 @@ import model.Model;
  * @author Chalman
  */
 public class Adresse extends Model {
+
     @Champs
     private String adresse;
     @Champs
     private Integer status;
-    
+
 ///Getters and setters
     public String getAdresse() {
         return adresse;
     }
+
     public void setAdresse(String adresse) {
         this.adresse = adresse;
     }
@@ -35,6 +37,7 @@ public class Adresse extends Model {
     public Integer getStatus() {
         return status;
     }
+
     public void setStatus(Integer status) {
         this.status = status;
     }
@@ -47,8 +50,31 @@ public class Adresse extends Model {
         this.adresse = adresse;
         this.status = status;
     }
-    
+
 ///Fonctions
+    //avoir l'idCorrespondant au adresse choisi
+    public int getIdByName(String adresse, Connection con) throws Exception {
+        try {
+            if (con == null) {
+                con = GConnection.getSimpleConnection();
+            }
+            int id = 0;
+            String request = " select id_adresse from adresse where status = 1 and adresse = '" + adresse +"'";
+            Statement s = con.createStatement();
+            ResultSet rs = s.executeQuery(request);
+            while (rs.next()) {
+                id = rs.getInt(1);
+            }
+            return id;
+        } catch (Exception exe) {
+            throw exe;
+        } finally {
+            if (con != null) {
+                con.close();
+            }
+        }
+    }
+
     public List<Adresse> getAllAdresse(Connection con) throws Exception {
         try {
             if (con == null) {
