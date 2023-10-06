@@ -2,14 +2,27 @@
 <%@page import="java.util.ArrayList"%>
 <%@page import="model.requis.Service"%>
 <%@page import="model.gestionBesoin.Unity"%>
+<%@page import=" java.util.List "%>
+<%@page import=" model.gestionProfile.Diplome "%>
+<%@page import=" model.gestionProfile.Adresse "%>
+<%@page import=" model.gestionProfile.Salaire "%>
+<%@page import=" model.gestionProfile.Sexe "%>
+<%@page import=" model.gestionProfile.Experience "%>
+<%
+    List<Diplome> listeDiplome = (List<Diplome>) request.getAttribute("listeDiplome");
+    List<Adresse> listeAdresse = (List<Adresse>) request.getAttribute("listeAdresse");
+    List<Experience> listeExperience = (List<Experience>) request.getAttribute("listeExperience");
+    List<Salaire> listeSalaire = (List<Salaire>) request.getAttribute("listeSalaire");
+    List<Sexe> listeSexe = (List<Sexe>) request.getAttribute("listeSexe");
+%>
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Insertion des besoins</title>
+    <head>
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <title>Insertion des besoins</title>
 
     <!-- plugins:css -->
     <link rel="stylesheet" href="./assets/vendors/mdi/css/materialdesignicons.min.css">
