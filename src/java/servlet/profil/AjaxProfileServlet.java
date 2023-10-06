@@ -167,7 +167,7 @@ public class AjaxProfileServlet extends HttpServlet {
                 wp = (WantedProfile) session.getAttribute("wantedprofile");
                 wp.setAdresseNote(listeAdresseNote);
                 String dip = adresse + ":" + String.valueOf(note);
-
+                
                 adresseString.add(dip);
                 response.setContentType("application/json");
                 Gson gson = new Gson();

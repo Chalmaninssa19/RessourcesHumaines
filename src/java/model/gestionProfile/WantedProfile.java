@@ -97,6 +97,28 @@ public class WantedProfile extends Model {
     }
 
 ///Fonctions
+    
+    // delete wanted_profile
+    public void deleteWantedProfile(int indice,Connection con) throws Exception {
+        boolean b = true;
+        try {
+            if (con == null) {
+                con = GConnection.getSimpleConnection();
+                b = false;
+            }
+            String requete = "update wanted_profile set status = 2 where id_wanted_profile = "+indice;
+            System.out.println(requete);
+            Statement s = con.createStatement();
+            s.executeUpdate(requete);
+        } catch (Exception exe) {
+            throw exe;
+        } finally {
+            if (con != null && !b) {
+                con.close();
+            }
+        }
+    }
+
     //find poste par l'id
     public List<String> getPostById(Connection con) throws Exception {
         boolean b = true;
@@ -109,7 +131,7 @@ public class WantedProfile extends Model {
             List<String> listePoste = new ArrayList<>();
             Statement s = con.createStatement();
             for (int i = 0; i < lsIndice.size(); i++) {
-                ResultSet rs = s.executeQuery("SELECT poste from wanted_profile where id_wanted_profile = " +lsIndice.get(i));
+                ResultSet rs = s.executeQuery("SELECT poste from wanted_profile where id_wanted_profile = " + lsIndice.get(i));
                 while (rs.next()) {
                     listePoste.add(rs.getString(1));
                 }

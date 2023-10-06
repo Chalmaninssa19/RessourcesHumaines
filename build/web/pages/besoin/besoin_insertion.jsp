@@ -321,6 +321,22 @@
                                                             paragraphe3.className = "col-sm-2";
                                                             var dele = document.createElement("i");
                                                             dele.className = "remove mdi mdi-close-circle-outline";
+                                                            (function (ListeIdWp) {
+                                                                dele.onclick = function () {
+                                                                    var xhr = new XMLHttpRequest();
+                                                                    xhr.open("GET", "/RessourceHumaine/DeleteProfileServlet?idDiplome=" + ListeIdWp, true);
+                                                                    xhr.onreadystatechange = function () {
+                                                                        if (xhr.readyState === 4) {
+                                                                            if (xhr.status === 200) {
+                                                                                diplomeCase.textContent = "";
+                                                                            } else {
+                                                                                alert("Erreur !");
+                                                                            }
+                                                                        }
+                                                                    };
+                                                                    xhr.send();
+                                                                };
+                                                            })(i);
                                                             paragraphe3.appendChild(dele);
                                                             diplomeCase.appendChild(paragraphe1);
                                                             diplomeCase.appendChild(paragraphe2);
@@ -330,11 +346,9 @@
                                                         alert("Erreur lors de la requête : " + xhr.status);
                                                     }
                                                 };
-
                                                 // Envoyez les données au Servlet
                                                 var formData = "diplome=" + encodeURIComponent(diplome) + "&diplomenote=" + encodeURIComponent(diplomeNote);
                                                 xhr.send(formData);
-
                                                 return false;
                                             });
                                         });
@@ -396,6 +410,22 @@
                                                             paragraphe3.className = "col-sm-2";
                                                             var dele = document.createElement("i");
                                                             dele.className = "remove mdi mdi-close-circle-outline";
+                                                            (function (ListeIdWp) {
+                                                                dele.onclick = function () {
+                                                                    var xhr = new XMLHttpRequest();
+                                                                    xhr.open("GET", "/RessourceHumaine/DeleteProfileServlet?idExperience=" + ListeIdWp, true);
+                                                                    xhr.onreadystatechange = function () {
+                                                                        if (xhr.readyState === 4) {
+                                                                            if (xhr.status === 200) {
+                                                                                diplomeCase.textContent = "";
+                                                                            } else {
+                                                                                alert("Erreur !");
+                                                                            }
+                                                                        }
+                                                                    };
+                                                                    xhr.send();
+                                                                };
+                                                            })(i);
                                                             paragraphe3.appendChild(dele);
                                                             diplomeCase.appendChild(paragraphe1);
                                                             diplomeCase.appendChild(paragraphe2);
@@ -405,11 +435,9 @@
                                                         alert("Erreur lors de la requête : " + xhr.status);
                                                     }
                                                 };
-
                                                 // Envoyez les données au Servlet
                                                 var formData = "experience=" + encodeURIComponent(diplome) + "&experiencenote=" + encodeURIComponent(diplomeNote);
                                                 xhr.send(formData);
-
                                                 return false;
                                             });
                                         });
@@ -471,6 +499,22 @@
                                                             paragraphe3.className = "col-sm-2";
                                                             var dele = document.createElement("i");
                                                             dele.className = "remove mdi mdi-close-circle-outline";
+                                                            (function (ListeIdWp) {
+                                                                dele.onclick = function () {
+                                                                    var xhr = new XMLHttpRequest();
+                                                                    xhr.open("GET", "/RessourceHumaine/DeleteProfileServlet?idSalaire=" + ListeIdWp, true);
+                                                                    xhr.onreadystatechange = function () {
+                                                                        if (xhr.readyState === 4) {
+                                                                            if (xhr.status === 200) {
+                                                                                diplomeCase.textContent = "";
+                                                                            } else {
+                                                                                alert("Erreur !");
+                                                                            }
+                                                                        }
+                                                                    };
+                                                                    xhr.send();
+                                                                };
+                                                            })(i);
                                                             paragraphe3.appendChild(dele);
                                                             diplomeCase.appendChild(paragraphe1);
                                                             diplomeCase.appendChild(paragraphe2);
@@ -480,11 +524,9 @@
                                                         alert("Erreur lors de la requête : " + xhr.status);
                                                     }
                                                 };
-
                                                 // Envoyez les données au Servlet
                                                 var formData = "salaire=" + encodeURIComponent(diplome) + "&salairenote=" + encodeURIComponent(diplomeNote);
                                                 xhr.send(formData);
-
                                                 return false;
                                             });
                                         });
@@ -546,6 +588,22 @@
                                                             paragraphe3.className = "col-sm-2";
                                                             var dele = document.createElement("i");
                                                             dele.className = "remove mdi mdi-close-circle-outline";
+                                                            (function (ListeIdWp) {
+                                                                dele.onclick = function () {
+                                                                    var xhr = new XMLHttpRequest();
+                                                                    xhr.open("GET", "/RessourceHumaine/DeleteProfileServlet?idSexe=" + ListeIdWp, true);
+                                                                    xhr.onreadystatechange = function () {
+                                                                        if (xhr.readyState === 4) {
+                                                                            if (xhr.status === 200) {
+                                                                                diplomeCase.textContent = "";
+                                                                            } else {
+                                                                                alert("Erreur !");
+                                                                            }
+                                                                        }
+                                                                    };
+                                                                    xhr.send();
+                                                                };
+                                                            })(i);
                                                             paragraphe3.appendChild(dele);
                                                             diplomeCase.appendChild(paragraphe1);
                                                             diplomeCase.appendChild(paragraphe2);
@@ -555,11 +613,9 @@
                                                         alert("Erreur lors de la requête : " + xhr.status);
                                                     }
                                                 };
-
                                                 // Envoyez les données au Servlet
                                                 var formData = "sexe=" + encodeURIComponent(diplome) + "&sexenote=" + encodeURIComponent(diplomeNote);
                                                 xhr.send(formData);
-
                                                 return false;
                                             });
                                         });
@@ -621,6 +677,22 @@
                                                             paragraphe3.className = "col-sm-2";
                                                             var dele = document.createElement("i");
                                                             dele.className = "remove mdi mdi-close-circle-outline";
+                                                            (function (ListeIdWp) {
+                                                                dele.onclick = function () {
+                                                                    var xhr = new XMLHttpRequest();
+                                                                    xhr.open("GET", "/RessourceHumaine/DeleteProfileServlet?idAdresse=" + ListeIdWp, true);
+                                                                    xhr.onreadystatechange = function () {
+                                                                        if (xhr.readyState === 4) {
+                                                                            if (xhr.status === 200) {
+                                                                                diplomeCase.textContent = "";
+                                                                            } else {
+                                                                                alert("Erreur !");
+                                                                            }
+                                                                        }
+                                                                    };
+                                                                    xhr.send();
+                                                                };
+                                                            })(i);
                                                             paragraphe3.appendChild(dele);
                                                             diplomeCase.appendChild(paragraphe1);
                                                             diplomeCase.appendChild(paragraphe2);
@@ -630,11 +702,9 @@
                                                         alert("Erreur lors de la requête : " + xhr.status);
                                                     }
                                                 };
-
                                                 // Envoyez les données au Servlet
                                                 var formData = "adresse=" + encodeURIComponent(diplome) + "&adressenote=" + encodeURIComponent(diplomeNote);
                                                 xhr.send(formData);
-
                                                 return false;
                                             });
                                         });
@@ -855,94 +925,82 @@
         <script>
                                         document.addEventListener("DOMContentLoaded", function () {
                                             var boutonOuvrirModal = document.getElementById("profileModal");
-
                                             var profilListe = document.getElementById("profile-list");
-
-
                                             boutonOuvrirModal.addEventListener("click", function () {
                                                 var xhr = new XMLHttpRequest();
-
                                                 xhr.open("GET", "/RessourceHumaine/ListeProfileServlet", true);
                                                 xhr.setRequestHeader("Content-Type", "application/json");
-
-
                                                 xhr.onload = function () {
                                                     if (xhr.readyState === 4 && xhr.status === 200) {
 
                                                         var jsonResponse = JSON.parse(xhr.responseText);
-
+                                                        var ListeIdWp = jsonResponse.listeIdWp;
                                                         var ListePoste = jsonResponse.listePost;
                                                         var BestDiplomeNote = jsonResponse.listeDiplomeNote;
                                                         var BestAdresseNote = jsonResponse.listeAdresseNote;
                                                         var BestSexeNote = jsonResponse.listeSexeNote;
                                                         var BestExperienceNote = jsonResponse.listeExperienceNote;
                                                         var BestSalaireNote = jsonResponse.listeSalaireNote;
-
                                                         for (var i = 0; i < BestDiplomeNote.length; i++) {
                                                             var profileCard = document.createElement("div");
-
                                                             profileCard.classList.add("profile-card");
-
                                                             var removeFloating = document.createElement("div");
                                                             removeFloating.classList.add("remove-floating");
-
                                                             var removeIcon = document.createElement("i");
                                                             removeIcon.classList.add("remove", "mdi", "mdi-close-circle-outline");
-
-                                                            removeIcon.onclick = function () {
-                                                                // Placez ici le code que vous souhaitez exécuter lorsque l'icône est cliquée
-                                                                alert("L'icône a été cliquée !");
-                                                            };
+                                                            (function (ListeIdWp) {
+                                                                removeIcon.onclick = function () {
+                                                                    var xhr = new XMLHttpRequest();
+                                                                    xhr.open("GET", "/RessourceHumaine/DeleteProfileServlet?indice=" + ListeIdWp, true);
+                                                                    xhr.onreadystatechange = function () {
+                                                                        if (xhr.readyState === 4) {
+                                                                            if (xhr.status === 200) {
+                                                                                window.location.reload();
+                                                                            } else {
+                                                                                alert("Erreur !");
+                                                                            }
+                                                                        }
+                                                                    };
+                                                                    xhr.send();
+                                                                };
+                                                            })(ListeIdWp[i]); // i est capturé comme indice ici
 
                                                             var profileTitle = document.createElement("h5");
                                                             profileTitle.classList.add("profile-title");
                                                             profileTitle.textContent = ListePoste[i];
-
                                                             var ul = document.createElement("ul");
-
                                                             var profileDiplome = document.createElement("li");
                                                             profileDiplome.classList.add("profile-diplome");
                                                             profileDiplome.textContent = BestDiplomeNote[i].diplome.diplome;
                                                             ul.appendChild(profileDiplome);
-
                                                             var profileAdresse = document.createElement("li");
                                                             profileAdresse.classList.add("profile-adress");
                                                             profileAdresse.textContent = BestAdresseNote[i].adresse.adresse;
                                                             ul.appendChild(profileAdresse);
-
                                                             var profileSexe = document.createElement("li");
                                                             profileSexe.classList.add("profile-sexe");
                                                             profileSexe.textContent = BestSexeNote[i].sexe.sexe;
                                                             ul.appendChild(profileSexe);
-
                                                             var profileExperience = document.createElement("li");
                                                             profileExperience.classList.add("profile-experience");
                                                             profileExperience.textContent = BestExperienceNote[i].experience.experience;
                                                             ul.appendChild(profileExperience);
-
                                                             var profileSalary = document.createElement("li");
                                                             profileSalary.classList.add("profile-salary");
                                                             profileSalary.textContent = BestSalaireNote[i].salaire.salaire.toLocaleString('fr-FR') + " Ar";
                                                             ul.appendChild(profileSalary);
-
                                                             removeFloating.appendChild(removeIcon);
-
                                                             profileCard.appendChild(removeFloating);
                                                             profileCard.appendChild(profileTitle);
                                                             profileCard.appendChild(ul);
-
                                                             var donneeCard = document.createElement("div");
                                                             donneeCard.classList.add("card");
-
                                                             donneeCard.appendChild(profileCard);
-
                                                             var profileLayout = document.createElement("div");
                                                             profileLayout.classList.add("col-md-3");
                                                             profileLayout.classList.add("stretch-card");
                                                             profileLayout.classList.add("grid-margin");
-
                                                             profileLayout.appendChild(profileCard);
-
                                                             profilListe.appendChild(profileLayout);
                                                         }
 
@@ -950,30 +1008,24 @@
                                                         alert("Une erreur s'est produite lors de la récupération des données.");
                                                     }
                                                 };
-
                                                 // Envoyez la requête AJAX
                                                 xhr.send();
                                             });
                                         });
-
         </script>
 
         <!-- script pour ajouter les données du diplomes -->
         <script>
             document.addEventListener("DOMContentLoaded", function () {
                 var xhr = new XMLHttpRequest();
-
                 // Configurez la requête AJAX
                 xhr.open("GET", "/RessourceHumaine/ProfileServlet", true);
                 xhr.setRequestHeader("Content-Type", "application/json");
-
                 xhr.onload = function () {
                     if (xhr.readyState === 4 && xhr.status === 200) {
                         var responseData = JSON.parse(xhr.responseText);
                         var listeDiplome = responseData.listeDiplome;
-
                         var selectDiplome = document.getElementById("diplomeChoice");
-
                         // Parcourez la liste des diplômes et ajoutez-les au select
                         for (var i = 0; i < listeDiplome.length; i++) {
                             var diplome = listeDiplome[i].diplome;
@@ -986,7 +1038,6 @@
                         alert("Une erreur s'est produite lors de la récupération des données.");
                     }
                 };
-
                 // Envoyez la requête AJAX
                 xhr.send();
             });
@@ -996,18 +1047,14 @@
         <script>
             document.addEventListener("DOMContentLoaded", function () {
                 var xhr = new XMLHttpRequest();
-
                 // Configurez la requête AJAX
                 xhr.open("GET", "/RessourceHumaine/ProfileServlet", true);
                 xhr.setRequestHeader("Content-Type", "application/json");
-
                 xhr.onload = function () {
                     if (xhr.readyState === 4 && xhr.status === 200) {
                         var responseData = JSON.parse(xhr.responseText);
                         var listeAdresse = responseData.listeAdresse;
-
                         var selectAdresse = document.getElementById("adresseChoice");
-
                         // Parcourez la liste des diplômes et ajoutez-les au select
                         for (var i = 0; i < listeAdresse.length; i++) {
                             var adresse = listeAdresse[i].adresse;
@@ -1020,7 +1067,6 @@
                         alert("Une erreur s'est produite lors de la récupération des données.");
                     }
                 };
-
                 // Envoyez la requête AJAX
                 xhr.send();
             });
@@ -1031,18 +1077,14 @@
         <script>
             document.addEventListener("DOMContentLoaded", function () {
                 var xhr = new XMLHttpRequest();
-
                 // Configurez la requête AJAX
                 xhr.open("GET", "/RessourceHumaine/ProfileServlet", true);
                 xhr.setRequestHeader("Content-Type", "application/json");
-
                 xhr.onload = function () {
                     if (xhr.readyState === 4 && xhr.status === 200) {
                         var responseData = JSON.parse(xhr.responseText);
                         var listeExperience = responseData.listeExperience;
-
                         var selectExperience = document.getElementById("experienceChoice");
-
                         // Parcourez la liste des diplômes et ajoutez-les au select
                         for (var i = 0; i < listeExperience.length; i++) {
                             var experience = listeExperience[i].experience;
@@ -1055,7 +1097,6 @@
                         alert("Une erreur s'est produite lors de la récupération des données.");
                     }
                 };
-
                 // Envoyez la requête AJAX
                 xhr.send();
             });
@@ -1065,18 +1106,14 @@
         <script>
             document.addEventListener("DOMContentLoaded", function () {
                 var xhr = new XMLHttpRequest();
-
                 // Configurez la requête AJAX
                 xhr.open("GET", "/RessourceHumaine/ProfileServlet", true);
                 xhr.setRequestHeader("Content-Type", "application/json");
-
                 xhr.onload = function () {
                     if (xhr.readyState === 4 && xhr.status === 200) {
                         var responseData = JSON.parse(xhr.responseText);
                         var listeSalaire = responseData.listeSalaire;
-
                         var selectSalaire = document.getElementById("salaireChoice");
-
                         // Parcourez la liste des diplômes et ajoutez-les au select
                         for (var i = 0; i < listeSalaire.length; i++) {
                             var salaire = listeSalaire[i].salaire;
@@ -1089,7 +1126,6 @@
                         alert("Une erreur s'est produite lors de la récupération des données.");
                     }
                 };
-
                 // Envoyez la requête AJAX
                 xhr.send();
             });
@@ -1099,18 +1135,14 @@
         <script>
             document.addEventListener("DOMContentLoaded", function () {
                 var xhr = new XMLHttpRequest();
-
                 // Configurez la requête AJAX
                 xhr.open("GET", "/RessourceHumaine/ProfileServlet", true);
                 xhr.setRequestHeader("Content-Type", "application/json");
-
                 xhr.onload = function () {
                     if (xhr.readyState === 4 && xhr.status === 200) {
                         var responseData = JSON.parse(xhr.responseText);
                         var listeSexe = responseData.listeSexe;
-
                         var selectSexe = document.getElementById("sexeChoice");
-
                         // Parcourez la liste des diplômes et ajoutez-les au select
                         for (var i = 0; i < listeSexe.length; i++) {
                             var sexe = listeSexe[i].sexe;
@@ -1123,7 +1155,6 @@
                         alert("Une erreur s'est produite lors de la récupération des données.");
                     }
                 };
-
                 // Envoyez la requête AJAX
                 xhr.send();
             });
