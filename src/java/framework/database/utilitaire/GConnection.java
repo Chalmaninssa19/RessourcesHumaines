@@ -4,9 +4,9 @@ import java.sql.*;
 
 public class GConnection {
     public static String type_base="postgres";
-    public static String database="rh";
+    public static String database="gestion_entreprise";
     public static String owner="postgres";
-    public static String password="postgres";
+    public static String password="root";
     public static String port="5432";
     public static String host = "localhost";
     public static String driver="org.postgresql.Driver";

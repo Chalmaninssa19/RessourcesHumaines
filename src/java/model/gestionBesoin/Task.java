@@ -48,6 +48,11 @@ public class Task extends Model {
 ///Constructors
     public Task() {
     }
+    
+    public Task(String task, Integer status) {
+        this.task = task;
+        this.status = status;
+    }
     public Task(Besoin besoin, String task, Integer status) {
         this.besoin = besoin;
         this.task = task;
