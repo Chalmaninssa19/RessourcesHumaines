@@ -20,10 +20,6 @@
         <servlet-name>AddWorkLoadServlet</servlet-name>
         <servlet-class>servlet.besoin.AddWorkLoadServlet</servlet-class>
     </servlet>
-    <servlet>
-        <servlet-name>AddBesoin</servlet-name>
-        <servlet-class>servlet.besoin.AddBesoin</servlet-class>
-    </servlet>
     <servlet-mapping>
         <servlet-name>AddBesoinServlet</servlet-name>
         <url-pattern>/addBesoinServlet</url-pattern>
@@ -41,12 +37,9 @@
         <url-pattern>/addWorkLoad</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>AddWorkLoadServlet</servlet-name>
+        <servlet-name
+        >AddWorkLoadServlet</servlet-name>
         <url-pattern>/addWorkLoadServlet</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>AddBesoin</servlet-name>
-        <url-pattern>/addBesoin</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

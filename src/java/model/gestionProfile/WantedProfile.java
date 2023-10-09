@@ -13,7 +13,6 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import model.Model;
-import model.gestionBesoin.Besoin;
 import model.requis.Service;
 
 /**
@@ -22,10 +21,9 @@ import model.requis.Service;
  */
 public class WantedProfile extends Model {
 
-    private int idWantedProfile;
+    @Champs
     private String poste;
-    private Service service;
-    private int status;
+    private int idService;
     private List<DiplomeNote> diplomeNote;
     private List<ExperienceNote> experienceNote;
     private List<SalaireNote> salaireNote;
@@ -33,38 +31,26 @@ public class WantedProfile extends Model {
     private List<AdresseNote> adresseNote;
 
 ///Getters and setters
-    public int getIdWantedProfile() {
-        return idWantedProfile;
-    }
-    public void setIdWantedProfile(int idWantedProfile) {
-        this.idWantedProfile = idWantedProfile;
-    }
-
-    public Service getService() {
-        return service;
-    }
-    public void setService(Service service) {
-        this.service = service;
-    }
-    
-    
     public String getPoste() {
         return poste;
     }
+
     public void setPoste(String poste) {
         this.poste = poste;
     }
 
-    public int getStatus() {
-        return status;
+    public int getService() {
+        return idService;
     }
-    public void setStatus(int status) {
-        this.status = status;
+
+    public void setService(int service) {
+        this.idService = service;
     }
 
     public List<DiplomeNote> getDiplomeNote() {
         return diplomeNote;
     }
+
     public void setDiplomeNote(List<DiplomeNote> diplomeNote) {
         this.diplomeNote = diplomeNote;
     }
@@ -72,13 +58,15 @@ public class WantedProfile extends Model {
     public List<ExperienceNote> getExperienceNote() {
         return experienceNote;
     }
+
     public void setExperienceNote(List<ExperienceNote> experienceNote) {
         this.experienceNote = experienceNote;
     }
-    
+
     public List<SalaireNote> getSalaireNote() {
         return salaireNote;
     }
+
     public void setSalaireNote(List<SalaireNote> salaireNote) {
         this.salaireNote = salaireNote;
     }
@@ -86,6 +74,7 @@ public class WantedProfile extends Model {
     public List<SexeNote> getSexeNote() {
         return sexeNote;
     }
+
     public void setSexeNote(List<SexeNote> sexeNote) {
         this.sexeNote = sexeNote;
     }
@@ -93,6 +82,7 @@ public class WantedProfile extends Model {
     public List<AdresseNote> getAdresseNote() {
         return adresseNote;
     }
+
     public void setAdresseNote(List<AdresseNote> adresseNote) {
         this.adresseNote = adresseNote;
     }
@@ -101,9 +91,9 @@ public class WantedProfile extends Model {
     public WantedProfile() {
     }
 
-    public WantedProfile(String poste, Service service) {
+    public WantedProfile(String poste, int idService) {
         this.poste = poste;
-        this.service = service;
+        this.idService = idService;
     }
 
 ///Fonctions
@@ -201,21 +191,5 @@ public class WantedProfile extends Model {
                 con.close();
             }
         }
-    }
-    
-    //Recuperer un wantedProfil par son id
-    public static WantedProfile getById(Connection conn, Integer idWantedProfile) throws Exception {
-        Statement work = conn.createStatement();
-        String req = "select * from wanted_profile where id_wanted_profile = "+idWantedProfile;
-        ResultSet result = work.executeQuery(req);
-        WantedProfile wp = new WantedProfile();
-        while(result.next()) {
-            wp.setIdWantedProfile(result.getInt(1));
-            wp.setPoste(result.getString(2));
-            wp.setService(Service.getById(conn, result.getInt(3)));
-            wp.setStatus(result.getInt(4));
-        }
-        
-        return wp;
     }
 }

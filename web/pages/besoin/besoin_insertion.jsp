@@ -548,6 +548,24 @@
                                 <h4 class="card-title mb-4">Liste des ancien profiles existants</h4>
                                 <div class="row profile-list">
 
+                                    <div class="col-md-3 stretch-card grid-margin" onclick="clicked(0)">
+                                        <div class="card ">
+                                            <div class="profile-card">
+                                                <div class="remove-floating">
+                                                    <i class="remove mdi mdi-close-circle-outline"></i>
+                                                </div>
+                                                <h5 class="profile-title">Développeur JAVA</h5>
+                                                <ul>
+                                                    <li class="profile-diplome">Master en Informatique</li>
+                                                    <li class="profile-experience">5 ans d'éxperience</li>
+                                                    <li class="profile-salary">2 200 000 Ar</li>
+                                                    <li class="profile-sexe">Male</li>
+                                                    <li class="profile-adress">Andoharanofotsy</li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+
                                     <div class="col-md-3 stretch-card grid-margin" onclick="clicked(1)">
                                         <div class="card ">
                                             <div class="profile-card">
@@ -567,24 +585,6 @@
                                     </div>
 
                                     <div class="col-md-3 stretch-card grid-margin" onclick="clicked(2)">
-                                        <div class="card ">
-                                            <div class="profile-card">
-                                                <div class="remove-floating">
-                                                    <i class="remove mdi mdi-close-circle-outline"></i>
-                                                </div>
-                                                <h5 class="profile-title">Développeur JAVA</h5>
-                                                <ul>
-                                                    <li class="profile-diplome">Master en Informatique</li>
-                                                    <li class="profile-experience">5 ans d'éxperience</li>
-                                                    <li class="profile-salary">2 200 000 Ar</li>
-                                                    <li class="profile-sexe">Male</li>
-                                                    <li class="profile-adress">Andoharanofotsy</li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-md-3 stretch-card grid-margin" onclick="clicked(3)">
                                         <div class="card ">
                                             <div class="profile-card">
                                                 <div class="remove-floating">
@@ -632,7 +632,7 @@
                                     <form id="formTask" class="forms-sample" method="post" accept-charset="UTF-8">
                                         <div class="form-group">
                                             <label for="besoinDescription">Description du besoin</label>
-                                            <textarea name="description" id="description" class="form-control" cols="30"
+                                            <textarea name="description" id="besoinDescription" class="form-control" cols="30"
                                                 rows="10"></textarea>
                                         </div>
                                         <div class="form-group">
@@ -643,8 +643,8 @@
                                                         placeholder="Nouvelle tache">
                                                 </div>
                                                 <div class="col-md-6">
-                                                    <button  
-                                                       class="btn btn-gradient-primary me-2">Ajouter</button>
+                                                    <button type="submit"
+                                                        class="btn btn-gradient-primary me-2">Ajouter</button>
                                                 </div>
                                             </div>
                                         </div>
@@ -668,7 +668,7 @@
                                     <button data-bs-toggle="modal" data-bs-target="#exampleModal"
                                         class="btn btn-gradient-primary me-1">Choisir le
                                         profil</button>
-                                    <form id="formWorkLoad" class="forms-sample mt-3" action="addBesoinServlet" method="post"> 
+                                    <form id="formWorkLoad" class="forms-sample mt-3" method="post"> 
                                         <div class="row d-flex align-items-start">
                                             <div class="form-group col-md-4">
                                                 <label for="volumeHorraire">Volume horraire</label>
@@ -685,7 +685,7 @@
                                             </div>
                                             <div class="form-group col-md-4">
                                                 <label for="unitySelect">Unité</label>
-                                                <button
+                                                <button onclick="workLoaded()"
                                                     class="btn btn-gradient-primary me-2">Ajouter</button>
                                             </div>
                                         </div>
@@ -696,9 +696,9 @@
                                                 </table>
                                             </div>
                                         </div>
+                                        <button type="submit" class="btn btn-gradient-primary me-2">Envoye du
+                                            besoin</button>
                                     </form>
-                                    <button onclick="sendBesoin()" class="btn btn-gradient-primary me-2">Envoye du
-                                        besoin</button>
                                 </div>
                             </div>
                         </div>
@@ -817,11 +817,11 @@
             valueEnter.appendChild(listItem);
         
         };
-        function createTableworkLoad(table, poste, horaire, unity) {
+        function createTableworkLoad(table, horaire, unity) {
             var tr = document.createElement("tr");
 
             var td1 = document.createElement("td");
-            td1.textContent = poste;
+            td1.textContent = "Développeur fullstack JS";
 
             var td2 = document.createElement("td");
             td2.textContent = horaire + " " + unity;
@@ -837,7 +837,6 @@
 
             var td4 = document.createElement("td");
             var logoDelete = document.createElement("i");
-            logoDelete.setAttribute("onclick", "removeWorkLoad(this)");
             logoDelete.classList.add("list-action");
             logoDelete.classList.add("danger");
             logoDelete.classList.add("mdi");
@@ -850,93 +849,6 @@
             tr.appendChild(td4);
             table.appendChild(tr);
         };
-        
-        function removeWorkLoad(logo) {
-            var parentElement = logo.parentNode;
-            var parent = parentElement.parentNode;
-            parent.parentNode.removeChild(parent);
-            var poste = parent.cells[0].textContent;
-            var hu = parent.cells[1].textContent.split(' ');
-            var volumeHorraire = hu[0];
-            var unity = hu[1];
-            
-            
-            var xhr = new XMLHttpRequest();
-            xhr.open('GET', './addWorkLoadServlet?poste='+poste+'&vh='+volumeHorraire+'&unity='+unity, true);
-            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
-
-            xhr.onreadystatechange = function() {
-                if (xhr.readyState === XMLHttpRequest.DONE) {
-                    if (xhr.status === 200) {
-                        // Traitement de la réponse si nécessaire
-                        console.log('Réponse du serveur : ' + xhr.responseText);
-                    } else {
-                        console.error('Une erreur s\'est produite : ' + xhr.status);
-                    }
-                }
-            };
-            
-            xhr.send();
-        
-        }
-        
-        // Fonction pour ajouter une tâche de travail
-            function addWorkLoad() {
-                var volumeHorraire = document.getElementById("volumeHorraire").value;
-                var unitySelect = document.getElementById("unitySelect").value;
-
-                var xhr = new XMLHttpRequest();
-                xhr.open('POST', './addWorkLoadServlet', true);
-                xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
-
-                xhr.onreadystatechange = function() {
-                    if (xhr.readyState === XMLHttpRequest.DONE) {
-                        if (xhr.status === 200) {
-                            const res = xhr.responseText.split('&');
-                            createTableworkLoad(tableWorkLoad, res[0], volumeHorraire, res[1]);
-                        } else {
-                            console.error('Une erreur s\'est produite : ' + xhr.status);
-                        }
-                    }
-                };
-
-                // Créez une chaîne de requête avec les données du formulaire
-                var formData = 'volumeHorraire=' + encodeURIComponent(volumeHorraire) +'&unitySelect=' + encodeURIComponent(unitySelect);
-
-                // Envoyez la requête
-                xhr.send(formData);
-            }
-
-            // Ajoutez un gestionnaire d'événements au formulaire
-            document.getElementById('formWorkLoad').addEventListener('submit', function(event) {
-                event.preventDefault();  // Empêche le rechargement de la page
-                addWorkLoad();
-            });
-
-            function sendBesoin() {
-                var descri = document.getElementById("description").value;
-                
-                 var xhr = new XMLHttpRequest();
-                xhr.open('POST', './addBesoinServlet', true);
-                xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
-                xhr.onreadystatechange = function() {
-                    if (xhr.readyState === XMLHttpRequest.DONE) {
-                        if (xhr.status === 200) {
-
-                        } else {
-                            console.error('Une erreur s\'est produite : ' + xhr.status);
-                        }
-                    }
-                };
-
-                // Créez une chaîne de requête avec les données du formulaire
-                var formData = 'descri=' + encodeURIComponent(descri);
-
-                // Envoyez la requête
-                xhr.send(formData);
-                
-            }
-        
 
                 //Ajouter une tache
                 document.getElementById('formTask').addEventListener('submit', function(event) {
@@ -962,6 +874,16 @@
 
                 // Envoyez la requête
                 xhr.send(formData);
+            });
+
+
+            //Ajouter une charge de travail
+            var form = document.getElementById("formWorkLoad");
+            form.addEventListener("submit", function(event) {
+                event.preventDefault();  // Empêche la soumission du formulaire
+                var volumeHorraire = document.getElementById("volumeHorraire").value;
+                var unitySelect = document.getElementById("unitySelect").value;
+                createTableworkLoad(tableWorkLoad, volumeHorraire, unitySelect);
             });
     </script>  
     <!-- End custom js for this page -->

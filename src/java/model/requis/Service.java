@@ -56,6 +56,16 @@ public class Service {
         this.status = status;
     }
 
+    public int getIdService() {
+        return idService;
+    }
+
+    public void setIdService(int idService) {
+        this.idService = idService;
+    }
+    
+    
+
 ///Constructors
     public Service() {
     }

@@ -4,16 +4,10 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/home/chalman/Documents/GitHub/RessourcesHumaines/src/java/servlet/besoin/BesoinServlet.java</file>
-            <file>file:/home/chalman/Documents/GitHub/RessourcesHumaines/src/java/model/gestionProfile/WantedProfile.java</file>
-            <file>file:/home/chalman/Documents/GitHub/RessourcesHumaines/src/java/model/gestionBesoin/WorkLoad.java</file>
-            <file>file:/home/chalman/Documents/GitHub/RessourcesHumaines/src/java/model/gestionBesoin/Besoin.java</file>
-            <file>file:/home/chalman/Documents/GitHub/RessourcesHumaines/src/java/servlet/profil/AjaxProfileServlet.java</file>
-            <file>file:/home/chalman/Documents/GitHub/RessourcesHumaines/src/java/model/gestionBesoin/Task.java</file>
-            <file>file:/home/chalman/Documents/GitHub/RessourcesHumaines/src/java/servlet/besoin/AddWorkLoadServlet.java</file>
-            <file>file:/home/chalman/Documents/GitHub/RessourcesHumaines/src/java/model/gestionBesoin/Unity.java</file>
+            <file>file:/home/chalman/Documents/GitHub/RessourcesHumaines/src/java/servlet/besoin/AddTaskServlet.java</file>
             <file>file:/home/chalman/Documents/GitHub/RessourcesHumaines/src/java/servlet/besoin/AddBesoinServlet.java</file>
+            <file>file:/home/chalman/Documents/GitHub/RessourcesHumaines/src/java/servlet/besoin/AddWorkLoadServlet.java</file>
             <file>file:/home/chalman/Documents/GitHub/RessourcesHumaines/src/java/servlet/besoin/ProfileValidedServlet.java</file>
-            <file>file:/home/chalman/Documents/GitHub/RessourcesHumaines/src/java/model/requis/Service.java</file>
         </group>
     </open-files>
 </project-private>
