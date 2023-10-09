@@ -16,10 +16,18 @@ import framework.database.utilitaire.GConnection;
 import java.util.ArrayList;
 import java.sql.Date;
 import jakarta.servlet.RequestDispatcher;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpSession;
+import java.time.LocalDate;
+import model.gestionBesoin.Besoin;
+import model.gestionBesoin.Task;
+import model.gestionBesoin.WorkLoad;
+import model.requis.Service;
 /**
  *
  * @author ITU
  */
+@WebServlet(name = "AddBesoinServlet", urlPatterns = {"/addBesoinServlet"})
 public class AddBesoinServlet extends HttpServlet {
 
     /**
@@ -48,9 +56,25 @@ public class AddBesoinServlet extends HttpServlet {
      protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException  { 
         res.setContentType("text/plain");
         PrintWriter out = res.getWriter();
-        //req.setAttribute("message", "post");
        try {
-               
+           Connection conn = GConnection.getSimpleConnection();
+           
+           HttpSession session = req.getSession();
+           Service service = (Service)session.getAttribute("service");
+           Besoin besoin = (Besoin)session.getAttribute("besoin");
+           String description = req.getParameter("descri");
+           LocalDate dateActuel = LocalDate.now();
+           besoin.setService(service);
+           besoin.setCreationDate(dateActuel);
+           besoin.setDescription(description);
+           besoin.setStatus(1);
+           besoin.create(conn);
+           Besoin lastBesoin = Besoin.getLastBesoin(conn);
+           Task.insertListTask(conn, besoin.getTasks(), lastBesoin);
+           WorkLoad.insertListWorkLoad(conn, besoin.getWorkLoad(), lastBesoin);
+           
+           conn.close();
+           
        }catch(Exception exe){
             String message = exe.getMessage();
             exe.printStackTrace();

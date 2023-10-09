@@ -44,10 +44,12 @@ public class BesoinServlet extends HttpServlet {
         // Add attribute to request
           try {
               Connection connex = GConnection.getSimpleConnection();
+              
               HttpSession session = request.getSession();
               Besoin besoin = new Besoin();
               session.setAttribute("besoin", besoin);
               Service service = Service.getById(connex, 1);
+              session.setAttribute("service", service);
                              
               ArrayList<Unity> unitys = Unity.getAll(connex);
               request.setAttribute("service", service);
