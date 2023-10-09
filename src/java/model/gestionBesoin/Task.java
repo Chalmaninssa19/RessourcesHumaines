@@ -5,25 +5,30 @@
  */
 package model.gestionBesoin;
 
-import framework.database.annotation.Champs;
-import framework.database.utilitaire.GConnection;
 import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.ArrayList;
-import model.Model;
+import java.util.List;
 
 /**
  *
  * @author Chalman
  */
-public class Task extends Model {
-    @Champs(mapcol="id", name="idBesoin")
+public class Task {
+    private Integer idTask;
     private Besoin besoin;
-    @Champs
     private String task;
-    @Champs
     private Integer status;
     
 ///Getters and setters
+    public Integer getIdTask() {
+        return idTask;
+    }
+    public void setIdTask(Integer idTask) {
+        this.idTask = idTask;
+    }
+    
     public Besoin getBesoin() {    
         return besoin;
     }
@@ -58,39 +63,76 @@ public class Task extends Model {
         this.task = task;
         this.status = status;
     }
-    
-///Fonctions
-    //Creer un bateau dans la base
-    public void create (Connection con) throws Exception{
-        boolean b = true ;
-        try{
-                if (con==null){
-                    con = GConnection.getSimpleConnection();
-                    b = false ;
-                }
-                con.setAutoCommit(false);
-                int zoneId = this.sequence("idTaskSeq",con);
-                this.setId(zoneId);
-                super.create(con);
-                con.commit();
-        }catch (Exception exe) {
-            //System.out.println(exe.getMessage());
-            con.rollback();
-            throw exe;
-        }finally {
-            if (con!=null && !b){
-                con.close();
-            }
-        }
+
+    public Task(Integer idTask, Besoin besoin, String task, Integer status) {
+        this.idTask = idTask;
+        this.besoin = besoin;
+        this.task = task;
+        this.status = status;
     }
     
-    //Recuperer toutes les taches
-    public ArrayList<Task> getAll(Connection conn)  throws Exception { 
-        return this.findAll(conn);
+///Fonctions
+    //Creer une tache
+    public void create(Connection conn)  throws Exception { 
+        Statement work = conn.createStatement();
+        String req = "INSERT INTO task (id_task, id_besoin, task, status) VALUES (DEFAULT,"+this.getBesoin().getIdBesoin()+",'"+this.getTask()+"', "+this.getStatus()+")";
+        work.execute(req);
+        conn.setAutoCommit(true);
+    }
+    
+    //Avoir toutes les taches
+    public static ArrayList<Task> getAll(Connection conn)  throws Exception { 
+        Statement work = conn.createStatement();
+        String req = "select * from task";
+        ResultSet result = work.executeQuery(req);
+        ArrayList<Task> tasks = new ArrayList<>();
+        int i = 1;
+        while(result.next()) {
+            Task task = new Task(result.getInt(1), Besoin.getById(conn,result.getInt(2)), result.getString(3), result.getInt(4));
+            tasks.add(task);
+        }
+        
+        return tasks;
     }
     
     //Recuperer une tache par son id
-    public Task findById(Connection conn, Integer idTache) throws Exception {
-        return this.findOneWhere(conn, "id ="+idTache);
+    public static Task getById(Connection conn, Integer idBesoin) throws Exception {
+        Statement work = conn.createStatement();
+        String req = "select * from task where id_task = "+idBesoin;
+        ResultSet result = work.executeQuery(req);
+        Task task = new Task();
+        int i = 1;
+        while(result.next()) {
+            task.setIdTask(result.getInt(1));
+            task.setBesoin(Besoin.getById(conn, result.getInt(2)));
+            task.setTask(result.getString(3));
+            task.setStatus(result.getInt(4));
+        }
+        
+        return task;
+    }
+    
+    //Modifier un tache
+    public void update(Connection conn)  throws Exception { 
+        Statement work = conn.createStatement();
+        String req = "UPDATE task SET besoin="+this.getBesoin().getIdBesoin()+", description='"+this.getTask()+"', status="+this.getStatus()+" WHERE id_task="+this.getIdTask();
+        work.execute(req);
+        conn.setAutoCommit(true);
+    }
+    
+    //Supprimer une tache
+    public void delete(Connection conn)  throws Exception { 
+        Statement work = conn.createStatement();
+        String req = "DELETE from task WHERE id_task="+this.getIdTask();
+        work.execute(req);
+        conn.setAutoCommit(true);
+    }
+    
+    //Inserer une liste des taches
+    public static void insertListTask(Connection conn, List<Task> listTask, Besoin besoin) throws Exception {
+        for(int i = 0; i < listTask.size(); i++) {
+            listTask.get(i).setBesoin(besoin);
+            listTask.get(i).create(conn);
+        }
     }
 }

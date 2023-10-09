@@ -5,6 +5,7 @@
  */
 package servlet.besoin;
 
+import framework.database.utilitaire.GConnection;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -14,6 +15,8 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpSession;
+import java.sql.Connection;
+import model.gestionProfile.WantedProfile;
 
 @WebServlet(name = "ProfileValidedServlet", urlPatterns = {"/profileValidedServlet"})
 public class ProfileValidedServlet extends HttpServlet {
@@ -35,10 +38,14 @@ public class ProfileValidedServlet extends HttpServlet {
           res.setContentType("text/plain");
           PrintWriter out = res.getWriter();
           try {
+                Connection conn = GConnection.getSimpleConnection();
+                
                 String idValue = req.getParameter("idValue");
+                WantedProfile wp = WantedProfile.getById(conn, Integer.valueOf(idValue));
                 HttpSession session = req.getSession();
-                session.setAttribute("idProfileValided", idValue);
-                out.print(idValue);
+                session.setAttribute("profileValided", wp);
+                
+                conn.close();
           } catch (Exception exe) {
                req.setAttribute("erreur", exe.getMessage());
           }

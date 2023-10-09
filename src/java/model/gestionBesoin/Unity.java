@@ -89,4 +89,20 @@ public class Unity {
         return unity;
     }
     
+     //Recuperer une unity par son nom
+    public static Unity getByName(Connection conn, String unityValue) throws Exception {
+        Statement work = conn.createStatement();
+        String req = "select * from unity where unity = '"+unityValue+"'";
+        ResultSet result = work.executeQuery(req);
+        Unity unity = new Unity();
+        int i = 1;
+        while(result.next()) {
+            unity.setIdUnity(result.getInt(1));
+            unity.setUnity(result.getString(2));
+            unity.setStatus(result.getInt(3));
+        }
+        
+        return unity;
+    }
+    
 }

@@ -9,6 +9,8 @@ import java.sql.Connection;
 import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import model.Model;
@@ -21,7 +23,7 @@ import model.requis.Service;
 public class Besoin extends Model {
     private Integer idBesoin;
     private Service service;
-    private Date creationDate;
+    private LocalDate creationDate;
     private String description;
     private List<Task> tasks = new ArrayList<>();
     private List<WorkLoad> workLoad = new ArrayList<>();
@@ -42,11 +44,16 @@ public class Besoin extends Model {
         this.service = service;
     }
 
-    public Date getCreationDate() {
+    public LocalDate getCreationDate() {
         return creationDate;
     }
-    public void setCreationDate(Date creationDate) {
+    public void setCreationDate(LocalDate creationDate) {
         this.creationDate = creationDate;
+    }
+    public void setCreationDate(String date) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDate dateCreation = LocalDate.parse(date, formatter);
+        this.setCreationDate(dateCreation);
     }
 
     public String getDescription() {
@@ -81,7 +88,7 @@ public class Besoin extends Model {
     public Besoin (){
     }
 
-    public Besoin(Integer idBesoin, Service service, Date creationDate, String description, Integer status) {
+    public Besoin(Integer idBesoin, Service service, LocalDate creationDate, String description, Integer status) {
         this.idBesoin = idBesoin;
         this.service = service;
         this.creationDate = creationDate;
@@ -89,7 +96,7 @@ public class Besoin extends Model {
         this.status = status;
     }
     
-    public Besoin(Service service, Date creationDate, String description, Integer status) {
+    public Besoin(Service service, LocalDate creationDate, String description, Integer status) {
         this.service = service;
         this.creationDate = creationDate;
         this.description = description;
@@ -100,7 +107,7 @@ public class Besoin extends Model {
     //Creer un besoin
     public void create(Connection conn)  throws Exception { 
         Statement work = conn.createStatement();
-        String req = "INSERT INTO besoin (id_besoin, id_service, creation_date, description, status) VALUES (DEFAULT,"+this.getService().getIdService()+","+this.getCreationDate()+","+this.getDescription()+","+this.getStatus()+")";
+        String req = "INSERT INTO besoin (id_besoin, id_service, creation_date, description, status) VALUES (DEFAULT,"+this.getService().getIdService()+",'"+this.getCreationDate()+"','"+this.getDescription()+"',"+this.getStatus()+")";
         work.execute(req);
         conn.setAutoCommit(true);
     }
@@ -113,7 +120,7 @@ public class Besoin extends Model {
         ArrayList<Besoin> besoins = new ArrayList<>();
         int i = 1;
         while(result.next()) {
-            Besoin besoin = new Besoin(result.getInt(1), Service.getById(conn,result.getInt(2)), result.getDate(3), result.getString(4), result.getInt(5));
+            Besoin besoin = new Besoin(result.getInt(1), Service.getById(conn,result.getInt(2)), Besoin.getLocalDate(result.getString(3)), result.getString(4), result.getInt(5));
             besoins.add(besoin);
         }
         
@@ -130,7 +137,7 @@ public class Besoin extends Model {
         while(result.next()) {
             besoin.setIdBesoin(result.getInt(1));
             besoin.setService(Service.getById(conn, result.getInt(2)));
-            besoin.setCreationDate(result.getDate(3));
+            besoin.setCreationDate(result.getString(3));
             besoin.setDescription(result.getString(4));
             besoin.setStatus(result.getInt(5));
         }
@@ -144,6 +151,24 @@ public class Besoin extends Model {
         String req = "UPDATE besoin SET id_service="+this.getService().getIdService()+", creation_date="+this.getCreationDate()+", description='"+this.getDescription()+"', status="+this.getStatus()+" WHERE id_besoin="+this.getIdBesoin();
         work.execute(req);
         conn.setAutoCommit(true);
+    }
+    
+    //Recuperer le dernier besoin insere
+    public static Besoin getLastBesoin(Connection conn) throws Exception {
+        Statement work = conn.createStatement();
+        String req = "SELECT * FROM besoin ORDER BY id_besoin DESC LIMIT 1";
+        ResultSet result = work.executeQuery(req);
+        Besoin besoin = new Besoin();
+        int i = 1;
+        while(result.next()) {
+            besoin.setIdBesoin(result.getInt(1));
+            besoin.setService(Service.getById(conn, result.getInt(2)));
+            besoin.setCreationDate(result.getString(3));
+            besoin.setDescription(result.getString(4));
+            besoin.setStatus(result.getInt(5));
+        }
+        
+        return besoin;
     }
     
     //Supprimer un besoin
@@ -175,14 +200,23 @@ public class Besoin extends Model {
         this.getWorkLoad().add(workLoad);
     }
     
-     //Supprimer une charge de travail
+    //Supprimer une charge de travail
     public void delWorkLoad(WorkLoad workLoad) {
-        /*ArrayList<WorkLoad> workLoads = new ArrayList<>();
+        ArrayList<WorkLoad> workLoads = new ArrayList<>();
+    
         for(int i = 0; i < this.getWorkLoad().size(); i++) {
-            if(!this.getWorkLoad().get(i).getWorkLoad().equalsIgnoreCase(task.getTask())) {
-                tasks.add(this.getTasks().get(i));
+            if(!this.getWorkLoad().get(i).getWantedProfile().getPoste().equalsIgnoreCase(workLoad.getWantedProfile().getPoste())) {
+                workLoads.add(this.getWorkLoad().get(i));
             }
         }
-        this.setTasks(tasks);*/
+        this.setWorkLoad(workLoads);
+    }
+    
+    //Transformer un string en localDate
+    public static LocalDate getLocalDate(String date) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDate dateCreation = LocalDate.parse(date, formatter);
+        
+        return dateCreation;
     }
 }
