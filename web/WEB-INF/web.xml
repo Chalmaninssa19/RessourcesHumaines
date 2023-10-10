@@ -16,6 +16,26 @@
         <servlet-name>DeleteProfileServlet</servlet-name>
         <servlet-class>servlet.profil.DeleteProfileServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>PersonalInformationInsertionServlet</servlet-name>
+        <servlet-class>servlet.candidature.PersonalInformationInsertionServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ProfessionalCareerInsertionServlet</servlet-name>
+        <servlet-class>servlet.candidature.ProfessionalCareerInsertionServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>FormationPathInsertionServlet</servlet-name>
+        <servlet-class>servlet.candidature.FormationPathInsertionServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>OtherInformationInsertionServlet</servlet-name>
+        <servlet-class>servlet.candidature.OtherInformationInsertionServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>PreviewCandidatureServlet</servlet-name>
+        <servlet-class>servlet.candidature.PreviewCandidatureServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>AjaxProfileServlet</servlet-name>
         <url-pattern>/AjaxProfileServlet</url-pattern>
@@ -31,6 +51,26 @@
     <servlet-mapping>
         <servlet-name>DeleteProfileServlet</servlet-name>
         <url-pattern>/DeleteProfileServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PersonalInformationInsertionServlet</servlet-name>
+        <url-pattern>/PersonalInformationInsertionServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ProfessionalCareerInsertionServlet</servlet-name>
+        <url-pattern>/ProfessionalCareerInsertionServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>FormationPathInsertionServlet</servlet-name>
+        <url-pattern>/FormationPathInsertionServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>OtherInformationInsertionServlet</servlet-name>
+        <url-pattern>/OtherInformationInsertionServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PreviewCandidatureServlet</servlet-name>
+        <url-pattern>/PreviewCandidatureServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

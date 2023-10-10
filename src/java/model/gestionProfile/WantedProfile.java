@@ -97,19 +97,43 @@ public class WantedProfile extends Model {
     }
 
 ///Fonctions
-    
     // delete wanted_profile
-    public void deleteWantedProfile(int indice,Connection con) throws Exception {
+    public void deleteWantedProfile(int indice, Connection con) throws Exception {
         boolean b = true;
         try {
             if (con == null) {
                 con = GConnection.getSimpleConnection();
                 b = false;
             }
-            String requete = "update wanted_profile set status = 2 where id_wanted_profile = "+indice;
+            String requete = "update wanted_profile set status = 2 where id_wanted_profile = " + indice;
             System.out.println(requete);
             Statement s = con.createStatement();
             s.executeUpdate(requete);
+        } catch (Exception exe) {
+            throw exe;
+        } finally {
+            if (con != null && !b) {
+                con.close();
+            }
+        }
+    }
+
+    // avoir la liste des postes
+    public List<String> getAllPost(Connection con) throws Exception {
+        boolean b = true;
+        try {
+            if (con == null) {
+                con = GConnection.getSimpleConnection();
+                b = false;
+            }
+            List<String> listePoste = new ArrayList<>();
+            Statement s = con.createStatement();
+            ResultSet rs = s.executeQuery("SELECT poste from wanted_profile where status = 1");
+            while (rs.next()) {
+                listePoste.add(rs.getString(1));
+            }
+
+            return listePoste;
         } catch (Exception exe) {
             throw exe;
         } finally {
