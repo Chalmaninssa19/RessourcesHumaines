@@ -3,10 +3,12 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/To/Etude/S5/Mr_Tovo/RessourcesHumaines/src/java/servlet/profil/AjaxProfileServlet.java</file>
-            <file>file:/D:/To/Etude/S5/Mr_Tovo/RessourcesHumaines/nbproject/project.xml</file>
-            <file>file:/D:/To/Etude/S5/Mr_Tovo/RessourcesHumaines/src/java/servlet/besoin/AnnonceExportPDFServlet.java</file>
-            <file>file:/D:/To/Etude/S5/Mr_Tovo/RessourcesHumaines/src/java/model/gestionProfile/WantedProfile.java</file>
+            <file>file:/D:/To/Etude/S5/Mr_Tovo/RessourcesHumaines/src/java/servlet/quiz/DeleteAnswerServlet.java</file>
+            <file>file:/D:/To/Etude/S5/Mr_Tovo/RessourcesHumaines/src/java/servlet/quiz/AddAnswerServlet.java</file>
+            <file>file:/D:/To/Etude/S5/Mr_Tovo/RessourcesHumaines/src/java/model/quiz/Quiz.java</file>
+            <file>file:/D:/To/Etude/S5/Mr_Tovo/RessourcesHumaines/src/java/servlet/quiz/DeleteQuestionServlet.java</file>
+            <file>file:/D:/To/Etude/S5/Mr_Tovo/RessourcesHumaines/src/java/servlet/quiz/AddQuestionServlet.java</file>
+            <file>file:/D:/To/Etude/S5/Mr_Tovo/RessourcesHumaines/src/java/model/quiz/Question.java</file>
         </group>
     </open-files>
 </project-private>

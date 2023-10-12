@@ -9,7 +9,7 @@ public class GConnection {
     public static String type_base = "postgres";
     public static String database = "gestion_entreprise";
     public static String owner = "postgres";
-    public static String password = "prom15";
+    public static String password = "admin";
     public static String port = "5432";
     public static String host = "localhost";
     public static String driver = "org.postgresql.Driver";

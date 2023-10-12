@@ -48,6 +48,14 @@
             }
         }
 
+        .answer-insertion {
+            margin-left: 2.75rem;
+            border: none;
+            width: 100%;
+            font-size: 0.875rem;
+            border-bottom: solid 1px #b66dff;
+        }
+
         .remove {
             .remove-button {
                 width: 20px !important;
@@ -60,4 +68,10 @@
         }
 
     }
+}
+
+.error-text {
+    color: rgb(250, 104, 104);
+    font-size: 12px;
+    margin: 10px 0px;
 }

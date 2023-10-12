@@ -77,3 +77,11 @@ INSERT INTO answer (id_answer, id_question, answer, value) VALUES
 (17, 7, 'Analyser-Verifier-Trouver', 1), 
 (18, 7, 'Voir n''importe ou', 0), 
 (19, 7, 'Regarder le camera de surveillance', 0); 
+
+-- View joignant le quiz et son service
+CREATE VIEW v_quiz_full_info AS
+SELECT 
+    q.*, s.service, s.fonction, s.status as service_status, quiz_type
+FROM 
+    quiz q JOIN service s ON q.id_service = s.id_service
+    JOIN quiz_type qt ON q.id_quiz_type = qt.id_quiz_type;

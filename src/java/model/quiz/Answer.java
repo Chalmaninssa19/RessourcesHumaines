@@ -4,6 +4,12 @@
  */
 package model.quiz;
 
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  *
  * @author To Mamiarilaza
@@ -48,4 +54,45 @@ public class Answer {
         this.value = value;
     }
     
+/// methods
+    
+    // Changer la valeur d'une réponse
+    public void changeValue(int newValue) {
+        setValue(newValue);
+    }
+    
+    // Avoir les réponses a une question
+    public static List<Answer> getAllAnswer(int idQuestion, Connection connection) throws Exception {
+        List<Answer> answers = new ArrayList<>();
+        String query = "SELECT * FROM answer WHERE id_question = %d";
+        query = String.format(query, idQuestion);
+        
+        Statement statement = null;
+        ResultSet resultset = null;
+        
+        try {
+            statement = connection.createStatement();
+            resultset = statement.executeQuery(query);
+            
+            while(resultset.next()) {
+                int idAnswer = resultset.getInt("id_answer");
+                String answerDeclaration = resultset.getString("answer");
+                int value = resultset.getInt("value");
+                
+                Answer answer = new Answer(idAnswer, answerDeclaration, value);
+                
+                answers.add(answer);
+            }
+            
+            resultset.close();
+            statement.close();
+            
+            return answers;
+        } catch (Exception e) {
+            if (resultset != null) resultset.close();
+            if (statement != null) statement.close();
+            if (connection != null) connection.close();
+            throw e;
+        }
+    }
 }

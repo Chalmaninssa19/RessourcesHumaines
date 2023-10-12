@@ -38,6 +38,13 @@
 .answer-list .answer .form-check .form-check-label {
   margin-left: 2.75rem;
 }
+.answer-list .answer .answer-insertion {
+  margin-left: 2.75rem;
+  border: none;
+  width: 100%;
+  font-size: 0.875rem;
+  border-bottom: solid 1px #b66dff;
+}
 .answer-list .answer .remove .remove-button {
   width: 20px !important;
   height: 20px !important;
@@ -45,4 +52,10 @@
   padding: 0 !important;
   margin-right: 1rem;
   margin-left: 2rem;
+}
+
+.error-text {
+  color: rgb(250, 104, 104);
+  font-size: 12px;
+  margin: 10px 0px;
 }/*# sourceMappingURL=quiz_creation.css.map */
