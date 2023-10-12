@@ -52,6 +52,35 @@ public class ExperienceNote extends Model {
     }
 
 ///Fonctions
+    //avoir la note correspondant aux experiences selectionnés
+    public double getExperienceNote(Connection con, int idWantedProfile, String experiences) throws Exception {
+        boolean b = true;
+        double note = 0.0;
+        try {
+            if (con == null) {
+                con = GConnection.getSimpleConnection();
+                b = false;
+            }
+            String request = "select note from experience_note where id_wanted_profile=" + idWantedProfile + " and id_experience=" + new Experience().getIdByName(experiences, null);
+            System.out.println(request);
+
+            Statement s = con.createStatement();
+            ResultSet rs = s.executeQuery(request);
+            if (rs.next()) {
+                note = rs.getDouble(1);
+            } else {
+                note = 0.0;
+            }
+        } catch (Exception exe) {
+            throw exe;
+        } finally {
+            if (con != null && !b) {
+                con.close();
+            }
+        }
+        return note;
+    }
+
     //inserer experienceNote
     public void createExperienceNote(int id_wanted_profile, int id_experience, Connection con) throws Exception {
         boolean b = true;

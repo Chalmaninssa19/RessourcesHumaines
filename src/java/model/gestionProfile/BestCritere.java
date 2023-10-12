@@ -12,6 +12,7 @@ import java.util.List;
  * @author Fy Botas
  */
 public class BestCritere {
+    List<Integer> listeIdWp;
     List<String> listePost;
     List<DiplomeNote> listeDiplomeNote;
     List<AdresseNote> listeAdresseNote;
@@ -19,7 +20,8 @@ public class BestCritere {
     List<SalaireNote> listeSalaireNote;
     List<ExperienceNote> listeExperienceNote;
 
-    public BestCritere(List<String> listePost, List<DiplomeNote> listeDiplomeNote, List<AdresseNote> listeAdresseNote, List<SexeNote> listeSexeNote, List<SalaireNote> listeSalaireNote, List<ExperienceNote> listeExperienceNote) {
+    public BestCritere(List<Integer> listeIdWp, List<String> listePost, List<DiplomeNote> listeDiplomeNote, List<AdresseNote> listeAdresseNote, List<SexeNote> listeSexeNote, List<SalaireNote> listeSalaireNote, List<ExperienceNote> listeExperienceNote) {
+        this.listeIdWp = listeIdWp;
         this.listePost = listePost;
         this.listeDiplomeNote = listeDiplomeNote;
         this.listeAdresseNote = listeAdresseNote;
@@ -30,7 +32,15 @@ public class BestCritere {
 
     public BestCritere() {
     }
-    
+
+    public List<Integer> getListeIdWp() {
+        return listeIdWp;
+    }
+
+    public void setListeIdWp(List<Integer> listeIdWp) {
+        this.listeIdWp = listeIdWp;
+    }
+
     public List<String> getListePost() {
         return listePost;
     }
@@ -78,6 +88,5 @@ public class BestCritere {
     public void setListeExperienceNote(List<ExperienceNote> listeExperienceNote) {
         this.listeExperienceNote = listeExperienceNote;
     }
-    
-    
+
 }

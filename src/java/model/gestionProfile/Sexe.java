@@ -52,6 +52,11 @@ public class Sexe extends Model {
     }
 
 ///Fonctions
+    
+    public String getSexeString(int id){
+        if(id == 1) return "Homme";
+        else return "Femme";
+    }
     //avoir l'idCorrespondant au sexe choisi
     public int getIdByName(String sexe, Connection con) throws Exception {
         try {

@@ -22,15 +22,25 @@ import model.requis.Service;
 public class WantedProfile extends Model {
 
     @Champs
+    private int idWantedProfile;
     private String poste;
-    private int idService;
+    private Service idService;
     private List<DiplomeNote> diplomeNote;
     private List<ExperienceNote> experienceNote;
     private List<SalaireNote> salaireNote;
     private List<SexeNote> sexeNote;
     private List<AdresseNote> adresseNote;
+    int status;
 
 ///Getters and setters
+    public int getIdWantedProfile() {
+        return idWantedProfile;
+    }
+
+    public void setIdWantedProfile(int idWaantedProfile) {
+        this.idWantedProfile = idWaantedProfile;
+    }
+
     public String getPoste() {
         return poste;
     }
@@ -39,11 +49,11 @@ public class WantedProfile extends Model {
         this.poste = poste;
     }
 
-    public int getService() {
+    public Service getService() {
         return idService;
     }
 
-    public void setService(int service) {
+    public void setService(Service service) {
         this.idService = service;
     }
 
@@ -87,16 +97,92 @@ public class WantedProfile extends Model {
         this.adresseNote = adresseNote;
     }
 
-///Constructors
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
+
+    //Constructors
     public WantedProfile() {
     }
 
-    public WantedProfile(String poste, int idService) {
+    public WantedProfile(String poste, int status) {
+        this.poste = poste;
+        this.status = status;
+    }
+
+    public WantedProfile(String poste, Service idService) {
         this.poste = poste;
         this.idService = idService;
     }
 
+    public WantedProfile(int idWaantedProfile, String poste, Service idService) {
+        this.idWantedProfile = idWaantedProfile;
+        this.poste = poste;
+        this.idService = idService;
+    }
+
+    public WantedProfile(int idWaantedProfile, String poste, Service idService, List<DiplomeNote> diplomeNote, List<ExperienceNote> experienceNote, List<SalaireNote> salaireNote, List<SexeNote> sexeNote, List<AdresseNote> adresseNote) {
+        this.idWantedProfile = idWaantedProfile;
+        this.poste = poste;
+        this.idService = idService;
+        this.diplomeNote = diplomeNote;
+        this.experienceNote = experienceNote;
+        this.salaireNote = salaireNote;
+        this.sexeNote = sexeNote;
+        this.adresseNote = adresseNote;
+    }
+
 ///Fonctions
+    // delete wanted_profile
+    public void deleteWantedProfile(int indice, Connection con) throws Exception {
+        boolean b = true;
+        try {
+            if (con == null) {
+                con = GConnection.getSimpleConnection();
+                b = false;
+            }
+            String requete = "update wanted_profile set status = 2 where id_wanted_profile = " + indice;
+            System.out.println(requete);
+            Statement s = con.createStatement();
+            s.executeUpdate(requete);
+        } catch (Exception exe) {
+            throw exe;
+        } finally {
+            if (con != null && !b) {
+                con.close();
+            }
+        }
+    }
+
+    // avoir la liste des postes
+    public List<WantedProfile> getAll(Connection con) throws Exception {
+        boolean b = true;
+        try {
+            if (con == null) {
+                con = GConnection.getSimpleConnection();
+                b = false;
+            }
+            List<WantedProfile> listePoste = new ArrayList<>();
+            Statement s = con.createStatement();
+            ResultSet rs = s.executeQuery("SELECT * from wanted_profile where status = 1");
+            while (rs.next()) {
+                listePoste.add(new WantedProfile(rs.getInt(1), rs.getString(2), new Service(rs.getInt(3), 1)));
+            }
+
+            return listePoste;
+        } catch (Exception exe) {
+            throw exe;
+        } finally {
+            if (con != null && !b) {
+                con.close();
+            }
+        }
+    }
+
     //find poste par l'id
     public List<String> getPostById(Connection con) throws Exception {
         boolean b = true;
@@ -109,7 +195,7 @@ public class WantedProfile extends Model {
             List<String> listePoste = new ArrayList<>();
             Statement s = con.createStatement();
             for (int i = 0; i < lsIndice.size(); i++) {
-                ResultSet rs = s.executeQuery("SELECT poste from wanted_profile where id_wanted_profile = " +lsIndice.get(i));
+                ResultSet rs = s.executeQuery("SELECT poste from wanted_profile where id_wanted_profile = " + lsIndice.get(i));
                 while (rs.next()) {
                     listePoste.add(rs.getString(1));
                 }
