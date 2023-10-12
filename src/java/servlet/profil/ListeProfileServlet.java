@@ -67,7 +67,7 @@ public class ListeProfileServlet extends HttpServlet {
             List<SexeNote> bestSexe = sen.findBestSexe(lsIndice, null);
             List<ExperienceNote> bestExperience = en.findBestExperience(lsIndice, null);
             List<SalaireNote> bestSalaire = san.findBestSalaire(lsIndice, null);
-            BestCritere bc = new BestCritere(lsPoste,bestDiplome, bestAdresse, bestSexe, bestSalaire, bestExperience);
+            BestCritere bc = new BestCritere(lsIndice,lsPoste,bestDiplome, bestAdresse, bestSexe, bestSalaire, bestExperience);
             Gson gson = new Gson();
             String json = gson.toJson(bc);
             response.setContentType("application/json");

@@ -61,8 +61,8 @@ public class AnnonceExportPDFServlet extends HttpServlet {
         tasks.add(new Task(null, "Assurer le développement du site web", 1));
 
         List<WantedProfile> wantedProfiles = new ArrayList<>();
-        wantedProfiles.add(new WantedProfile("Développeur JAVA", null));
-        wantedProfiles.add(new WantedProfile("Développeur React", null));
+        wantedProfiles.add(new WantedProfile("Développeur JAVA", 1));
+        wantedProfiles.add(new WantedProfile("Développeur React", 1));
         
         String dateBesoin = "2023-01-05";
         String serviceName = "Informatique";

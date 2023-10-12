@@ -39,3 +39,7 @@
 .pdf-container .pdf-image-view:hover {
   transform: scale(1.05);
 }/*# sourceMappingURL=annonce-list.css.map */
+
+.same-height {
+  height: 40px !important;
+}
