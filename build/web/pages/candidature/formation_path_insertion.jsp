@@ -89,6 +89,7 @@
                                                         xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 
                                                         var careerCase = document.getElementById("careerCase");
+                                                        careerCase.innerHTML = "";
                                                         xhr.onload = function () {
                                                             if (xhr.readyState === 4 && xhr.status === 200) {
                                                                 var responseData = JSON.parse(xhr.responseText);

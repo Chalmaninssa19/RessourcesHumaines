@@ -3,30 +3,17 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/ITU/L3/Gestion%20d'entreprise%20(Mr%20Tovo)/RessourcesHumaines/src/java/servlet/candidature/PreviewCandidatureServlet.java</file>
-            <file>file:/D:/ITU/L3/Gestion%20d'entreprise%20(Mr%20Tovo)/RessourcesHumaines/src/java/model/gestionProfile/AdresseNote.java</file>
-            <file>file:/D:/ITU/L3/Gestion%20d'entreprise%20(Mr%20Tovo)/RessourcesHumaines/src/java/servlet/candidature/FormationPathInsertionServlet.java</file>
-            <file>file:/D:/ITU/L3/Gestion%20d'entreprise%20(Mr%20Tovo)/RessourcesHumaines/src/java/servlet/besoin/AnnonceExportPDFServlet.java</file>
-            <file>file:/D:/ITU/L3/Gestion%20d'entreprise%20(Mr%20Tovo)/RessourcesHumaines/src/java/servlet/profil/AjaxProfileServlet.java</file>
-            <file>file:/D:/ITU/L3/Gestion%20d'entreprise%20(Mr%20Tovo)/RessourcesHumaines/src/java/model/gestionProfile/Salaire.java</file>
-            <file>file:/D:/ITU/L3/Gestion%20d'entreprise%20(Mr%20Tovo)/RessourcesHumaines/src/java/servlet/candidature/PersonalInformationInsertionServlet.java</file>
-            <file>file:/D:/ITU/L3/Gestion%20d'entreprise%20(Mr%20Tovo)/RessourcesHumaines/src/java/model/gestionProfile/DiplomeNote.java</file>
-            <file>file:/D:/ITU/L3/Gestion%20d'entreprise%20(Mr%20Tovo)/RessourcesHumaines/src/java/model/candidature/ProfessionalCareer.java</file>
-            <file>file:/D:/ITU/L3/Gestion%20d'entreprise%20(Mr%20Tovo)/RessourcesHumaines/src/java/servlet/candidature/OtherInformationInsertionServlet.java</file>
-            <file>file:/D:/ITU/L3/Gestion%20d'entreprise%20(Mr%20Tovo)/RessourcesHumaines/src/java/model/candidature/Career.java</file>
-            <file>file:/D:/ITU/L3/Gestion%20d'entreprise%20(Mr%20Tovo)/RessourcesHumaines/src/java/servlet/candidature/ProfessionalCareerInsertionServlet.java</file>
-            <file>file:/D:/ITU/L3/Gestion%20d'entreprise%20(Mr%20Tovo)/RessourcesHumaines/src/java/model/gestionProfile/Diplome.java</file>
-            <file>file:/D:/ITU/L3/Gestion%20d'entreprise%20(Mr%20Tovo)/RessourcesHumaines/src/java/model/gestionProfile/SexeNote.java</file>
-            <file>file:/D:/ITU/L3/Gestion%20d'entreprise%20(Mr%20Tovo)/RessourcesHumaines/src/java/model/requis/Service.java</file>
-            <file>file:/D:/ITU/L3/Gestion%20d'entreprise%20(Mr%20Tovo)/RessourcesHumaines/src/java/model/gestionProfile/WantedProfile.java</file>
-            <file>file:/D:/ITU/L3/Gestion%20d'entreprise%20(Mr%20Tovo)/RessourcesHumaines/src/java/model/gestionBesoin/Besoin.java</file>
-            <file>file:/D:/ITU/L3/Gestion%20d'entreprise%20(Mr%20Tovo)/RessourcesHumaines/src/java/model/gestionProfile/SalaireNote.java</file>
-            <file>file:/D:/ITU/L3/Gestion%20d'entreprise%20(Mr%20Tovo)/RessourcesHumaines/src/java/model/gestionProfile/ExperienceNote.java</file>
-            <file>file:/D:/ITU/L3/Gestion%20d'entreprise%20(Mr%20Tovo)/RessourcesHumaines/src/java/model/candidature/FormationPath.java</file>
-            <file>file:/D:/ITU/L3/Gestion%20d'entreprise%20(Mr%20Tovo)/RessourcesHumaines/src/java/model/candidature/PersonnalInformation.java</file>
-            <file>file:/D:/ITU/L3/Gestion%20d'entreprise%20(Mr%20Tovo)/RessourcesHumaines/src/java/model/gestionProfile/Adresse.java</file>
-            <file>file:/D:/ITU/L3/Gestion%20d'entreprise%20(Mr%20Tovo)/RessourcesHumaines/src/java/model/candidature/Candidature.java</file>
-            <file>file:/D:/ITU/L3/Gestion%20d'entreprise%20(Mr%20Tovo)/RessourcesHumaines/src/java/model/gestionProfile/Sexe.java</file>
+            <file>file:/D:/ITU/L3/Gestion_d'entreprise(MrTovo)/RessourcesHumaines/src/java/model/candidature/Career.java</file>
+            <file>file:/D:/ITU/L3/Gestion_d'entreprise(MrTovo)/RessourcesHumaines/src/java/model/gestionProfile/WantedProfile.java</file>
+            <file>file:/D:/ITU/L3/Gestion_d'entreprise(MrTovo)/RessourcesHumaines/web/pages/candidature/professional_career_insertion.jsp</file>
+            <file>file:/D:/ITU/L3/Gestion_d'entreprise(MrTovo)/RessourcesHumaines/src/java/model/candidature/ProfessionalCareer.java</file>
+            <file>file:/D:/ITU/L3/Gestion_d'entreprise(MrTovo)/RessourcesHumaines/src/java/servlet/candidature/OtherInformationInsertionServlet.java</file>
+            <file>file:/D:/ITU/L3/Gestion_d'entreprise(MrTovo)/RessourcesHumaines/src/java/model/candidature/PersonnalInformation.java</file>
+            <file>file:/D:/ITU/L3/Gestion_d'entreprise(MrTovo)/RessourcesHumaines/src/java/servlet/candidature/FinishedCandidatureServlet.java</file>
+            <file>file:/D:/ITU/L3/Gestion_d'entreprise(MrTovo)/RessourcesHumaines/src/java/servlet/candidature/PreviewCandidatureServlet.java</file>
+            <file>file:/D:/ITU/L3/Gestion_d'entreprise(MrTovo)/RessourcesHumaines/web/pages/candidature/formation_path_insertion.jsp</file>
+            <file>file:/D:/ITU/L3/Gestion_d'entreprise(MrTovo)/RessourcesHumaines/src/java/model/candidature/Candidature.java</file>
+            <file>file:/D:/ITU/L3/Gestion_d'entreprise(MrTovo)/RessourcesHumaines/web/pages/candidature/candidature_preview.jsp</file>
         </group>
     </open-files>
 </project-private>

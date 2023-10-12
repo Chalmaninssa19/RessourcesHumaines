@@ -65,10 +65,10 @@ public class PreviewCandidatureServlet extends HttpServlet {
         String dossierName = filePartDossier.getSubmittedFileName();
         String photoName = filePartPhoto.getSubmittedFileName();
 
-//        HttpSession session = request.getSession();
-//        Candidature can = (Candidature) session.getAttribute("candidature");
-//        can.setPhoto(photoName);
-//        can.setDossier(dossierName);
+        HttpSession session = request.getSession();
+        Candidature can = (Candidature) session.getAttribute("candidature");
+        can.setPhoto(photoName);
+        can.setDossier(dossierName);
 
         String baseUploadDirectory = "D:\\ITU\\L3\\Gestion_d'entreprise(MrTovo)\\RessourcesHumaines\\web\\uploads\\";
 
