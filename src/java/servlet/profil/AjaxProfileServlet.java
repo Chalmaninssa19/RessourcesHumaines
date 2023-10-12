@@ -23,6 +23,7 @@ import model.gestionProfile.SalaireNote;
 import model.gestionProfile.Sexe;
 import model.gestionProfile.SexeNote;
 import model.gestionProfile.WantedProfile;
+import model.requis.Service;
 
 /**
  *
@@ -49,7 +50,7 @@ public class AjaxProfileServlet extends HttpServlet {
             HttpSession session = request.getSession();
             WantedProfile wp = (WantedProfile) session.getAttribute("wantedprofile");
             wp.setPoste(poste);
-            wp.setService(1);
+            wp.setService(new Service(1, 1));
             wp.createWantedProfile(null);
 
             //l'id du dernier wantedProfile

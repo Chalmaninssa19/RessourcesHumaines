@@ -58,7 +58,7 @@ public class PersonalInformationInsertionServlet extends HttpServlet {
 
             WantedProfile wp = new WantedProfile();
             Adresse a = new Adresse();
-            List<String> listePoste = wp.getAllPost(null);
+            List<WantedProfile> listePoste = wp.getAll(null);
             List<Adresse> listeAdresse = a.getAllAdresse(null);
 
             request.setAttribute("listePoste", listePoste);
@@ -77,6 +77,10 @@ public class PersonalInformationInsertionServlet extends HttpServlet {
         try {
             HttpSession session = request.getSession();
             Candidature can = (Candidature) session.getAttribute("candidature");
+            
+            int idWantedProfile = Integer.valueOf(request.getParameter("poste"));
+            System.out.println(idWantedProfile);
+            session.setAttribute("wp", idWantedProfile);
             
             String nom = request.getParameter("nom");
             String prenom = request.getParameter("prenom");

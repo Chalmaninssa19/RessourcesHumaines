@@ -13,7 +13,14 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import model.candidature.Candidature;
+import model.gestionProfile.AdresseNote;
+import model.gestionProfile.DiplomeNote;
+import model.gestionProfile.ExperienceNote;
+import model.gestionProfile.SalaireNote;
+import model.gestionProfile.SexeNote;
 
 /**
  *
@@ -56,17 +63,34 @@ public class OtherInformationInsertionServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        double salaire = Double.valueOf(request.getParameter("salaire"));
-        String ambitions = request.getParameter("ambitions");
-        String interet = request.getParameter("interet");
-        
-        response.sendRedirect("/RessourceHumaine/PreviewCandidatureServlet");
-        
-        HttpSession session = request.getSession();
-        Candidature can = (Candidature) session.getAttribute("candidature");
-        can.setSalaryExpectation(salaire);
-        can.setInterestCareer(interet);
-        can.setSelfProfile(ambitions);
+        try {
+            double salaire = Double.valueOf(request.getParameter("salaire"));
+            String ambitions = request.getParameter("ambitions");
+            String interet = request.getParameter("interet");
+            
+            HttpSession session = request.getSession();
+            Candidature can = (Candidature) session.getAttribute("candidature");
+            can.setSalaryExpectation(salaire);
+            can.setInterestCareer(interet);
+            can.setSelfProfile(ambitions);
+            
+            
+            int idWantedProfile = (Integer) session.getAttribute("wp");
+            System.out.println(idWantedProfile);
+
+            double diplomeNote = new DiplomeNote().getDiplomeNote(null, idWantedProfile, can.getFormationPath().getDiplome().getDiplome());
+            double adresseNote = new AdresseNote().getAdresseNote(null, idWantedProfile, can.getPersonnalInformation().getAdresse().getAdresse());
+            double sexeNote = new SexeNote().getSexeNote(null, idWantedProfile, can.getPersonnalInformation().getSexe().getSexeString(Integer.valueOf(can.getPersonnalInformation().getSexe().getSexe())));
+            double salaireNote = new SalaireNote().getSalaireNote(null, idWantedProfile, can.getSalaryExpectation());
+            double experienceNote = new ExperienceNote().getExperienceNote(null, idWantedProfile, can.getProfessionalCareer().getExperience().getExperience());
+            
+            double totalNote = diplomeNote + adresseNote + sexeNote + salaireNote + experienceNote;
+            
+            can.setNote(totalNote);
+            response.sendRedirect("/RessourceHumaine/PreviewCandidatureServlet");
+        } catch (Exception ex) {
+            Logger.getLogger(OtherInformationInsertionServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**

@@ -9,16 +9,24 @@ import jakarta.servlet.RequestDispatcher;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import jakarta.servlet.http.Part;
+import java.io.File;
 import model.candidature.Candidature;
 
 /**
  *
  * @author Fy Botas
  */
+@MultipartConfig(
+        fileSizeThreshold = 1024 * 1024 * 1, // 1 MB
+        maxFileSize = 1024 * 1024 * 10, // 10 MB
+        maxRequestSize = 1024 * 1024 * 100 // 100 MB
+)
 public class PreviewCandidatureServlet extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
@@ -43,13 +51,34 @@ public class PreviewCandidatureServlet extends HttpServlet {
             throws ServletException, IOException {
         HttpSession session = request.getSession();
         Candidature can = (Candidature) session.getAttribute("candidature");
-        RequestDispatcher req = request.getRequestDispatcher("candidature_preview.jsp");
+        request.setAttribute("candidature", can);
+        RequestDispatcher req = request.getRequestDispatcher("/pages/candidature/candidature_preview.jsp");
         req.forward(request, response);
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        Part filePartDossier = request.getPart("dossier");
+        Part filePartPhoto = request.getPart("image");
+
+        String dossierName = filePartDossier.getSubmittedFileName();
+        String photoName = filePartPhoto.getSubmittedFileName();
+
+//        HttpSession session = request.getSession();
+//        Candidature can = (Candidature) session.getAttribute("candidature");
+//        can.setPhoto(photoName);
+//        can.setDossier(dossierName);
+
+        String baseUploadDirectory = "D:\\ITU\\L3\\Gestion_d'entreprise(MrTovo)\\RessourcesHumaines\\web\\uploads\\";
+
+        String uniqueDossierUploadDirectory = baseUploadDirectory + "dossier" + File.separator + dossierName + File.separator;
+        String uniquePhotoUploadDirectory = baseUploadDirectory + "photo" + File.separator + photoName + File.separator;
+
+        filePartDossier.write(uniqueDossierUploadDirectory);
+        filePartPhoto.write(uniquePhotoUploadDirectory);
+
+        response.sendRedirect(request.getContextPath() + "/PreviewCandidatureServlet");
     }
 
     /**

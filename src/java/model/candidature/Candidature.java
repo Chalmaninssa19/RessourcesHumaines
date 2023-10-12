@@ -5,6 +5,13 @@
  */
 package model.candidature;
 
+import jakarta.servlet.http.Part;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
+
 /**
  *
  * @author Fy Botas
@@ -35,6 +42,25 @@ public class Candidature {
         this.dossier = dossier;
         this.note = note;
         this.status = status;
+    }
+
+    public String getFileName(Part part) {
+        for (String content : part.getHeader("content-disposition").split(";")) {
+            if (content.trim().startsWith("filename")) {
+                return content.substring(content.indexOf('=') + 1).trim().replace("\"", "");
+            }
+        }
+        return null;
+    }
+
+    public String upload(String sourcePath, String destinationDirectory) throws IOException {
+        Path source = Paths.get(sourcePath);
+        String fileName = source.getFileName().toString();
+        Path destination = Paths.get(destinationDirectory, fileName);
+
+        Files.copy(source, destination, StandardCopyOption.REPLACE_EXISTING);
+
+        return fileName;
     }
 
     public Candidature() {

@@ -136,10 +136,7 @@
                                                 xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
                                                 xhr.onload = function () {
                                                     if (xhr.readyState === 4 && xhr.status === 200) {
-                                                        alert("ok");
-                                                    } else {
                                                         window.location.href = "/RessourceHumaine/PreviewCandidatureServlet";
-
                                                     }
                                                 };
                                                 var formData = "salaire=" + encodeURIComponent(salaire) + "&ambitions=" + encodeURIComponent(ambitions) + "&interet=" + encodeURIComponent(interetString);

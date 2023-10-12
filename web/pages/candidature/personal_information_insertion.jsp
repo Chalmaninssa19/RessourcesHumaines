@@ -1,8 +1,9 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%@page import=" java.util.List "%>
 <%@page import=" model.gestionProfile.Adresse "%>
+<%@page import=" model.gestionProfile.WantedProfile "%>
 <%
-    List<String> listePoste = (List<String>) request.getAttribute("listePoste");
+    List<WantedProfile> listePoste = (List<WantedProfile>) request.getAttribute("listePoste");
     List<Adresse> listeAdresse = (List<Adresse>) request.getAttribute("listeAdresse");
 %>
 <!DOCTYPE html>
@@ -14,18 +15,18 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <title>Insertion candidature</title>
         <!-- plugins:css -->
-        <link rel="stylesheet" href="../../assets/vendors/mdi/css/materialdesignicons.min.css">
-        <link rel="stylesheet" href="../../assets/vendors/css/vendor.bundle.base.css">
-        <link rel="stylesheet" href="../../assets/css/candidature/personal_information_insertion.css">
+        <link rel="stylesheet" href="./assets/vendors/mdi/css/materialdesignicons.min.css">
+        <link rel="stylesheet" href="./assets/vendors/css/vendor.bundle.base.css">
+        <link rel="stylesheet" href="./assets/css/candidature/personal_information_insertion.css">
         <!-- endinject -->
         <!-- Plugin css for this page -->
         <!-- End plugin css for this page -->
         <!-- inject:css -->
         <!-- endinject -->
         <!-- Layout styles -->
-        <link rel="stylesheet" href="../../assets/css/style.css">
+        <link rel="stylesheet" href="./assets/css/style.css">
         <!-- End layout styles -->
-        <link rel="shortcut icon" href="../../assets/images/favicon.ico" />
+        <link rel="shortcut icon" href="./assets/images/favicon.ico" />
     </head>
 
     <body>
@@ -47,7 +48,7 @@
                                         <label for="adresseSelect" class="form-label labeled">Choisir le poste Ã  la quelle vous voulez postuler :</label>
                                         <select name="poste" id="" class="form-control form-select">
                                             <% for(int i = 0;i<listePoste.size();i++) { %>
-                                            <option value="<%= listePoste.get(i) %>"><%= listePoste.get(i) %></option>
+                                            <option value="<%= listePoste.get(i).getIdWantedProfile() %>"><%= listePoste.get(i).getPoste() %></option>
                                             <% } %>
                                         </select>
                                     </div>
@@ -86,11 +87,11 @@
                                     <div class="d-flex align-items-center">
                                         <div class="form-check">
                                             <label class="form-check-label text-muted">
-                                                <input type="radio" class="form-check-input" name="sexe"> Homme</label>
+                                                <input type="radio" class="form-check-input" name="sexe" value="1"> Homme</label>
                                         </div>
                                         <div class="form-check mx-5">
                                             <label class="form-check-label text-muted">
-                                                <input type="radio" class="form-check-input" name="sexe"> Femme</label>
+                                                <input type="radio" class="form-check-input" name="sexe" value="2"> Femme</label>
                                         </div>
                                     </div>
                                     <div class="mt-3">
@@ -107,14 +108,14 @@
         </div>
         <!-- container-scroller -->
         <!-- plugins:js -->
-        <script src="../../assets/vendors/js/vendor.bundle.base.js"></script>
+        <script src="./assets/vendors/js/vendor.bundle.base.js"></script>
         <!-- endinject -->
         <!-- Plugin js for this page -->
         <!-- End plugin js for this page -->
         <!-- inject:js -->
-        <script src="../../assets/js/off-canvas.js"></script>
-        <script src="../../assets/js/hoverable-collapse.js"></script>
-        <script src="../../assets/js/misc.js"></script>
+        <script src="./assets/js/off-canvas.js"></script>
+        <script src="./assets/js/hoverable-collapse.js"></script>
+        <script src="./assets/js/misc.js"></script>
         <!-- endinject -->
     </body>
 

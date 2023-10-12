@@ -13,6 +13,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -20,6 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import model.candidature.Candidature;
 import model.candidature.Career;
 import model.candidature.ProfessionalCareer;
 import model.gestionProfile.Experience;
@@ -32,6 +34,7 @@ public class ProfessionalCareerInsertionServlet extends HttpServlet {
 
     List<Career> lc = new ArrayList<>();
     List<String> listeTask = new ArrayList<>();
+    ProfessionalCareer pc = null;
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -53,18 +56,26 @@ public class ProfessionalCareerInsertionServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        try {
-            Experience e = new Experience();
-            List<Experience> listeExperience = e.getAllExperience(null);
+        if (request.getParameter("finish") == null) {
+            try {
+                Experience e = new Experience();
+                List<Experience> listeExperience = e.getAllExperience(null);
 
-            request.setAttribute("listeExperience", listeExperience);
-            RequestDispatcher req = request.getRequestDispatcher("/pages/candidature/professional_career_insertion.jsp");
-            req.forward(request, response);
+                listeTask.clear();
+                lc.clear();
 
-            listeTask.clear();
-            lc.clear();
-        } catch (Exception ex) {
-            Logger.getLogger(ProfessionalCareerInsertionServlet.class.getName()).log(Level.SEVERE, null, ex);
+                request.setAttribute("listeExperience", listeExperience);
+                RequestDispatcher req = request.getRequestDispatcher("/pages/candidature/professional_career_insertion.jsp");
+                req.forward(request, response);
+            } catch (Exception ex) {
+                Logger.getLogger(ProfessionalCareerInsertionServlet.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } else {
+            HttpSession session = request.getSession();
+            Candidature can = (Candidature) session.getAttribute("candidature");
+            can.setProfessionalCareer(pc);
+
+            response.sendRedirect("/RessourceHumaine/FormationPathInsertionServlet");
         }
     }
 
@@ -75,6 +86,7 @@ public class ProfessionalCareerInsertionServlet extends HttpServlet {
 
             if (request.getParameter("experience") == null || request.getParameter("startDate") == null || request.getParameter("endDate") == null) {
 
+                System.out.println("task zao no inserena");
                 String task = request.getParameter("tache");
 
                 listeTask.add(task);
@@ -84,6 +96,7 @@ public class ProfessionalCareerInsertionServlet extends HttpServlet {
                 String jsonData = gson.toJson(listeTask);
                 response.getWriter().write(jsonData);
             } else {
+                System.out.println("tsy task zao no inserena");
                 String experience = request.getParameter("experience");
                 String startDate = request.getParameter("startDate");
                 String endDate = request.getParameter("endDate");
@@ -105,7 +118,7 @@ public class ProfessionalCareerInsertionServlet extends HttpServlet {
 
                 lc.add(c);
 
-                ProfessionalCareer pc = new ProfessionalCareer(new Experience(experience, 1), lc);
+                pc = new ProfessionalCareer(new Experience(experience, 1), lc);
                 response.setContentType("application/json");
                 Gson gson = new Gson();
                 String jsonData = gson.toJson(lc);
