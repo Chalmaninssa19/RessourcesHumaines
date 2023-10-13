@@ -97,16 +97,84 @@ public class WantedProfile extends Model {
         this.adresseNote = adresseNote;
     }
 
-///Constructors
+    //Constructors
     public WantedProfile() {
     }
 
-    public WantedProfile(String poste, Service service) {
+    public WantedProfile(String poste, int status) {
+        this.poste = poste;
+        this.status = status;
+    }
+
+    public WantedProfile(String poste, Service idService) {
         this.poste = poste;
         this.service = service;
     }
 
+    public WantedProfile(int idWaantedProfile, String poste, Service idService) {
+        this.idWantedProfile = idWaantedProfile;
+        this.poste = poste;
+        this.service = idService;
+    }
+
+    public WantedProfile(int idWaantedProfile, String poste, Service idService, List<DiplomeNote> diplomeNote, List<ExperienceNote> experienceNote, List<SalaireNote> salaireNote, List<SexeNote> sexeNote, List<AdresseNote> adresseNote) {
+        this.idWantedProfile = idWaantedProfile;
+        this.poste = poste;
+        this.service = idService;
+        this.diplomeNote = diplomeNote;
+        this.experienceNote = experienceNote;
+        this.salaireNote = salaireNote;
+        this.sexeNote = sexeNote;
+        this.adresseNote = adresseNote;
+    }
+
 ///Fonctions
+    // delete wanted_profile
+    public void deleteWantedProfile(int indice, Connection con) throws Exception {
+        boolean b = true;
+        try {
+            if (con == null) {
+                con = GConnection.getSimpleConnection();
+                b = false;
+            }
+            String requete = "update wanted_profile set status = 2 where id_wanted_profile = " + indice;
+            System.out.println(requete);
+            Statement s = con.createStatement();
+            s.executeUpdate(requete);
+        } catch (Exception exe) {
+            throw exe;
+        } finally {
+            if (con != null && !b) {
+                con.close();
+            }
+        }
+    }
+
+    // avoir la liste des postes
+    public List<WantedProfile> getAll(Connection con) throws Exception {
+        boolean b = true;
+        try {
+            if (con == null) {
+                con = GConnection.getSimpleConnection();
+                b = false;
+            }
+            List<WantedProfile> listePoste = new ArrayList<>();
+            Statement s = con.createStatement();
+            ResultSet rs = s.executeQuery("SELECT * from wanted_profile where status = 1");
+            while (rs.next()) {
+                listePoste.add(new WantedProfile(rs.getInt(1), rs.getString(2), new Service(rs.getInt(3), 1)));
+            }
+
+            return listePoste;
+        } catch (Exception exe) {
+            throw exe;
+        } finally {
+            if (con != null && !b) {
+                con.close();
+            }
+        }
+    }
+
     //find poste par l'id
     public List<String> getPostById(Connection con) throws Exception {
         boolean b = true;
@@ -119,7 +187,7 @@ public class WantedProfile extends Model {
             List<String> listePoste = new ArrayList<>();
             Statement s = con.createStatement();
             for (int i = 0; i < lsIndice.size(); i++) {
-                ResultSet rs = s.executeQuery("SELECT poste from wanted_profile where id_wanted_profile = " +lsIndice.get(i));
+                ResultSet rs = s.executeQuery("SELECT poste from wanted_profile where id_wanted_profile = " + lsIndice.get(i));
                 while (rs.next()) {
                     listePoste.add(rs.getString(1));
                 }
@@ -190,7 +258,7 @@ public class WantedProfile extends Model {
                 con = GConnection.getSimpleConnection();
                 b = false;
             }
-            String requete = "insert into wanted_profile values (DEFAULT,' " + this.getPoste() + " '," + this.getService() + ", 1)";
+            String requete = "insert into wanted_profile values (DEFAULT,' " + this.getPoste() + " '," + this.getService().getIdService() + ", 1)";
             System.out.println(requete);
             Statement s = con.createStatement();
             s.executeUpdate(requete);

@@ -4,7 +4,7 @@
  */
 package model.candidature;
 
-import java.time.LocalDate;
+import java.sql.Date;
 import java.util.List;
 
 /**
@@ -13,27 +13,27 @@ import java.util.List;
  */
 public class Career {
 /// field
-    LocalDate  startDate;
-    LocalDate endDate;
+    Date startDate;
+    Date endDate;
     String society;
     String poste;
     List<String> tasks;       // Les différentes taches sont séparés par des ";" dans la base et on va devoir les décomposer apres
     
 /// getter and setter
 
-    public LocalDate getStartDate() {
+    public Date getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(LocalDate startDate) {
+    public void setStartDate(Date startDate) {
         this.startDate = startDate;
     }
 
-    public LocalDate getEndDate() {
+    public Date getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(LocalDate endDate) {
+    public void setEndDate(Date endDate) {
         this.endDate = endDate;
     }
 
@@ -63,7 +63,7 @@ public class Career {
     
 /// contructor
 
-    public Career(LocalDate startDate, LocalDate endDate, String society, String poste, List<String> tasks) {
+    public Career(Date startDate, Date endDate, String society, String poste, List<String> tasks) {
         this.startDate = startDate;
         this.endDate = endDate;
         this.society = society;
@@ -71,6 +71,10 @@ public class Career {
         this.tasks = tasks;
     }
     
+    
 /// methods
+
+    public Career() {
+    }
 
 }

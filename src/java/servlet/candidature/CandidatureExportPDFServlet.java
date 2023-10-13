@@ -76,8 +76,8 @@ public class CandidatureExportPDFServlet extends HttpServlet {
         tasks.add("Responsable de l'accomplissement des projets");
 
         List<Career> careers = new ArrayList<>();
-        careers.add(new Career(LocalDate.of(2018, 7, 1), LocalDate.of(2020, 5, 1), "Novity Madagascar", "Chef de projet Informatique", tasks));
-        careers.add(new Career(LocalDate.of(2018, 7, 1), LocalDate.of(2020, 5, 1), "Novity Madagascar", "Chef de projet Informatique", tasks));
+//        careers.add(new Career(LocalDate.of(2018, 7, 1), LocalDate.of(2020, 5, 1), "Novity Madagascar", "Chef de projet Informatique", tasks));
+//        careers.add(new Career(LocalDate.of(2018, 7, 1), LocalDate.of(2020, 5, 1), "Novity Madagascar", "Chef de projet Informatique", tasks));
         professionalCareer.setCareers(careers);
 
         FormationPath formationPath = new FormationPath();
@@ -143,9 +143,9 @@ public class CandidatureExportPDFServlet extends HttpServlet {
 
                 for (Career career : professionalCareer.getCareers()) {
                     contentStream.setFont(PDType1Font.HELVETICA_BOLD, 11);
-                    String startDate = career.getStartDate().getMonth().name() + " " + career.getStartDate().getYear();
-                    String endDate = career.getEndDate().getMonth().name() + " " + career.getEndDate().getYear();
-                    PDFRealisationUtil.writeText(contentStream, 50, dynamicY, startDate + "  -  " + endDate);
+//                    String startDate = career.getStartDate().getMonth().name() + " " + career.getStartDate().getYear();
+//                    String endDate = career.getEndDate().getMonth().name() + " " + career.getEndDate().getYear();
+//                    PDFRealisationUtil.writeText(contentStream, 50, dynamicY, startDate + "  -  " + endDate);
                     dynamicY -= lineHeight * 1;
 
                     contentStream.setFont(PDType1Font.HELVETICA, 11);

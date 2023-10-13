@@ -52,6 +52,35 @@ public class SexeNote extends Model {
     }
 
 ///Fonctions
+    //avoir la note correspondant aux diplomes selectionnés
+    public double getSexeNote(Connection con, int idWantedProfile, String Sexe) throws Exception {
+        boolean b = true;
+        double note = 0.0;
+        try {
+            if (con == null) {
+                con = GConnection.getSimpleConnection();
+                b = false;
+            }
+            String request = "select note from sexe_note where id_wanted_profile=" + idWantedProfile + " and id_sexe=" + new Sexe().getIdByName(Sexe, null);
+            System.out.println(request);
+
+            Statement s = con.createStatement();
+            ResultSet rs = s.executeQuery(request);
+            if (rs.next()) {
+                note = rs.getDouble(1);
+            } else {
+                note = 0.0;
+            }
+        } catch (Exception exe) {
+            throw exe;
+        } finally {
+            if (con != null && !b) {
+                con.close();
+            }
+        }
+        return note;
+    }
+
     //inserer sexeNote
     public void createSexeNote(int id_wanted_profile, int id_sexe, Connection con) throws Exception {
         boolean b = true;

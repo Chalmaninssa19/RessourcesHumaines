@@ -47,6 +47,9 @@ public class Formation {
         this.diplome = diplome;
         this.school = school;
     }
+
+    public Formation() {
+    }
     
     
 }
