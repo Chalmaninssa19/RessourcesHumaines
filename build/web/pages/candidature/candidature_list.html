@@ -10,8 +10,7 @@
 
     <!-- plugins:css -->
     <link rel="stylesheet" href="../../assets/vendors/mdi/css/materialdesignicons.min.css">
-    <link rel="stylesheet" href="../../assets/css/besoin/besoin-insertion.css">
-    <link rel="stylesheet" href="../../assets/css/besoin/besoin-list.css">
+    <link rel="stylesheet" href="../../assets/css/annonce/annonce-list.css">
     <link rel="stylesheet" href="../../assets/vendors/css/vendor.bundle.base.css">
     <!-- endinject -->
     <!-- Plugin css for this page -->
@@ -69,7 +68,7 @@
                                 <i class="mdi mdi-cached me-2 text-success"></i> Activity Log </a>
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="#">
-                                <i class="mdi mdi-logout me-2 text-primary"></i> Signout </a>
+                                <i class="mdi mdi-logout me-2 text-black"></i> Signout </a>
                         </div>
                     </li>
                     <li class="nav-item d-none d-lg-block full-screen-link">
@@ -230,12 +229,12 @@
                         </a>
                         <div class="collapse show" id="ui-basic">
                             <ul class="nav flex-column sub-menu">
-                                <li class="nav-item active"> <a class="nav-link active"
+                                <li class="nav-item"> <a class="nav-link"
                                         href="pages/ui-features/buttons.html">Besoins
                                         des services</a></li>
                                 <li class="nav-item"> <a class="nav-link"
                                         href="pages/ui-features/typography.html">Annonce</a></li>
-                                <li class="nav-item"> <a class="nav-link"
+                                <li class="nav-item active"> <a class="nav-link active"
                                         href="pages/ui-features/typography.html">Réceptions des CV</a></li>
                                 <li class="nav-item"> <a class="nav-link"
                                         href="pages/ui-features/typography.html">Résultats des tests</a></li>
@@ -257,114 +256,82 @@
                         <h3 class="page-title">
                             <span class="page-title-icon bg-gradient-primary text-white me-2">
                                 <i class="mdi mdi-home"></i>
-                            </span> Besoin des services
+                            </span> Listes des candidatures
                         </h3>
                     </div>
                     <div class="row">
                         <div class="col-lg-12 grid-margin stretch-card">
                             <div class="card">
                                 <div class="card-body">
-                                    <h4 class="">Listes des besoins reçue des services</h4>
-                                    <form class="form mt-3">
-                                        <div class="form-group d-flex align-items-center mb-2">
-                                            <p class="mb-0"><strong>Filtre par service</strong></p>
-                                            <div class="mx-4">
-                                                <select name="" id="" class="form-select">
-                                                    <option value="">Informatique</option>
-                                                    <option value="">Securite</option>
-                                                </select>
-                                            </div>
-                                            <div class="mx-4">
-                                                <button class="btn btn-outline-primary btn-sm">Filtrer</button>
-                                            </div>
+                                    <h4 class="">Listes des candidatures reçue</h4>
+                                    <form class="form mt-3 row">
+                                        <div class="col-md-3 form-group mb-2 px-4">
+                                            <label for="" class="form-label">Service</label>
+                                            <select name="" id="" class="form-select form-control same-height">
+                                                <option value="">Informatique</option>
+                                                <option value="">Securite</option>
+                                            </select>
                                         </div>
-                                        <div class="d-flex align-items-center">
-                                            <div class="form-check form-check-flat form-check-primary mx-3">
-                                                <label class="form-check-label">
-                                                    <input type="checkbox" class="form-check-input"> Non visité </label>
-                                            </div>
-                                            <div class="form-check form-check-flat form-check-primary mx-3">
-                                                <label class="form-check-label">
-                                                    <input type="checkbox" class="form-check-input"> En attente </label>
-                                            </div>
-                                            <div class="form-check form-check-flat form-check-primary mx-3">
-                                                <label class="form-check-label">
-                                                    <input type="checkbox" class="form-check-input"> Refusé </label>
-                                            </div>
-                                            <div class="form-check form-check-flat form-check-primary mx-3">
-                                                <label class="form-check-label">
-                                                    <input type="checkbox" class="form-check-input"> Validé </label>
-                                            </div>
+                                        <div class="col-md-3 form-group mb-2 px-4">
+                                            <label for="" class="form-label">Poste</label>
+                                            <select name="" id="" class="form-select form-control same-height">
+                                                <option value="">Développeur JAVA</option>
+                                                <option value="">Développeur REACT</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-3 form-group mb-2 px-4 d-flex align-items-end">
+                                            <button class="btn btn-gradient-primary same-height">Filtrer</button>
                                         </div>
                                     </form>
-                                    </p>
-                                    <div class="table-overflow">
-                                        <table class="table table-striped">
-                                            <thead>
-                                                <tr>
-                                                    <th>Date</th>
-                                                    <th>Service</th>
-                                                    <th>Description</th>
-                                                    <th></th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr>
-                                                    <td>07/10/2023</td>
-                                                    <td>Informatique</td>
-                                                    <td>Notre département informatique a besoin de quelques developpeur ...</td>
-                                                    <td><a href="" class="btn btn-gradient-primary btn-sm">Voir plus</a></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>07/10/2023</td>
-                                                    <td>Informatique</td>
-                                                    <td>Notre département informatique a besoin de quelques developpeur ...</td>
-                                                    <td><a href="" class="btn btn-gradient-primary btn-sm">Voir plus</a></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>07/10/2023</td>
-                                                    <td>Informatique</td>
-                                                    <td>Notre département informatique a besoin de quelques developpeur ...</td>
-                                                    <td><a href="" class="btn btn-gradient-primary btn-sm">Voir plus</a></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>07/10/2023</td>
-                                                    <td>Informatique</td>
-                                                    <td>Notre département informatique a besoin de quelques developpeur ...</td>
-                                                    <td><a href="" class="btn btn-gradient-primary btn-sm">Voir plus</a></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>07/10/2023</td>
-                                                    <td>Informatique</td>
-                                                    <td>Notre département informatique a besoin de quelques developpeur ...</td>
-                                                    <td><a href="" class="btn btn-gradient-primary btn-sm">Voir plus</a></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>07/10/2023</td>
-                                                    <td>Informatique</td>
-                                                    <td>Notre département informatique a besoin de quelques developpeur ...</td>
-                                                    <td><a href="" class="btn btn-gradient-primary btn-sm">Voir plus</a></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>07/10/2023</td>
-                                                    <td>Informatique</td>
-                                                    <td>Notre département informatique a besoin de quelques developpeur ...</td>
-                                                    <td><a href="" class="btn btn-gradient-primary btn-sm">Voir plus</a></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>07/10/2023</td>
-                                                    <td>Informatique</td>
-                                                    <td>Notre département informatique a besoin de quelques developpeur ...</td>
-                                                    <td><a href="" class="btn btn-gradient-primary btn-sm">Voir plus</a></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>07/10/2023</td>
-                                                    <td>Informatique</td>
-                                                    <td>Notre département informatique a besoin de quelques developpeur ...</td>
-                                                    <td><a href="" class="btn btn-gradient-primary btn-sm">Voir plus</a></td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
+                                    <div class="row mt-3">
+                                        <div class="col-md-3 p-3">
+                                            <a href="">
+                                                <div class="relative-position">
+                                                    <div class="besoin-information">
+                                                        <p class="text-black"> <span class="mx-1">Date : <strong> 10/12/2023 </strong></span><span class="mx-1">Service : <strong> Informatique </strong></span></p>
+                                                    </div>
+                                                    <div class="pdf-container">
+                                                        <img src="../../../build/web/candidatures/2023-01-23_Jean_Couturier_Informatique_candidature.png" class="pdf-image-view" alt="">
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        </div>
+                                        <div class="col-md-3 p-3">
+                                            <a href="">
+                                                <div class="relative-position">
+                                                    <div class="besoin-information">
+                                                        <p class="text-black"> <span class="mx-1">Date : <strong> 10/12/2023 </strong></span><span class="mx-1">Service : <strong> Informatique </strong></span></p>
+                                                    </div>
+                                                    <div class="pdf-container">
+                                                        <img src="../../../build/web/candidatures/2023-01-23_Jean_Couturier_Informatique_candidature.png" class="pdf-image-view" alt="">
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        </div>
+                                        <div class="col-md-3 p-3">
+                                            <a href="">
+                                                <div class="relative-position">
+                                                    <div class="besoin-information">
+                                                        <p class="text-black"> <span class="mx-1">Date : <strong> 10/12/2023 </strong></span><span class="mx-1">Service : <strong> Informatique </strong></span></p>
+                                                    </div>
+                                                    <div class="pdf-container">
+                                                        <img src="../../../build/web/candidatures/2023-01-23_Jean_Couturier_Informatique_candidature.png" class="pdf-image-view" alt="">
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        </div>
+                                        <div class="col-md-3 p-3">
+                                            <a href="">
+                                                <div class="relative-position">
+                                                    <div class="besoin-information">
+                                                        <p class="text-black"> <span class="mx-1">Date : <strong> 10/12/2023 </strong></span><span class="mx-1">Service : <strong> Informatique </strong></span></p>
+                                                    </div>
+                                                    <div class="pdf-container">
+                                                        <img src="../../../build/web/candidatures/2023-01-23_Jean_Couturier_Informatique_candidature.png" class="pdf-image-view" alt="">
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

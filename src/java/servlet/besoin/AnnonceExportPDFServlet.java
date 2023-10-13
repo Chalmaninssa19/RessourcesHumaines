@@ -4,6 +4,7 @@
  */
 package servlet.besoin;
 
+import framework.database.utilitaire.GConnection;
 import java.io.IOException;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -12,6 +13,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.List;
 import javax.imageio.ImageIO;
@@ -47,94 +49,95 @@ public class AnnonceExportPDFServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("application/pdf");
         response.setHeader("Content-Disposition", "inline; filename=annonce.pdf");
-
-        // Bien remplir ces données et tout doit aller automatiquement
-        String logoPath = "/assets/images/entreprise_logo.png";
-        String societyName = "HUILE DE BONGOLAVA";
-
-        Besoin besoin = new Besoin();
-        besoin.setDescription("Ces derniers temps le nombre de visiteur de notre page web a augmenté notre équipe soulève une grande charge et c'est pour cela qu'on vous cherche");
-
-        List<Task> tasks = new ArrayList<>();
-        tasks.add(new Task(null, "Maintenance et réparation du serveur", 1));
-        tasks.add(new Task(null, "Assurer le développement du site web", 1));
-        tasks.add(new Task(null, "Assurer le développement du site web", 1));
-
-        List<WantedProfile> wantedProfiles = new ArrayList<>();
-        wantedProfiles.add(new WantedProfile("Développeur JAVA", null));
-        wantedProfiles.add(new WantedProfile("Développeur React", null));
+       
+        try {
+            Connection conn = GConnection.getSimpleConnection();
+            
+            Integer idBesoin = Integer.valueOf(request.getParameter("idBesoin"));
+            Besoin besoin = Besoin.getById(conn, idBesoin);
+            besoin.validate(conn);
+            
+            
+            // Bien remplir ces données et tout doit aller automatiquement
+            String logoPath = "/assets/images/entreprise_logo.png";
+            String societyName = "HUILE DE BONGOLAVA";
+            
+            List<Task> tasks = Task.getAllTaskBesoin(conn, besoin);
+       
+            List<WantedProfile> wantedProfiles = new ArrayList<>();
+            wantedProfiles.add(new WantedProfile("Développeur JAVA", null));
+            wantedProfiles.add(new WantedProfile("Développeur React", null));
         
-        String dateBesoin = "2023-01-05";
-        String serviceName = "Informatique";
-        
+            String dateBesoin = String.valueOf(besoin.getCreationDate());
+            String serviceName = besoin.getService().getService();
+            String link = "http://www.huile-de-bongolava.mg/recrutement/postule";
+            String societyContact = "034 21 561 26";
+            
+            conn.close();
+            
+            try (PDDocument document = new PDDocument()) {
+                PDPage page = new PDPage(PDRectangle.A4);
+                document.addPage(page);
 
-        String link = "http://www.huile-de-bongolava.mg/recrutement/postule";
+                try (PDPageContentStream contentStream = new PDPageContentStream(document, page)) {
+                    PDFRealisationUtil outil = new PDFRealisationUtil();
 
-        String societyContact = "034 21 561 26";
+                    // Ajout du logo dans la page
+                    PDImageXObject logo = PDImageXObject.createFromFile(getServletContext().getRealPath("/") + logoPath, document);
+                    contentStream.drawImage(logo, 50, 720, 80, 80);
 
-        try (PDDocument document = new PDDocument()) {
-            PDPage page = new PDPage(PDRectangle.A4);
-            document.addPage(page);
+                    // Annonce de recrutement
+                    contentStream.setFont(PDType1Font.HELVETICA_BOLD, 12);
+                    outil.writeText(contentStream, 65, 690, societyName + " recrute !");
 
-            try (PDPageContentStream contentStream = new PDPageContentStream(document, page)) {
-                PDFRealisationUtil outil = new PDFRealisationUtil();
-                
-                // Ajout du logo dans la page
-                PDImageXObject logo = PDImageXObject.createFromFile(getServletContext().getRealPath("/") + logoPath, document);
-                contentStream.drawImage(logo, 50, 720, 80, 80);
+                    // Description du besoin
+                    int dynamicY = 660;     // pour que la hauteur s'adapte en fonction du nombres de ligne
+                    int lineHeight = 20;
 
-                // Annonce de recrutement
-                contentStream.setFont(PDType1Font.HELVETICA_BOLD, 12);
-                outil.writeText(contentStream, 65, 690, societyName + " recrute !");
-
-                // Description du besoin
-                int dynamicY = 660;     // pour que la hauteur s'adapte en fonction du nombres de ligne
-                int lineHeight = 20;
-
-                contentStream.setFont(PDType1Font.HELVETICA, 12);
-                int line = outil.writeMultilineText(contentStream, 65, dynamicY, besoin.getDescription(), lineHeight, 70);
-                dynamicY -= lineHeight * (line + 1);
-
-                contentStream.setLineWidth(1);
-                contentStream.setStrokingColor(0, 0, 0);
-                contentStream.moveTo(65, dynamicY);
-                contentStream.lineTo(500, dynamicY);
-                contentStream.stroke();
-                dynamicY -= lineHeight;
-                dynamicY -= lineHeight;
-
-                // Liste des taches a faire
-                contentStream.setFont(PDType1Font.HELVETICA, 12);
-                outil.writeText(contentStream, 65, dynamicY, "Vos missions : ");
-                dynamicY -= lineHeight;
-
-                contentStream.setFont(PDType1Font.HELVETICA, 12);
-                for (Task task : tasks) {
-                    outil.writeText(contentStream, 65, dynamicY, "-  " + task.getTask());
-                    dynamicY -= lineHeight;
-                }
-
-                // Liste des profil cherché
-                dynamicY -= lineHeight;
-                contentStream.setFont(PDType1Font.HELVETICA, 12);
-                outil.writeText(contentStream, 65, dynamicY, "Intégrer notre équipe en étant :");
-                dynamicY -= lineHeight;     // Saut à la ligne
-
-                for (WantedProfile profile : wantedProfiles) {
                     contentStream.setFont(PDType1Font.HELVETICA, 12);
-                    outil.writeText(contentStream, 65, dynamicY, "-  " + profile.getPoste() + " : ");
+                    int line = outil.writeMultilineText(contentStream, 65, dynamicY, besoin.getDescription(), lineHeight, 70);
+                    dynamicY -= lineHeight * (line + 1);
+
+                    contentStream.setLineWidth(1);
+                    contentStream.setStrokingColor(0, 0, 0);
+                    contentStream.moveTo(65, dynamicY);
+                    contentStream.lineTo(500, dynamicY);
+                    contentStream.stroke();
+                    dynamicY -= lineHeight;
                     dynamicY -= lineHeight;
 
-                    contentStream.setFont(PDType1Font.HELVETICA, 10);
-                    // Info a propos du diplome
-                    outil.writeText(contentStream, 75, dynamicY, "-  Titulaire d'un " + "Master en MBDS");
+                    // Liste des taches a faire
+                    contentStream.setFont(PDType1Font.HELVETICA, 12);
+                    outil.writeText(contentStream, 65, dynamicY, "Vos missions : ");
                     dynamicY -= lineHeight;
 
-                    // Info a propos de l'éxpérience
-                    outil.writeText(contentStream, 75, dynamicY, "-  Ayant plus de " + "2 ans d'éxpérience");
+                    contentStream.setFont(PDType1Font.HELVETICA, 12);
+                    for (Task task : tasks) {
+                        outil.writeText(contentStream, 65, dynamicY, "-  " + task.getTask());
+                        dynamicY -= lineHeight;
+                    }
+
+                    // Liste des profil cherché
                     dynamicY -= lineHeight;
-                    dynamicY -= lineHeight;
-                }
+                    contentStream.setFont(PDType1Font.HELVETICA, 12);
+                    outil.writeText(contentStream, 65, dynamicY, "Intégrer notre équipe en étant :");
+                    dynamicY -= lineHeight;     // Saut à la ligne
+
+                    for (WantedProfile profile : wantedProfiles) {
+                        contentStream.setFont(PDType1Font.HELVETICA, 12);
+                        outil.writeText(contentStream, 65, dynamicY, "-  " + profile.getPoste() + " : ");
+                        dynamicY -= lineHeight;
+
+                        contentStream.setFont(PDType1Font.HELVETICA, 10);
+                        // Info a propos du diplome
+                        outil.writeText(contentStream, 75, dynamicY, "-  Titulaire d'un " + "Master en MBDS");
+                        dynamicY -= lineHeight;
+
+                        // Info a propos de l'éxpérience
+                        outil.writeText(contentStream, 75, dynamicY, "-  Ayant plus de " + "2 ans d'éxpérience");
+                        dynamicY -= lineHeight;
+                        dynamicY -= lineHeight;
+                    }
 
                 // Conclusion text
                 dynamicY -= lineHeight;
@@ -168,8 +171,11 @@ public class AnnonceExportPDFServlet extends HttpServlet {
             document.save(response.getOutputStream());
         } catch (IOException e) {
             e.printStackTrace();
+        }   
+            
+        } catch(Exception e) {
+            e.printStackTrace();
         }
-
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

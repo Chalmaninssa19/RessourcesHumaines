@@ -24,6 +24,26 @@
         <servlet-name>AddBesoin</servlet-name>
         <servlet-class>servlet.besoin.AddBesoin</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ListBesoins</servlet-name>
+        <servlet-class>servlet.besoin.ListBesoins</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ListBesoinsServlet</servlet-name>
+        <servlet-class>servlet.besoin.ListBesoinsServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DetailsBesoinServlet</servlet-name>
+        <servlet-class>servlet.besoin.DetailsBesoinServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>RefusedBesoinServlet</servlet-name>
+        <servlet-class>servlet.besoin.RefusedBesoinServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AnnonceServlet</servlet-name>
+        <servlet-class>servlet.annonce.AnnonceServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>AddBesoinServlet</servlet-name>
         <url-pattern>/addBesoinServlet</url-pattern>
@@ -47,6 +67,26 @@
     <servlet-mapping>
         <servlet-name>AddBesoin</servlet-name>
         <url-pattern>/addBesoin</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ListBesoins</servlet-name>
+        <url-pattern>/listBesoins</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ListBesoinsServlet</servlet-name>
+        <url-pattern>/listBesoinsServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DetailsBesoinServlet</servlet-name>
+        <url-pattern>/detailsBesoin</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>RefusedBesoinServlet</servlet-name>
+        <url-pattern>/refusedBesoin</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AnnonceServlet</servlet-name>
+        <url-pattern>/annonce</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

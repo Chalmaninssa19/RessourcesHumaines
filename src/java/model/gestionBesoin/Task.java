@@ -95,10 +95,25 @@ public class Task {
         return tasks;
     }
     
-    //Recuperer une tache par son id
-    public static Task getById(Connection conn, Integer idBesoin) throws Exception {
+    //Avoir toutes les taches d'une besoin
+    public static ArrayList<Task> getAllTaskBesoin(Connection conn, Besoin besoin)  throws Exception { 
         Statement work = conn.createStatement();
-        String req = "select * from task where id_task = "+idBesoin;
+        String req = "SELECT * FROM task WHERE id_besoin = "+besoin.getIdBesoin();
+        ResultSet result = work.executeQuery(req);
+        ArrayList<Task> tasks = new ArrayList<>();
+        int i = 1;
+        while(result.next()) {
+            Task task = new Task(result.getInt(1), Besoin.getById(conn,result.getInt(2)), result.getString(3), result.getInt(4));
+            tasks.add(task);
+        }
+        
+        return tasks;
+    }
+    
+    //Recuperer une tache par son id
+    public static Task getById(Connection conn, Integer idTask) throws Exception {
+        Statement work = conn.createStatement();
+        String req = "select * from task where id_task = "+idTask;
         ResultSet result = work.executeQuery(req);
         Task task = new Task();
         int i = 1;

@@ -102,6 +102,21 @@ public class WorkLoad {
         return workLoads;
     }
     
+     //Avoir tous les workloads d'une besoin
+    public static ArrayList<WorkLoad> getAllWorkloadBesoin(Connection conn, Besoin besoin)  throws Exception { 
+        Statement work = conn.createStatement();
+        String req = "SELECT * FROM workLoad WHERE id_besoin = "+besoin.getIdBesoin();
+        ResultSet result = work.executeQuery(req);
+        ArrayList<WorkLoad> workLoads = new ArrayList<>();
+     
+        while(result.next()) {
+            WorkLoad workLoad = new WorkLoad(result.getInt(1), Besoin.getById(conn,result.getInt(2)), WantedProfile.getById(conn, result.getInt(3)), result.getInt(4), Unity.getById(conn, result.getInt(5)));
+            workLoads.add(workLoad);
+        }
+        
+        return workLoads;
+    }
+    
     //Recuperer un workLoad par son id
     public static WorkLoad getById(Connection conn, Integer idWorkLoad) throws Exception {
         Statement work = conn.createStatement();

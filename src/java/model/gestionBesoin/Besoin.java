@@ -6,7 +6,6 @@
 package model.gestionBesoin;
 
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.time.LocalDate;
@@ -113,12 +112,30 @@ public class Besoin extends Model {
     }
     
     //Avoir tous les besoins
-    public static ArrayList<Besoin> getAll(Connection conn)  throws Exception { 
+    public static ArrayList<Besoin> getBesoinsService(Connection conn, Service service)  throws Exception { 
         Statement work = conn.createStatement();
-        String req = "select * from besoin";
+        String req = "SELECT * FROM besoin WHERE id_service="+service.getIdService()+" AND status!=0";
+        System.out.println("Req : "+req);
         ResultSet result = work.executeQuery(req);
         ArrayList<Besoin> besoins = new ArrayList<>();
         int i = 1;
+        while(result.next()) {
+            Besoin besoin = new Besoin(result.getInt(1), Service.getById(conn,result.getInt(2)), Besoin.getLocalDate(result.getString(3)), result.getString(4), result.getInt(5));
+            besoins.add(besoin);
+        }
+        
+        return besoins;
+    }
+    
+    //Avoir tous les besoins selon le status 
+    public static ArrayList<Besoin> getBesoinByStatus(Connection conn, String status, Service service)  throws Exception { 
+        if(status == null) {
+            status = "1";
+        }
+        Statement work = conn.createStatement();
+        String req = "SELECT * FROM besoin WHERE status = "+status+ " AND id_service="+service.getIdService();
+        ResultSet result = work.executeQuery(req);
+        ArrayList<Besoin> besoins = new ArrayList<>();
         while(result.next()) {
             Besoin besoin = new Besoin(result.getInt(1), Service.getById(conn,result.getInt(2)), Besoin.getLocalDate(result.getString(3)), result.getString(4), result.getInt(5));
             besoins.add(besoin);
@@ -149,6 +166,22 @@ public class Besoin extends Model {
     public void update(Connection conn)  throws Exception { 
         Statement work = conn.createStatement();
         String req = "UPDATE besoin SET id_service="+this.getService().getIdService()+", creation_date="+this.getCreationDate()+", description='"+this.getDescription()+"', status="+this.getStatus()+" WHERE id_besoin="+this.getIdBesoin();
+        work.execute(req);
+        conn.setAutoCommit(true);
+    }
+    
+    //refuser un besoin
+    public void refused(Connection conn)  throws Exception { 
+        Statement work = conn.createStatement();
+        String req = "UPDATE besoin SET status=5 WHERE id_besoin="+this.getIdBesoin();
+        work.execute(req);
+        conn.setAutoCommit(true);
+    }
+    
+    //refuser un besoin
+    public void validate(Connection conn)  throws Exception { 
+        Statement work = conn.createStatement();
+        String req = "UPDATE besoin SET status=10 WHERE id_besoin="+this.getIdBesoin();
         work.execute(req);
         conn.setAutoCommit(true);
     }
