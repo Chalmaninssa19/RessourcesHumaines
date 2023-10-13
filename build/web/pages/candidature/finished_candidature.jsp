@@ -33,9 +33,9 @@
                 <h3 style="margin: 0;">Huile de bongolava</h3>
               </div>
               <hr>
-              <h4 class="validation mt-5"><i class="mdi mdi-check-all"></i>Votre candidature a Ã©tÃ© bien reÃ§ue</h4>
-              <p class="description mt-5 px-5">Nous vous contacterons Ã  partir de votre email si vous
-                Ãªtes illigible pour l'entretien. Merci d'avoir donner de l'interer a nos annonces</p>
+              <h4 class="validation mt-5"><i class="mdi mdi-check-all"></i>Votre candidature a été bien reçue</h4>
+              <p class="description mt-5 px-5">Nous vous contacterons à  partir de votre email si vous
+                êtes séléctionnée pour l'entretien</p>
               <div class="d-flex justify-content-center mt-5">
                 <button class="btn btn-outline-primary terminer">Terminer</button>
               </div>

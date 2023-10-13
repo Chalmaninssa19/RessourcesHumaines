@@ -1,3 +1,3 @@
 <% 
-    response.sendRedirect("./PersonalInformationInsertionServlet");
+    response.sendRedirect("./quiz-realisation");
 %>

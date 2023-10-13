@@ -7,18 +7,18 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <title>Insertion candidature</title>
   <!-- plugins:css -->
-  <link rel="stylesheet" href="../../assets/vendors/mdi/css/materialdesignicons.min.css">
-  <link rel="stylesheet" href="../../assets/vendors/css/vendor.bundle.base.css">
-  <link rel="stylesheet" href="../../assets/css/candidature/finished_candidature.css">
+  <link rel="stylesheet" href="./assets/vendors/mdi/css/materialdesignicons.min.css">
+  <link rel="stylesheet" href="./assets/vendors/css/vendor.bundle.base.css">
+  <link rel="stylesheet" href="./assets/css/candidature/finished_candidature.css">
   <!-- endinject -->
   <!-- Plugin css for this page -->
   <!-- End plugin css for this page -->
   <!-- inject:css -->
   <!-- endinject -->
   <!-- Layout styles -->
-  <link rel="stylesheet" href="../../assets/css/style.css">
+  <link rel="stylesheet" href="./assets/css/style.css">
   <!-- End layout styles -->
-  <link rel="shortcut icon" href="../../assets/images/favicon.ico" />
+  <link rel="shortcut icon" href="./assets/images/favicon.ico" />
 </head>
 
 <body>
@@ -33,9 +33,9 @@
                 <h3 style="margin: 0;">Huile de bongolava</h3>
               </div>
               <hr>
-              <h4 class="validation mt-5"><i class="mdi mdi-check-all"></i>Votre candidature a été bien reçue</h4>
-              <p class="description mt-5 px-5">Nous vous contacterons à  partir de votre email si vous
-                êtes séléctionnée pour l'entretien</p>
+              <h4 class="validation mt-5"><i class="mdi mdi-check-all"></i>Votre test a ete bien recue</h4>
+              <p class="description mt-5 px-5">Nous vous contacterons a  partir de votre email si vous
+                etes illigible pour l'entretien. Merci d'avoir donner de l'interer a nos annonces</p>
               <div class="d-flex justify-content-center mt-5">
                 <button class="btn btn-outline-primary terminer">Terminer</button>
               </div>
@@ -49,15 +49,15 @@
   </div>
   <!-- container-scroller -->
   <!-- plugins:js -->
-  <script src="../../assets/vendors/js/vendor.bundle.base.js"></script>
+  <script src="./assets/vendors/js/vendor.bundle.base.js"></script>
   <!-- endinject -->
   <!-- Plugin js for this page -->
   <!-- End plugin js for this page -->
   <!-- inject:js -->
-  <script src="../../assets/js/off-canvas.js"></script>
-  <script src="../../assets/js/hoverable-collapse.js"></script>
-  <script src="../../assets/js/misc.js"></script>
-  <script src="../../assets/js/file-upload.js"></script>
+  <script src="./assets/js/off-canvas.js"></script>
+  <script src="./assets/js/hoverable-collapse.js"></script>
+  <script src="./assets/js/misc.js"></script>
+  <script src="./assets/js/file-upload.js"></script>
   <!-- endinject -->
 </body>
 
