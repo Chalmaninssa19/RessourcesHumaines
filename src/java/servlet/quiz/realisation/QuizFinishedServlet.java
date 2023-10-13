@@ -2,8 +2,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-package servlet.quiz;
+package servlet.quiz.realisation;
 
+import jakarta.servlet.RequestDispatcher;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -11,15 +12,13 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
-import model.quiz.Quiz;
 
 /**
  *
  * @author To Mamiarilaza
  */
-@WebServlet(name = "SaveQuizServlet", urlPatterns = {"/save-quiz"})
-public class SaveQuizServlet extends HttpServlet {
+@WebServlet(name = "QuizFinishedServlet", urlPatterns = {"/quiz-finish"})
+public class QuizFinishedServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -33,21 +32,9 @@ public class SaveQuizServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        PrintWriter out = response.getWriter();
-        try {
-            String quizName = request.getParameter("quizName");
-            
-            HttpSession session = request.getSession();
-            Quiz quiz = (Quiz) session.getAttribute("quiz");
-            quiz.setQuizName(quizName);
-            quiz.getInformation();
-            quiz.save(1, null);
-            
-            out.print("{\"response\": \"Success\"}");
-        } catch (Exception e) {
-            e.printStackTrace();
-            out.print("{\"error\": \"" + e.getMessage() + "\"}");
-        }
+        
+        RequestDispatcher dispatcher = request.getRequestDispatcher("./pages/quiz/finished_quiz.jsp");
+        dispatcher.forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

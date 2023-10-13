@@ -85,3 +85,14 @@ SELECT
 FROM 
     quiz q JOIN service s ON q.id_service = s.id_service
     JOIN quiz_type qt ON q.id_quiz_type = qt.id_quiz_type;
+
+-- Base pour contenir le résultat des tests d'un candidat
+CREATE TABLE candidature_test (
+    id_candidature_test SERIAL PRIMARY KEY,
+    id_candidature SERIAL,
+    note INTEGER,
+    id_quiz SERIAL,
+    quiz_date TIMESTAMP,
+    FOREIGN KEY(id_quiz) REFERENCES quiz(id_quiz)
+    -- Don't forget to add constraint to id_candidature
+);

@@ -24,7 +24,7 @@ public class Quiz {
     int idQuiz;
     Service service;
     String quizName;
-    QuizType type;
+    QuizType type;                  // 1 question et 2 réponse
     List<Question> questions;
 
     private int tempQuestionID;     // ID temporaire ajouter au nouveau question
@@ -120,25 +120,28 @@ public class Quiz {
     }
 
     // Enregistre le quiz dans la base de données
-    public void save() throws Exception {
+    public void save(int type, Connection connection) throws Exception {
         String query = "INSERT INTO quiz (id_service, quiz_name, id_quiz_type, status) VALUES (?, ?, ?, ?)";
 
-        Connection connection = null;
+        boolean closeable = false;
+        if (connection == null) {
+            closeable = true;
+            connection = GConnection.getSimpleConnection();
+            connection.setAutoCommit(false);
+        }
+
         PreparedStatement statement = null;
         ResultSet resultset = null;
 
         try {
-            connection = GConnection.getSimpleConnection();
-            connection.setAutoCommit(false);
-            
             statement = connection.prepareStatement(query);
             statement.setInt(1, getService().getIdService());
             statement.setString(2, getQuizName());
-            statement.setInt(3, 1);
+            statement.setInt(3, type);
             statement.setInt(4, 1);
 
             statement.executeUpdate();
-            
+
             int lastQuizId = getLastQuizId(connection);
 
             // Insertion des question
@@ -149,19 +152,21 @@ public class Quiz {
                 statement.setInt(1, lastQuizId);
                 statement.setString(2, question.getQuestion());
                 statement.setInt(3, question.getScore());
-                
+
                 statement.executeUpdate();
-                
+
                 int lastQuestionId = getMaxQuestionId(connection);
                 question.setIdQuestion(lastQuestionId);
-                
+
                 question.saveAllAnswer(connection);
             }
 
-            connection.commit();
-            
             statement.close();
-            connection.close();
+
+            if (closeable) {
+                connection.commit();
+                connection.close();
+            }
 
         } catch (Exception e) {
             if (resultset != null) {
@@ -358,7 +363,7 @@ public class Quiz {
 
         getQuestions().add(newQuestion);
         this.tempQuestionID++;
-        
+
         return newQuestion;
     }
 
@@ -366,8 +371,8 @@ public class Quiz {
     public void getInformation() {
         System.out.println("Detail du quiz : " + getIdQuiz());
         System.out.println("Nom : " + getQuizName());
-        //System.out.println("Service : " + getService().getService());
-        //System.out.println("Quiz Type : " + getType().getQuizType());
+        System.out.println("Service : " + getService().getService());
+        System.out.println("Quiz Type : " + getType().getQuizType());
         System.out.println("Les questions :");
         for (Question question : getQuestions()) {
             System.out.println("--> " + question.getIdQuestion() + " . " + question.getQuestion() + " " + question.getScore() + " points");
@@ -377,9 +382,63 @@ public class Quiz {
         }
     }
 
+    // Pour avoir une quiz par son ID
+    public static Quiz getQuizById(int id) throws Exception {
+        Quiz quiz = null;
+        String query = "SELECT * FROM v_quiz_full_info WHERE id_quiz = %d";
+        query = String.format(query, id);
+
+        Connection connection = null;
+        Statement statement = null;
+        ResultSet resultset = null;
+
+        try {
+            connection = GConnection.getSimpleConnection();
+            statement = connection.createStatement();
+            resultset = statement.executeQuery(query);
+
+            if (resultset.next()) {
+                int idQuiz = resultset.getInt("id_quiz");
+                String quizName = resultset.getString("quiz_name");
+                int status = resultset.getInt("status");
+
+                int id_quiz_type = resultset.getInt("id_quiz_type");
+                String quiz_type = resultset.getString("quiz_type");
+                QuizType quizType = new QuizType(id_quiz_type, quiz_type);
+
+                int id_service = resultset.getInt("id_service");
+                String serviceName = resultset.getString("service");
+                String fonction = resultset.getString("fonction");
+                int serviceStatus = resultset.getInt("service_status");
+                Service service = new Service(id_service, serviceName, fonction, null, serviceStatus);
+
+                quiz = new Quiz(idQuiz, service, quizName, quizType, null);
+
+                quiz.setQuestions(Question.getAllQuestion(idQuiz, connection));
+            }
+
+            resultset.close();
+            statement.close();
+            connection.close();
+
+            return quiz;
+        } catch (Exception e) {
+            if (resultset != null) {
+                resultset.close();
+            }
+            if (statement != null) {
+                statement.close();
+            }
+            if (connection != null) {
+                connection.close();
+            }
+            throw e;
+        }
+    }
+
     public static List<Quiz> getAllQuiz() throws Exception {
         List<Quiz> quizzes = new ArrayList<>();
-        String query = "SELECT * FROM v_quiz_full_info";
+        String query = "SELECT * FROM v_quiz_full_info WHERE id_quiz_type = 1";
 
         Connection connection = null;
         Statement statement = null;
@@ -399,11 +458,11 @@ public class Quiz {
                 String quiz_type = resultset.getString("quiz_type");
                 QuizType quizType = new QuizType(id_quiz_type, quiz_type);
 
-                int id_service = resultset.getInt("id_service");
+                int idService = resultset.getInt("id_service");
                 String serviceName = resultset.getString("service");
                 String fonction = resultset.getString("fonction");
                 int serviceStatus = resultset.getInt("service_status");
-                Service service = new Service(serviceName, fonction, null, serviceStatus);
+                Service service = new Service(idService, serviceName, fonction, null, serviceStatus);
 
                 Quiz quiz = new Quiz(idQuiz, service, quizName, quizType, null);
 
@@ -450,10 +509,8 @@ public class Quiz {
         quiz.changeAnswerValue("2", "2", "5");
         quiz.changeAnswerValue("2", "3", "50");
 
-
         quiz.getInformation();
 
-        quiz.save();
 
     }
 }

@@ -76,6 +76,15 @@ public class Service extends Model {
         this.status = status;
     }
 
+    public Service(int idService, String service, String fonction, Timestamp creation_date, Integer status) {
+        this.idService = idService;
+        this.service = service;
+        this.fonction = fonction;
+        this.creation_date = creation_date;
+        this.status = status;
+    }
+    
+
     public Service(String service, String fonction, Timestamp creation_date, Integer status) {
         this.service = service;
         this.fonction = fonction;

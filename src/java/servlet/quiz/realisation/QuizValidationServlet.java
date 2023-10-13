@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-package servlet.quiz;
+package servlet.quiz.realisation;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -11,15 +11,20 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
+import java.util.HashMap;
+import java.util.Map;
+import model.candidature.Candidature;
+import model.gestionProfile.WantedProfile;
+import model.quiz.CandidatureTest;
+import model.quiz.Question;
 import model.quiz.Quiz;
 
 /**
  *
  * @author To Mamiarilaza
  */
-@WebServlet(name = "SaveQuizServlet", urlPatterns = {"/save-quiz"})
-public class SaveQuizServlet extends HttpServlet {
+@WebServlet(name = "QuizValidationServlet", urlPatterns = {"/quiz-validation"})
+public class QuizValidationServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -33,20 +38,29 @@ public class SaveQuizServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        PrintWriter out = response.getWriter();
+        // reception des données requiz
         try {
-            String quizName = request.getParameter("quizName");
+            String idCandidature = request.getParameter("idCandidature");
+            String idWantedProfile = request.getParameter("idWantedProfile");
+            String idQuiz = request.getParameter("idQuiz");
             
-            HttpSession session = request.getSession();
-            Quiz quiz = (Quiz) session.getAttribute("quiz");
-            quiz.setQuizName(quizName);
-            quiz.getInformation();
-            quiz.save(1, null);
+            Quiz quiz = Quiz.getQuizById(Integer.valueOf(idQuiz));
+            Candidature candidature = new Candidature();
+            candidature.setIdCandidature(0);
             
-            out.print("{\"response\": \"Success\"}");
+            WantedProfile wantedProfile = new WantedProfile();
+            
+            // Prise en main des réponses de l'utilisateur
+            HashMap<String, String[]> answers = new HashMap<>();
+            for (Question question : quiz.getQuestions()) {
+                answers.put(String.valueOf(question.getIdQuestion()), request.getParameterValues(String.valueOf(question.getIdQuestion())));
+            }
+            
+            CandidatureTest.saveCandidatureTest(candidature, wantedProfile, quiz, answers);
+            
+            response.sendRedirect("./quiz-finish");
         } catch (Exception e) {
             e.printStackTrace();
-            out.print("{\"error\": \"" + e.getMessage() + "\"}");
         }
     }
 
