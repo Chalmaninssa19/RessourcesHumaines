@@ -266,7 +266,7 @@ public class WantedProfile extends Model {
                 con = GConnection.getSimpleConnection();
                 b = false;
             }
-            String requete = "insert into wanted_profile values (DEFAULT,' " + this.getPoste() + " '," + this.getService() + ", 1)";
+            String requete = "insert into wanted_profile values (DEFAULT,' " + this.getPoste() + " '," + this.getService().getIdService() + ", 1)";
             System.out.println(requete);
             Statement s = con.createStatement();
             s.executeUpdate(requete);
