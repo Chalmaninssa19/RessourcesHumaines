@@ -1,84 +1,92 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
     <servlet>
-        <servlet-name>AjaxProfileServlet</servlet-name>
-        <servlet-class>servlet.profil.AjaxProfileServlet</servlet-class>
+        <servlet-name>AddBesoinServlet</servlet-name>
+        <servlet-class>servlet.besoin.AddBesoinServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>ProfileServlet</servlet-name>
-        <servlet-class>servlet.profil.ProfileServlet</servlet-class>
+        <servlet-name>AddTaskServlet</servlet-name>
+        <servlet-class>servlet.besoin.AddTaskServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>ListeProfileServlet</servlet-name>
-        <servlet-class>servlet.profil.ListeProfileServlet</servlet-class>
+        <servlet-name>ProfileValidedServlet</servlet-name>
+        <servlet-class>servlet.besoin.ProfileValidedServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>DeleteProfileServlet</servlet-name>
-        <servlet-class>servlet.profil.DeleteProfileServlet</servlet-class>
+        <servlet-name>AddWorkLoad</servlet-name>
+        <servlet-class>servlet.besoin.AddWorkLoad</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>PersonalInformationInsertionServlet</servlet-name>
-        <servlet-class>servlet.candidature.PersonalInformationInsertionServlet</servlet-class>
+        <servlet-name>AddWorkLoadServlet</servlet-name>
+        <servlet-class>servlet.besoin.AddWorkLoadServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>ProfessionalCareerInsertionServlet</servlet-name>
-        <servlet-class>servlet.candidature.ProfessionalCareerInsertionServlet</servlet-class>
+        <servlet-name>AddBesoin</servlet-name>
+        <servlet-class>servlet.besoin.AddBesoin</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>FormationPathInsertionServlet</servlet-name>
-        <servlet-class>servlet.candidature.FormationPathInsertionServlet</servlet-class>
+        <servlet-name>ListBesoins</servlet-name>
+        <servlet-class>servlet.besoin.ListBesoins</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>OtherInformationInsertionServlet</servlet-name>
-        <servlet-class>servlet.candidature.OtherInformationInsertionServlet</servlet-class>
+        <servlet-name>ListBesoinsServlet</servlet-name>
+        <servlet-class>servlet.besoin.ListBesoinsServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>PreviewCandidatureServlet</servlet-name>
-        <servlet-class>servlet.candidature.PreviewCandidatureServlet</servlet-class>
+        <servlet-name>DetailsBesoinServlet</servlet-name>
+        <servlet-class>servlet.besoin.DetailsBesoinServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>FinishedCandidatureServlet</servlet-name>
-        <servlet-class>servlet.candidature.FinishedCandidatureServlet</servlet-class>
+        <servlet-name>RefusedBesoinServlet</servlet-name>
+        <servlet-class>servlet.besoin.RefusedBesoinServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AnnonceServlet</servlet-name>
+        <servlet-class>servlet.annonce.AnnonceServlet</servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>AjaxProfileServlet</servlet-name>
-        <url-pattern>/AjaxProfileServlet</url-pattern>
+        <servlet-name>AddBesoinServlet</servlet-name>
+        <url-pattern>/addBesoinServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>ProfileServlet</servlet-name>
-        <url-pattern>/ProfileServlet</url-pattern>
+        <servlet-name>AddTaskServlet</servlet-name>
+        <url-pattern>/addTaskServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>ListeProfileServlet</servlet-name>
-        <url-pattern>/ListeProfileServlet</url-pattern>
+        <servlet-name>ProfileValidedServlet</servlet-name>
+        <url-pattern>/profileValidedServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>DeleteProfileServlet</servlet-name>
-        <url-pattern>/DeleteProfileServlet</url-pattern>
+        <servlet-name>AddWorkLoad</servlet-name>
+        <url-pattern>/addWorkLoad</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>PersonalInformationInsertionServlet</servlet-name>
-        <url-pattern>/PersonalInformationInsertionServlet</url-pattern>
+        <servlet-name>AddWorkLoadServlet</servlet-name>
+        <url-pattern>/addWorkLoadServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>ProfessionalCareerInsertionServlet</servlet-name>
-        <url-pattern>/ProfessionalCareerInsertionServlet</url-pattern>
+        <servlet-name>AddBesoin</servlet-name>
+        <url-pattern>/addBesoin</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>FormationPathInsertionServlet</servlet-name>
-        <url-pattern>/FormationPathInsertionServlet</url-pattern>
+        <servlet-name>ListBesoins</servlet-name>
+        <url-pattern>/listBesoins</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>OtherInformationInsertionServlet</servlet-name>
-        <url-pattern>/OtherInformationInsertionServlet</url-pattern>
+        <servlet-name>ListBesoinsServlet</servlet-name>
+        <url-pattern>/listBesoinsServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>PreviewCandidatureServlet</servlet-name>
-        <url-pattern>/PreviewCandidatureServlet</url-pattern>
+        <servlet-name>DetailsBesoinServlet</servlet-name>
+        <url-pattern>/detailsBesoin</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>FinishedCandidatureServlet</servlet-name>
-        <url-pattern>/FinishedCandidatureServlet</url-pattern>
+        <servlet-name>RefusedBesoinServlet</servlet-name>
+        <url-pattern>/refusedBesoin</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AnnonceServlet</servlet-name>
+        <url-pattern>/annonce</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

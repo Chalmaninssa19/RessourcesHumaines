@@ -3,17 +3,22 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/ITU/L3/Gestion_d'entreprise(MrTovo)/RessourcesHumaines/src/java/model/candidature/Career.java</file>
-            <file>file:/D:/ITU/L3/Gestion_d'entreprise(MrTovo)/RessourcesHumaines/src/java/model/gestionProfile/WantedProfile.java</file>
-            <file>file:/D:/ITU/L3/Gestion_d'entreprise(MrTovo)/RessourcesHumaines/web/pages/candidature/professional_career_insertion.jsp</file>
-            <file>file:/D:/ITU/L3/Gestion_d'entreprise(MrTovo)/RessourcesHumaines/src/java/model/candidature/ProfessionalCareer.java</file>
-            <file>file:/D:/ITU/L3/Gestion_d'entreprise(MrTovo)/RessourcesHumaines/src/java/servlet/candidature/OtherInformationInsertionServlet.java</file>
-            <file>file:/D:/ITU/L3/Gestion_d'entreprise(MrTovo)/RessourcesHumaines/src/java/model/candidature/PersonnalInformation.java</file>
-            <file>file:/D:/ITU/L3/Gestion_d'entreprise(MrTovo)/RessourcesHumaines/src/java/servlet/candidature/FinishedCandidatureServlet.java</file>
-            <file>file:/D:/ITU/L3/Gestion_d'entreprise(MrTovo)/RessourcesHumaines/src/java/servlet/candidature/PreviewCandidatureServlet.java</file>
-            <file>file:/D:/ITU/L3/Gestion_d'entreprise(MrTovo)/RessourcesHumaines/web/pages/candidature/formation_path_insertion.jsp</file>
-            <file>file:/D:/ITU/L3/Gestion_d'entreprise(MrTovo)/RessourcesHumaines/src/java/model/candidature/Candidature.java</file>
-            <file>file:/D:/ITU/L3/Gestion_d'entreprise(MrTovo)/RessourcesHumaines/web/pages/candidature/candidature_preview.jsp</file>
+            <file>file:/home/chalman/Documents/GitHub/RessourcesHumaines/src/java/servlet/annonce/AnnonceServlet.java</file>
+            <file>file:/home/chalman/Documents/GitHub/RessourcesHumaines/src/java/servlet/profil/AjaxProfileServlet.java</file>
+            <file>file:/home/chalman/Documents/GitHub/RessourcesHumaines/src/java/model/gestionBesoin/Task.java</file>
+            <file>file:/home/chalman/Documents/GitHub/RessourcesHumaines/src/java/servlet/besoin/AddBesoinServlet.java</file>
+            <file>file:/home/chalman/Documents/GitHub/RessourcesHumaines/src/java/servlet/besoin/RefusedBesoinServlet.java</file>
+            <file>file:/home/chalman/Documents/GitHub/RessourcesHumaines/src/java/servlet/besoin/ProfileValidedServlet.java</file>
+            <file>file:/home/chalman/Documents/GitHub/RessourcesHumaines/src/java/model/requis/Service.java</file>
+            <file>file:/home/chalman/Documents/GitHub/RessourcesHumaines/src/java/servlet/besoin/ListBesoinsServlet.java</file>
+            <file>file:/home/chalman/Documents/GitHub/RessourcesHumaines/src/java/servlet/besoin/BesoinServlet.java</file>
+            <file>file:/home/chalman/Documents/GitHub/RessourcesHumaines/src/java/servlet/besoin/DetailsBesoinServlet.java</file>
+            <file>file:/home/chalman/Documents/GitHub/RessourcesHumaines/src/java/model/gestionProfile/WantedProfile.java</file>
+            <file>file:/home/chalman/Documents/GitHub/RessourcesHumaines/src/java/model/gestionBesoin/WorkLoad.java</file>
+            <file>file:/home/chalman/Documents/GitHub/RessourcesHumaines/src/java/model/gestionBesoin/Besoin.java</file>
+            <file>file:/home/chalman/Documents/GitHub/RessourcesHumaines/src/java/servlet/besoin/AddWorkLoadServlet.java</file>
+            <file>file:/home/chalman/Documents/GitHub/RessourcesHumaines/src/java/model/gestionBesoin/Unity.java</file>
+            <file>file:/home/chalman/Documents/GitHub/RessourcesHumaines/src/java/servlet/besoin/AnnonceExportPDFServlet.java</file>
         </group>
     </open-files>
 </project-private>

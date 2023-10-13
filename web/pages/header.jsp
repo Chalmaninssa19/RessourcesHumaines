@@ -1,4 +1,3 @@
-<!-- <%@ page contentType="text/html; charset=UTF-8" %> -->
 <!DOCTYPE html>
 <html lang="en">
 
@@ -9,19 +8,19 @@
     <title>Gestion Ressource Humaine</title>
 
     <!-- plugins:css -->
-    <link rel="stylesheet" href="../../assets/vendors/mdi/css/materialdesignicons.min.css">
-    <link rel="stylesheet" href="../../assets/css/besoin/besoin-insertion.css">
-    <link rel="stylesheet" href="../../assets/css/besoin/besoin-list.css">
-    <link rel="stylesheet" href="../../assets/vendors/css/vendor.bundle.base.css">
+    <link rel="stylesheet" href="./assets/vendors/mdi/css/materialdesignicons.min.css">
+    <link rel="stylesheet" href="./assets/css/besoin/besoin-insertion.css">
+    <link rel="stylesheet" href="./assets/css/besoin/besoin-list.css">
+    <link rel="stylesheet" href="./assets/vendors/css/vendor.bundle.base.css">
     <!-- endinject -->
     <!-- Plugin css for this page -->
     <!-- End plugin css for this page -->
     <!-- inject:css -->
     <!-- endinject -->
     <!-- Layout styles -->
-    <link rel="stylesheet" href="../../assets/css/style.css">
+    <link rel="stylesheet" href="./assets/css/style.css">
     <!-- End layout styles -->
-    <link rel="shortcut icon" href="../../assets/images/favicon.ico" />
+    <link rel="shortcut icon" href="./assets/images/favicon.ico" />
 </head>
 
 <body>
@@ -30,12 +29,12 @@
         <nav class="navbar default-layout-navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
             <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
                 <a class="d-flex align-items-center d-navbar-brand brand-logo"
-                    style="text-decoration: none; color: #da8cff;" href="../../index.html">
+                    style="text-decoration: none; color: #da8cff;" href="./index.html">
                     <i class="mdi mdi-account-box" style="font-size: 35px;margin-right: 25px;"></i>
                     <h2 style="margin: 0;">GRH</h2>
                 </a>
-                <a class="navbar-brand brand-logo-mini" href="../../index.html"><img
-                        src="../../assets/images/logo-mini.svg" alt="logo" /></a>
+                <a class="navbar-brand brand-logo-mini" href="./index.html"><img
+                        src="./assets/images/logo-mini.svg" alt="logo" /></a>
             </div>
             <div class="navbar-menu-wrapper d-flex align-items-stretch">
                 <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
@@ -57,7 +56,7 @@
                         <a class="nav-link dropdown-toggle" id="profileDropdown" href="#" data-bs-toggle="dropdown"
                             aria-expanded="false">
                             <div class="nav-profile-img">
-                                <img src="../../assets/images/faces/face1.jpg" alt="image">
+                                <img src="./assets/images/faces/face1.jpg" alt="image">
                                 <span class="availability-status online"></span>
                             </div>
                             <div class="nav-profile-text">
@@ -89,7 +88,7 @@
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item preview-item">
                                 <div class="preview-thumbnail">
-                                    <img src="../../assets/images/faces/face4.jpg" alt="image" class="profile-pic">
+                                    <img src="./assets/images/faces/face4.jpg" alt="image" class="profile-pic">
                                 </div>
                                 <div
                                     class="preview-item-content d-flex align-items-start flex-column justify-content-center">
@@ -101,7 +100,7 @@
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item preview-item">
                                 <div class="preview-thumbnail">
-                                    <img src="../../assets/images/faces/face2.jpg" alt="image" class="profile-pic">
+                                    <img src="./assets/images/faces/face2.jpg" alt="image" class="profile-pic">
                                 </div>
                                 <div
                                     class="preview-item-content d-flex align-items-start flex-column justify-content-center">
@@ -113,7 +112,7 @@
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item preview-item">
                                 <div class="preview-thumbnail">
-                                    <img src="../../assets/images/faces/face3.jpg" alt="image" class="profile-pic">
+                                    <img src="./assets/images/faces/face3.jpg" alt="image" class="profile-pic">
                                 </div>
                                 <div
                                     class="preview-item-content d-flex align-items-start flex-column justify-content-center">
@@ -204,7 +203,7 @@
                     <li class="nav-item nav-profile">
                         <a href="#" class="nav-link">
                             <div class="nav-profile-image">
-                                <img src="../../assets/images/faces/face1.jpg" alt="profile">
+                                <img src="./assets/images/faces/face1.jpg" alt="profile">
                                 <span class="login-status online"></span>
                                 <!--change to offline or busy as needed-->
                             </div>
@@ -216,7 +215,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="../../index.html">
+                        <a class="nav-link" href="./index.html">
                             <span class="menu-title">Dashboard</span>
                             <i class="mdi mdi-home menu-icon"></i>
                         </a>
@@ -231,176 +230,20 @@
                         <div class="collapse show" id="ui-basic">
                             <ul class="nav flex-column sub-menu">
                                 <li class="nav-item active"> <a class="nav-link active"
-                                        href="pages/ui-features/buttons.html">Besoins
+                                        href="listBesoinsServlet">Besoins
                                         des services</a></li>
                                 <li class="nav-item"> <a class="nav-link"
-                                        href="pages/ui-features/typography.html">Annonce</a></li>
+                                        href="annonce">Annonce</a></li>
                                 <li class="nav-item"> <a class="nav-link"
-                                        href="pages/ui-features/typography.html">Réceptions des CV</a></li>
+                                        href="pages/ui-features/typography.html">R�ceptions des CV</a></li>
                                 <li class="nav-item"> <a class="nav-link"
-                                        href="pages/ui-features/typography.html">Résultats des tests</a></li>
+                                        href="pages/ui-features/typography.html">R�sultats des tests</a></li>
                                 <li class="nav-item"> <a class="nav-link"
                                         href="pages/ui-features/typography.html">Programme d'entretien</a></li>
                                 <li class="nav-item"> <a class="nav-link"
-                                        href="pages/ui-features/typography.html">Résultat candidature</a></li>
+                                        href="pages/ui-features/typography.html">R�sultat candidature</a></li>
                             </ul>
                         </div>
                     </li>
                 </ul>
             </nav>
-
-
-            <!-- partial -->
-            <div class="main-panel">
-                <div class="content-wrapper">
-                    <div class="page-header">
-                        <h3 class="page-title">
-                            <span class="page-title-icon bg-gradient-primary text-white me-2">
-                                <i class="mdi mdi-home"></i>
-                            </span> Besoin des services
-                        </h3>
-                    </div>
-                    <div class="row">
-                        <div class="col-lg-12 grid-margin stretch-card">
-                            <div class="card">
-                                <div class="card-body">
-                                    <h4 class="">Listes des besoins reçue des services</h4>
-                                    <form class="form mt-3">
-                                        <div class="form-group d-flex align-items-center mb-2">
-                                            <p class="mb-0"><strong>Filtre par service</strong></p>
-                                            <div class="mx-4">
-                                                <select name="" id="" class="form-select">
-                                                    <option value="">Informatique</option>
-                                                    <option value="">Securite</option>
-                                                </select>
-                                            </div>
-                                            <div class="mx-4">
-                                                <button class="btn btn-outline-primary btn-sm">Filtrer</button>
-                                            </div>
-                                        </div>
-                                        <div class="d-flex align-items-center">
-                                            <div class="form-check form-check-flat form-check-primary mx-3">
-                                                <label class="form-check-label">
-                                                    <input type="checkbox" class="form-check-input"> Non visité </label>
-                                            </div>
-                                            <div class="form-check form-check-flat form-check-primary mx-3">
-                                                <label class="form-check-label">
-                                                    <input type="checkbox" class="form-check-input"> En attente </label>
-                                            </div>
-                                            <div class="form-check form-check-flat form-check-primary mx-3">
-                                                <label class="form-check-label">
-                                                    <input type="checkbox" class="form-check-input"> Refusé </label>
-                                            </div>
-                                            <div class="form-check form-check-flat form-check-primary mx-3">
-                                                <label class="form-check-label">
-                                                    <input type="checkbox" class="form-check-input"> Validé </label>
-                                            </div>
-                                        </div>
-                                    </form>
-                                    </p>
-                                    <div class="table-overflow">
-                                        <table class="table table-striped">
-                                            <thead>
-                                                <tr>
-                                                    <th>Date</th>
-                                                    <th>Service</th>
-                                                    <th>Description</th>
-                                                    <th></th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr>
-                                                    <td>07/10/2023</td>
-                                                    <td>Informatique</td>
-                                                    <td>Notre département informatique a besoin de quelques developpeur ...</td>
-                                                    <td><a href="" class="btn btn-gradient-primary btn-sm">Voir plus</a></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>07/10/2023</td>
-                                                    <td>Informatique</td>
-                                                    <td>Notre département informatique a besoin de quelques developpeur ...</td>
-                                                    <td><a href="" class="btn btn-gradient-primary btn-sm">Voir plus</a></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>07/10/2023</td>
-                                                    <td>Informatique</td>
-                                                    <td>Notre département informatique a besoin de quelques developpeur ...</td>
-                                                    <td><a href="" class="btn btn-gradient-primary btn-sm">Voir plus</a></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>07/10/2023</td>
-                                                    <td>Informatique</td>
-                                                    <td>Notre département informatique a besoin de quelques developpeur ...</td>
-                                                    <td><a href="" class="btn btn-gradient-primary btn-sm">Voir plus</a></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>07/10/2023</td>
-                                                    <td>Informatique</td>
-                                                    <td>Notre département informatique a besoin de quelques developpeur ...</td>
-                                                    <td><a href="" class="btn btn-gradient-primary btn-sm">Voir plus</a></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>07/10/2023</td>
-                                                    <td>Informatique</td>
-                                                    <td>Notre département informatique a besoin de quelques developpeur ...</td>
-                                                    <td><a href="" class="btn btn-gradient-primary btn-sm">Voir plus</a></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>07/10/2023</td>
-                                                    <td>Informatique</td>
-                                                    <td>Notre département informatique a besoin de quelques developpeur ...</td>
-                                                    <td><a href="" class="btn btn-gradient-primary btn-sm">Voir plus</a></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>07/10/2023</td>
-                                                    <td>Informatique</td>
-                                                    <td>Notre département informatique a besoin de quelques developpeur ...</td>
-                                                    <td><a href="" class="btn btn-gradient-primary btn-sm">Voir plus</a></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>07/10/2023</td>
-                                                    <td>Informatique</td>
-                                                    <td>Notre département informatique a besoin de quelques developpeur ...</td>
-                                                    <td><a href="" class="btn btn-gradient-primary btn-sm">Voir plus</a></td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- content-wrapper ends -->
-                <!-- partial:/partials/_footer.html -->
-                <footer class="footer">
-                    <div class="container-fluid d-flex justify-content-between">
-                        <span class="text-muted d-block text-center text-sm-start d-sm-inline-block">Copyright �
-                            bootstrapdash.com 2021</span>
-                        <span class="float-none float-sm-end mt-1 mt-sm-0 text-end"> Free <a
-                                href="https://www.bootstrapdash.com/bootstrap-admin-template/" target="_blank">Bootstrap
-                                admin template</a> from Bootstrapdash.com</span>
-                    </div>
-                </footer>
-                <!-- partial -->
-            </div>
-            <!-- main-panel ends -->
-        </div>
-        <!-- page-body-wrapper ends -->
-    </div>
-    <!-- container-scroller -->
-    <!-- plugins:js -->
-    <script src="../../assets/vendors/js/vendor.bundle.base.js"></script>
-    <!-- endinject -->
-    <!-- Plugin js for this page -->
-    <!-- End plugin js for this page -->
-    <!-- inject:js -->
-    <script src="../../assets/js/off-canvas.js"></script>
-    <script src="../../assets/js/hoverable-collapse.js"></script>
-    <script src="../../assets/js/misc.js"></script>
-    <!-- endinject -->
-    <!-- Custom js for this page -->
-    <!-- End custom js for this page -->
-</body>
-
-</html>

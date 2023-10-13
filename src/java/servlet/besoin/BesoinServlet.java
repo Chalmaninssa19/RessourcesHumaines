@@ -4,6 +4,7 @@
  */
 package servlet.besoin;
 
+import framework.database.utilitaire.GConnection;
 import jakarta.servlet.RequestDispatcher;
 import java.io.IOException;
 import jakarta.servlet.ServletException;
@@ -11,7 +12,14 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import model.Person;
+import jakarta.servlet.http.HttpSession;
+import java.sql.Connection;
+import java.util.ArrayList;
+import java.util.List;
+import model.gestionBesoin.Besoin;
+import model.gestionBesoin.Task;
+import model.gestionBesoin.Unity;
+import model.requis.Service;
 
 /**
  *
@@ -34,12 +42,28 @@ public class BesoinServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         
         // Add attribute to request
-        
+          try {
+              Connection connex = GConnection.getSimpleConnection();
+              
+              HttpSession session = request.getSession();
+              Besoin besoin = new Besoin();
+              session.setAttribute("besoin", besoin);
+              Service service = Service.getById(connex, 3);
+              session.setAttribute("service", service);
+                             
+              ArrayList<Unity> unitys = Unity.getAll(connex);
+              request.setAttribute("service", service);
+              request.setAttribute("unitys", unitys);
+              
+              connex.close();
+          } catch (Exception exe) {
+               request.setAttribute("erreur", exe.getMessage());
+          }
         // dispatch to target servlet
         RequestDispatcher dispatch = request.getRequestDispatcher("./pages/besoin/besoin_insertion.jsp");
         dispatch.forward(request, response);
         
-    }
+    }  
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
