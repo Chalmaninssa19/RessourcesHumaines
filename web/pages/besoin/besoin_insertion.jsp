@@ -1,4 +1,7 @@
 <!-- <%@ page contentType="text/html; charset=UTF-8" %> -->
+<%@page import="java.util.ArrayList"%>
+<%@page import="model.requis.Service"%>
+<%@page import="model.gestionBesoin.Unity"%>
 <%@page import=" java.util.List "%>
 <%@page import=" model.gestionProfile.Diplome "%>
 <%@page import=" model.gestionProfile.Adresse "%>
