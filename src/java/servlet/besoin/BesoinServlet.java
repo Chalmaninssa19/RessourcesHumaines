@@ -57,6 +57,7 @@ public class BesoinServlet extends HttpServlet {
               
               connex.close();
           } catch (Exception exe) {
+              exe.printStackTrace();
                request.setAttribute("erreur", exe.getMessage());
           }
         // dispatch to target servlet
