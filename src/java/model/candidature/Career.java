@@ -67,7 +67,7 @@ public class Career {
     public String formatTask(){
         String task = "";
         for(int i=0; i<this.getTasks().size(); i++){
-            task.concat(this.getTasks().get(i)).concat("-");
+            task += this.getTasks().get(i).concat(";");
         }
         return task;
     }

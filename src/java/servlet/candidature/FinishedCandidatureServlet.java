@@ -62,9 +62,9 @@ public class FinishedCandidatureServlet extends HttpServlet {
             can.create(null, wp, can.getPersonnalInformation().getAdresse().getAdresse(), Integer.valueOf(can.getPersonnalInformation().getSexe().getSexe()), can.getProfessionalCareer().getExperience().getExperience(), can.getFormationPath().getDiplome().getDiplome());
             int id = new Candidature().getLastId(null);
             System.out.println(id);
-            Career c = new Career();
+            Career c = can.getProfessionalCareer().getCareers().get(0);
             c.create(null, id);
-            Formation f = new Formation();
+            Formation f = can.getFormationPath().getFormations().get(0);
             f.create(null, id);
             
             
