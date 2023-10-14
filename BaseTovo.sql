@@ -365,7 +365,7 @@ create table candidature(
     id_diplome int references diplome(id_diplome),
     interest_center varchar(30),
     salary_expectation double precision,
-    self_profile varchar(30),
+    self_profile varchar(200),
     photo varchar(20),
     dossier varchar(30),
     note double precision,
