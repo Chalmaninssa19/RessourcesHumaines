@@ -35,15 +35,6 @@
                                 <h4>Autre information pouvant être utile</h4>
                                 <h6 class="font-weight-light little-line-height">Nous aimerons vous connaître un peu plus, alors présentez vous</h6>
                                 <form class="pt-3 form" action="/RessourceHumaine/OtherInformationInsertionServlet">
-                                    <div class="form-group row align-items-center" method="post">
-                                        <label for="adresseSelect" class="form-label target-poste col-sm-2">Année d'éxperience</label>
-                                        <div class="col-sm-5">
-                                            <select name="" id="adresseSelect" class="form-control form-select">
-                                                <option value="">5 ans d'experience</option>
-                                                <option value="">3 ans d'experience</option>
-                                            </select>
-                                        </div>
-                                    </div>
                                     <div class="row mt-3">
                                         <div class="col-md-6">
                                             <hr>
