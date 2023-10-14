@@ -1,4 +1,7 @@
 <!-- <%@ page contentType="text/html; charset=UTF-8" %> -->
+<%@page import="java.util.ArrayList"%>
+<%@page import="model.requis.Service"%>
+<%@page import="model.gestionBesoin.Unity"%>
 <%@page import=" java.util.List "%>
 <%@page import=" model.gestionProfile.Diplome "%>
 <%@page import=" model.gestionProfile.Adresse "%>
@@ -749,7 +752,10 @@
                     </div>
                 </div>
 
-
+                <%  if(request.getAttribute("service") != null) {
+                    Service service = (Service)request.getAttribute("service");
+                    ArrayList<Unity> unitys = (ArrayList<Unity>)request.getAttribute("unitys");
+                %>
 
                 <!-- partial -->
                 <div class="main-panel">
@@ -758,64 +764,33 @@
                             <div class="col-md-6 grid-margin stretch-card">
                                 <div class="card">
                                     <div class="card-body">
-                                        <h4 class="card-title">Service : Informatique</h4>
+                                        <h4 class="card-title">Service : <%=service.getService() %></h4>
                                         <p class="card-description"> Veuillez bien remplir les formulaires et bien décrire
                                             vos demandes </p>
-                                        <form class="forms-sample">
+                                        <form id="formTask" class="forms-sample" method="post" accept-charset="UTF-8">
                                             <div class="form-group">
                                                 <label for="besoinDescription">Description du besoin</label>
-                                                <textarea name="" id="besoinDescription" class="form-control" cols="30"
-                                                          rows="10"></textarea>
+                                                <textarea name="description" id="description" class="form-control" cols="30"
+                                                    rows="10"></textarea>
                                             </div>
                                             <div class="form-group">
                                                 <label for="exampleInputEmail1">Liste des taches</label>
                                                 <div class="row d-flex align-items-center">
                                                     <div class="col-md-6">
-                                                        <input type="text" class="form-control" id="exampleInputEmail1"
-                                                               placeholder="Nouvelle tache">
+                                                        <input type="text" id="task" name="tasks" class="form-control"
+                                                            placeholder="Nouvelle tache">
                                                     </div>
                                                     <div class="col-md-6">
-                                                        <button type="submit"
-                                                                class="btn btn-gradient-primary me-2">Ajouter</button>
+                                                        <button  
+                                                           class="btn btn-gradient-primary me-2">Ajouter</button>
                                                     </div>
                                                 </div>
                                             </div>
+    
                                             <div class="form-group task-list">
                                                 <div class="list-wrapper">
-                                                    <ul class="d-flex flex-column-reverse todo-list todo-list-custom">
-                                                        <li>
-                                                            <div class="form-check">
-                                                                <label class="form-check-label"> Réalisation du system
-                                                                    d'information de l'entreprise </label>
-                                                            </div>
-                                                            <i class="remove mdi mdi-close-circle-outline"></i>
-                                                        </li>
-                                                        <li>
-                                                            <div class="form-check">
-                                                                <label class="form-check-label"> Réalisation du system
-                                                                    d'information de l'entreprise </label>
-                                                            </div>
-                                                            <i class="remove mdi mdi-close-circle-outline"></i>
-                                                        </li>
-                                                        <li>
-                                                            <div class="form-check">
-                                                                <label class="form-check-label"> Réalisation du system
-                                                                    d'information de l'entreprise </label>
-                                                            </div>
-                                                            <i class="remove mdi mdi-close-circle-outline"></i>
-                                                        </li>
-                                                        <li>
-                                                            <div class="form-check">
-                                                                <label class="form-check-label"> Call John </label>
-                                                            </div>
-                                                            <i class="remove mdi mdi-close-circle-outline"></i>
-                                                        </li>
-                                                        <li>
-                                                            <div class="form-check">
-                                                                <label class="form-check-label"> Call John </label>
-                                                            </div>
-                                                            <i class="remove mdi mdi-close-circle-outline"></i>
-                                                        </li>
+                                                    <ul id="valueEnter" class="d-flex flex-column-reverse todo-list todo-list-custom">
+                                                       
                                                     </ul>
                                                 </div>
                                             </div>
@@ -823,80 +798,52 @@
                                     </div>
                                 </div>
                             </div>
-
+    
                             <div class="col-md-6 grid-margin stretch-card">
                                 <div class="card">
                                     <div class="card-body">
                                         <h4 class="">Charge de travail et profil recherché</h4>
                                         <button data-bs-toggle="modal" data-bs-target="#exampleModal"
-                                                class="btn btn-gradient-primary me-1" id="profileModal">Choisir le
+                                            class="btn btn-gradient-primary me-1">Choisir le
                                             profil</button>
-                                        <form class="forms-sample mt-3">
+                                        <form id="formWorkLoad" class="forms-sample mt-3" action="addBesoinServlet" method="post"> 
                                             <div class="row d-flex align-items-start">
                                                 <div class="form-group col-md-4">
                                                     <label for="volumeHorraire">Volume horraire</label>
                                                     <input type="number" class="form-control" id="volumeHorraire"
-                                                           placeholder="40">
+                                                        placeholder="40">
                                                 </div>
                                                 <div class="form-group col-md-4">
                                                     <label for="unitySelect">Unité</label>
                                                     <select name="" id="unitySelect" class="form-control-sm form-select">
-                                                        <option value="">h / S</option>
-                                                        <option value="">H / J</option>
+                                                        <% for(int i = 0; i < unitys.size(); i++) { %>
+                                                        <option value=<%=unitys.get(i).getIdUnity() %>><%=unitys.get(i).getUnity() %></option>
+                                                        <% } %>   
                                                     </select>
                                                 </div>
                                                 <div class="form-group col-md-4">
                                                     <label for="unitySelect">Unité</label>
-                                                    <button type="submit"
-                                                            class="btn btn-gradient-primary me-2">Ajouter</button>
+                                                    <button
+                                                        class="btn btn-gradient-primary me-2">Ajouter</button>
                                                 </div>
                                             </div>
                                             <div class="form-group task-list mt-3" style="height: 250px;">
                                                 <div class="list-wrapper">
-                                                    <table class="table">
-                                                        <tr>
-                                                            <td>Développeur fullstack JS</td>
-                                                            <td class="to-right">40 h / S</td>
-                                                            <td><i
-                                                                    class="list-action primary mdi mdi-comment-question-outline"></i>
-                                                            </td>
-                                                            <td><i
-                                                                    class="list-action danger mdi mdi-close-circle-outline"></i>
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>DevOps 5 ans d'experience</td>
-                                                            <td class="to-right">1 H / J</td>
-                                                            <td><i
-                                                                    class="list-action primary mdi mdi-comment-question-outline"></i>
-                                                            </td>
-                                                            <td><i
-                                                                    class="list-action danger mdi mdi-close-circle-outline"></i>
-                                                            </td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td>Developpeur junior</td>
-                                                            <td class="to-right">4 H / J</td>
-                                                            <td><i
-                                                                    class="list-action primary mdi mdi-comment-question-outline"></i>
-                                                            </td>
-                                                            <td><i
-                                                                    class="list-action danger mdi mdi-close-circle-outline"></i>
-                                                            </td>
-                                                        </tr>
+                                                    <table id="tableWorkLoad" class="table">
+                                                        
                                                     </table>
                                                 </div>
                                             </div>
-                                            <button type="submit" class="btn btn-gradient-primary me-2">Envoye du
-                                                besoin</button>
                                         </form>
+                                        <button onclick="sendBesoin()" class="btn btn-gradient-primary me-2">Envoye du
+                                            besoin</button>
                                     </div>
                                 </div>
                             </div>
-
+    
                         </div>
-
-
+    
+    
                     </div>
                     <!-- content-wrapper ends -->
                     <!-- partial:/partials/_footer.html -->
@@ -911,6 +858,7 @@
                     </footer>
                     <!-- partial -->
                 </div>
+                <% } %>
                 <!-- main-panel ends -->
             </div>
             <!-- partial -->
@@ -1163,6 +1111,233 @@
                     xhr.send();
                 });
             </script>
+
+<script>
+    var idClicked = -1;
+    var tableWorkLoad = document.getElementById("tableWorkLoad");
+        
+    function remove(logo) {
+        // Récupérer l'élément parent (li) du bouton cliqué et le supprimer
+        var parentElement = logo.parentNode;
+        parentElement.parentNode.removeChild(parentElement);
+        var itemValue = parentElement.childNodes[0].textContent;
+        
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', './addTaskServlet?itemToRemove='+itemValue, true);
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
+
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState === XMLHttpRequest.DONE) {
+                if (xhr.status === 200) {
+                    // Traitement de la réponse si nécessaire
+                    console.log('Réponse du serveur : ' + xhr.responseText);
+                } else {
+                    console.error('Une erreur s\'est produite : ' + xhr.status);
+                }
+            }
+        };
+        
+        xhr.send();
+    };
+     
+    function clicked(id) {
+        idClicked = id;
+    };
+     
+    function profileValided () {
+        var idValue = idClicked;
+
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', './profileValidedServlet', true);
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
+
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState === XMLHttpRequest.DONE) {
+                if (xhr.status === 200) {
+                    // Traitement de la réponse si nécessaire
+                    console.log('Réponse du serveur : ' + xhr.responseText);
+                } else {
+                    console.error('Une erreur s\'est produite : ' + xhr.status);
+                }
+            }
+        };
+
+        // Créez une chaîne de requête avec la valeur à envoyer
+        var formData = 'idValue=' + encodeURIComponent(idValue);
+
+        // Envoyez la requête
+        xhr.send(formData);
+    };
+    
+    function createListItem(item) {
+      
+        var valueEnter = document.getElementById('valueEnter');
+        var listItem = document.createElement('li');
+        var divItem = document.createElement("div");
+        divItem.classList.add("form-check");
+        var labelItem = document.createElement("label");
+        labelItem.classList.add("form-check-label");
+        labelItem.textContent = item;
+
+        var logoItem = document.createElement("i");
+        logoItem.classList.add("remove");
+        logoItem.classList.add("mdi");
+        logoItem.classList.add("mdi-close-circle-outline");
+        logoItem.setAttribute("onclick", "remove(this)");
+
+        divItem.appendChild(labelItem);
+        listItem.appendChild(divItem);
+        listItem.appendChild(logoItem);
+        valueEnter.appendChild(listItem);
+    
+    };
+    function createTableworkLoad(table, poste, horaire, unity) {
+        var tr = document.createElement("tr");
+
+        var td1 = document.createElement("td");
+        td1.textContent = poste;
+
+        var td2 = document.createElement("td");
+        td2.textContent = horaire + " " + unity;
+        td2.classList.add("to-right");
+
+        var td3 = document.createElement("td");
+        var logoQuestion = document.createElement("i");
+        logoQuestion.classList.add("list-action");
+        logoQuestion.classList.add("primary");
+        logoQuestion.classList.add("mdi");
+        logoQuestion.classList.add("mdi-comment-question-outline");
+        td3.appendChild(logoQuestion);
+
+        var td4 = document.createElement("td");
+        var logoDelete = document.createElement("i");
+        logoDelete.setAttribute("onclick", "removeWorkLoad(this)");
+        logoDelete.classList.add("list-action");
+        logoDelete.classList.add("danger");
+        logoDelete.classList.add("mdi");
+        logoDelete.classList.add("mdi-close-circle-outline");
+        td4.appendChild(logoDelete);
+
+        tr.appendChild(td1);
+        tr.appendChild(td2);
+        tr.appendChild(td3);
+        tr.appendChild(td4);
+        table.appendChild(tr);
+    };
+    
+    function removeWorkLoad(logo) {
+        var parentElement = logo.parentNode;
+        var parent = parentElement.parentNode;
+        parent.parentNode.removeChild(parent);
+        var poste = parent.cells[0].textContent;
+        var hu = parent.cells[1].textContent.split(' ');
+        var volumeHorraire = hu[0];
+        var unity = hu[1];
+        
+        
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', './addWorkLoadServlet?poste='+poste+'&vh='+volumeHorraire+'&unity='+unity, true);
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
+
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState === XMLHttpRequest.DONE) {
+                if (xhr.status === 200) {
+                    // Traitement de la réponse si nécessaire
+                    console.log('Réponse du serveur : ' + xhr.responseText);
+                } else {
+                    console.error('Une erreur s\'est produite : ' + xhr.status);
+                }
+            }
+        };
+        
+        xhr.send();
+    
+    }
+    
+    // Fonction pour ajouter une tâche de travail
+        function addWorkLoad() {
+            var volumeHorraire = document.getElementById("volumeHorraire").value;
+            var unitySelect = document.getElementById("unitySelect").value;
+
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', './addWorkLoadServlet', true);
+            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
+
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === XMLHttpRequest.DONE) {
+                    if (xhr.status === 200) {
+                        const res = xhr.responseText.split('&');
+                        createTableworkLoad(tableWorkLoad, res[0], volumeHorraire, res[1]);
+                    } else {
+                        console.error('Une erreur s\'est produite : ' + xhr.status);
+                    }
+                }
+            };
+
+            // Créez une chaîne de requête avec les données du formulaire
+            var formData = 'volumeHorraire=' + encodeURIComponent(volumeHorraire) +'&unitySelect=' + encodeURIComponent(unitySelect);
+
+            // Envoyez la requête
+            xhr.send(formData);
+        }
+
+        // Ajoutez un gestionnaire d'événements au formulaire
+        document.getElementById('formWorkLoad').addEventListener('submit', function(event) {
+            event.preventDefault();  // Empêche le rechargement de la page
+            addWorkLoad();
+        });
+
+        function sendBesoin() {
+            var descri = document.getElementById("description").value;
+            
+             var xhr = new XMLHttpRequest();
+            xhr.open('POST', './addBesoinServlet', true);
+            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === XMLHttpRequest.DONE) {
+                    if (xhr.status === 200) {
+
+                    } else {
+                        console.error('Une erreur s\'est produite : ' + xhr.status);
+                    }
+                }
+            };
+
+            // Créez une chaîne de requête avec les données du formulaire
+            var formData = 'descri=' + encodeURIComponent(descri);
+
+            // Envoyez la requête
+            xhr.send(formData);
+            
+        }
+    
+
+            //Ajouter une tache
+            document.getElementById('formTask').addEventListener('submit', function(event) {
+            event.preventDefault();  // Empêche le rechargement de la page
+
+            var task = document.getElementById('task').value;
+
+            var xhr = new XMLHttpRequest();
+            xhr.open('POST', './addTaskServlet', true);
+            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === XMLHttpRequest.DONE) {
+                    if (xhr.status === 200) {
+                        createListItem(xhr.responseText);
+                    } else {
+                        console.error('Une erreur s\'est produite : ' + xhr.status);
+                    }
+                }
+            };
+
+            // Créez une chaîne de requête avec les données du formulaire
+            var formData = 'task=' + encodeURIComponent(task);
+
+            // Envoyez la requête
+            xhr.send(formData);
+        });
+</script>
 
 
             <script src="../../assets/js/off-canvas.js"></script>
