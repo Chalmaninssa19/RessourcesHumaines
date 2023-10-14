@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package servlet.profil;
+package servlet.candidature;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -12,14 +12,25 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import model.gestionProfile.WantedProfile;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import model.candidature.Candidature;
 
 /**
  *
  * @author Fy Botas
  */
-public class CreateSessionServlet extends HttpServlet {
+public class FinishedCandidatureServlet extends HttpServlet {
 
+    /**
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
+     * methods.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
@@ -28,36 +39,35 @@ public class CreateSessionServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet CreateSession</title>");            
+            out.println("<title>Servlet FinishedCandidatureServlet</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet CreateSession at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet FinishedCandidatureServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
     }
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
-     * Handles the HTTP <code>GET</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            HttpSession session = request.getSession();
+            Candidature can = (Candidature) session.getAttribute("candidature");
+            int wp = (Integer) session.getAttribute("wp");
+            can.create(null, wp, can.getPersonnalInformation().getAdresse().getAdresse(), Integer.valueOf(can.getPersonnalInformation().getSexe().getSexe()), can.getProfessionalCareer().getExperience().getExperience(), can.getFormationPath().getDiplome().getDiplome());
+            
+            response.sendRedirect("pages/candidature/finished_candidature.jsp");
+        } catch (Exception ex) {
+            Logger.getLogger(FinishedCandidatureServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        WantedProfile wp = new WantedProfile();
-        HttpSession session = request.getSession();
-        session.setAttribute("wantedprofile",wp);
+
     }
 
     /**

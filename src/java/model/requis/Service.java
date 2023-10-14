@@ -8,7 +8,6 @@ package model.requis;
 import java.sql.*;
 import java.util.ArrayList;
 
-
 /**
  *
  * @author Chalman
@@ -31,6 +30,7 @@ public class Service {
     public String getService() {
         return service;
     }
+
     public void setService(String service) {
         this.service = service;
     }
@@ -38,6 +38,7 @@ public class Service {
     public String getFonction() {
         return fonction;
     }
+
     public void setFonction(String fonction) {
         this.fonction = fonction;
     }
@@ -45,6 +46,7 @@ public class Service {
     public Date getCreationDate() {
         return creationDate;
     }
+    
     public void setCreationDate(Date creationDate) {
         this.creationDate = creationDate;
     }
@@ -52,12 +54,18 @@ public class Service {
     public Integer getStatus() {
         return status;
     }
+
     public void setStatus(Integer status) {
         this.status = status;
     }
 
 ///Constructors
     public Service() {
+    }
+
+    public Service(Integer idService, Integer status) {
+        this.idService = idService;
+        this.status = status;
     }
 
     public Service(Integer idService, String service, String fonction, Date creationDate, Integer status) {
@@ -83,7 +91,7 @@ public class Service {
         
         return services;
     }
-    
+
     //Recuperer une service par son id
     public static Service getById(Connection conn, Integer idService) throws Exception {
         Statement work = conn.createStatement();

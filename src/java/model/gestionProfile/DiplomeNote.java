@@ -52,6 +52,35 @@ public class DiplomeNote extends Model {
     }
 
 ///Fonctions
+    //avoir la note correspondant aux diplomes selectionnés
+    public double getDiplomeNote(Connection con, int idWantedProfile, String diplome) throws Exception {
+        boolean b = true;
+        double note = 0.0;
+        try {
+            if (con == null) {
+                con = GConnection.getSimpleConnection();
+                b = false;
+            }
+            String request = "select note from diplome_note where id_wanted_profile=" + idWantedProfile + " and id_diplome=" + new Diplome().getIdByName(diplome, null);
+            System.out.println(request);
+            Statement s = con.createStatement();
+            ResultSet rs = s.executeQuery(request);
+
+            if (rs.next()) {
+                note = rs.getDouble(1);
+            } else {
+                note = 0.0;
+            }
+        } catch (Exception exe) {
+            throw exe;
+        } finally {
+            if (con != null && !b) {
+                con.close();
+            }
+        }
+        return note;
+    }
+
     //inserer diplomeNote
     public void createDiplomeNote(int id_wanted_profile, int id_diplome, Connection con) throws Exception {
         boolean b = true;
@@ -121,7 +150,7 @@ public class DiplomeNote extends Model {
 
     //avoir le meilleur diplome c'est à dire qui a un note élevé
     public List<DiplomeNote> findBestDiplome(List<Integer> lsindice, Connection con) throws Exception {
-        boolean b= true;
+        boolean b = true;
         try {
             if (con == null) {
                 con = GConnection.getSimpleConnection();

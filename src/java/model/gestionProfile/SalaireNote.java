@@ -52,6 +52,35 @@ public class SalaireNote extends Model {
     }
 
 ///Fonctions
+    //avoir la note correspondant aux diplomes selectionnés
+    public double getSalaireNote(Connection con, int idWantedProfile, double Salaire) throws Exception {
+        boolean b = true;
+        double note = 0.0;
+        try {
+            if (con == null) {
+                con = GConnection.getSimpleConnection();
+                b = false;
+            }
+            String request = "select note from salaire_note where id_wanted_profile=" + idWantedProfile + " and id_salaire=" + new Salaire().getIdByName(Salaire, null);
+            System.out.println(request);
+
+            Statement s = con.createStatement();
+            ResultSet rs = s.executeQuery(request);
+            if (rs.next()) {
+                note = rs.getDouble(1);
+            } else {
+                note = 0.0;
+            }
+        } catch (Exception exe) {
+            throw exe;
+        } finally {
+            if (con != null && !b) {
+                con.close();
+            }
+        }
+        return note;
+    }
+
     //inserer salaireNote
     public void createSalaireNote(int id_wanted_profile, int id_salaire, Connection con) throws Exception {
         boolean b = true;
