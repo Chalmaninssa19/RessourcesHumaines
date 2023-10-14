@@ -5,6 +5,7 @@ import framework.database.utilitaire.GConnection;
 import jakarta.servlet.RequestDispatcher;
 import java.io.IOException;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -31,6 +32,7 @@ import model.requis.Service;
  *
  * @author Fy Botas
  */
+@WebServlet(name = "AjaxProfileServlet", urlPatterns = {"/AjaxProfileServlet"})
 public class AjaxProfileServlet extends HttpServlet {
 
     List<SexeNote> listeSexeNote = new ArrayList<>();
@@ -104,7 +106,7 @@ public class AjaxProfileServlet extends HttpServlet {
         listeSalaireNote.clear();
         listeSexeNote.clear();
 
-        response.sendRedirect("pages/besoin/besoin_insertion.jsp");
+        response.sendRedirect("./besoin-insertion");
     }
 
     @Override

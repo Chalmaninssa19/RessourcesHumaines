@@ -22,7 +22,7 @@
                                     <% if(request.getAttribute("services") != null) {
                                         ArrayList<Service> services = (ArrayList<Service>)request.getAttribute("services");
                                     %>
-                                    <form action="./listBesoinsServlet" method="POST" class="form mt-3">
+                                    <form action="./listBesoins" method="POST" class="form mt-3">
                                         <div class="form-group d-flex align-items-center mb-2">
                                             <p class="mb-0"><strong>Filtre par service</strong></p>
                                             <div class="mx-4">

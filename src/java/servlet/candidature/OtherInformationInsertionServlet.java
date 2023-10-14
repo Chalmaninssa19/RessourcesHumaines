@@ -9,6 +9,7 @@ import com.google.gson.Gson;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -26,6 +27,7 @@ import model.gestionProfile.SexeNote;
  *
  * @author Fy Botas
  */
+@WebServlet(name = "OtherInformationInsertionServlet", urlPatterns = {"/OtherInformationInsertionServlet"})
 public class OtherInformationInsertionServlet extends HttpServlet {
 
     /**

@@ -10,6 +10,7 @@ import jakarta.servlet.RequestDispatcher;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -28,6 +29,7 @@ import model.gestionProfile.Experience;
  *
  * @author Fy Botas
  */
+@WebServlet(name = "FormationPathInsertionServlet", urlPatterns = {"/FormationPathInsertionServlet"})
 public class FormationPathInsertionServlet extends HttpServlet {
 
     List<Formation> listForm = new ArrayList<>();

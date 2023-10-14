@@ -4,6 +4,7 @@
  */
 package servlet.besoin;
 
+import com.google.gson.Gson;
 import framework.database.utilitaire.GConnection;
 import jakarta.servlet.RequestDispatcher;
 import java.io.IOException;
@@ -16,10 +17,21 @@ import jakarta.servlet.http.HttpSession;
 import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import model.gestionBesoin.Besoin;
 import model.gestionBesoin.Task;
 import model.gestionBesoin.Unity;
+import model.gestionProfile.AdresseNote;
+import model.gestionProfile.BestCritere;
+import model.gestionProfile.DiplomeNote;
+import model.gestionProfile.ExperienceNote;
+import model.gestionProfile.SalaireNote;
+import model.gestionProfile.SexeNote;
+import model.gestionProfile.WantedProfile;
 import model.requis.Service;
+import model.requis.User;
+import servlet.profil.ListeProfileServlet;
 
 /**
  *
@@ -40,30 +52,54 @@ public class BesoinServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        
+
+        WantedProfile wp = new WantedProfile();
+        DiplomeNote dn = new DiplomeNote();
+        AdresseNote an = new AdresseNote();
+        SalaireNote san = new SalaireNote();
+        SexeNote sen = new SexeNote();
+        ExperienceNote en = new ExperienceNote();
+        HttpSession session = request.getSession();
+        session.setAttribute("wantedprofile", wp);
+
         // Add attribute to request
-          try {
-              Connection connex = GConnection.getSimpleConnection();
-              
-              HttpSession session = request.getSession();
-              Besoin besoin = new Besoin();
-              session.setAttribute("besoin", besoin);
-              Service service = Service.getById(connex, 3);
-              session.setAttribute("service", service);
-                             
-              ArrayList<Unity> unitys = Unity.getAll(connex);
-              request.setAttribute("service", service);
-              request.setAttribute("unitys", unitys);
-              
-              connex.close();
-          } catch (Exception exe) {
-               request.setAttribute("erreur", exe.getMessage());
-          }
+        try {
+            Connection connex = GConnection.getSimpleConnection();
+
+            Besoin besoin = new Besoin();
+            session.setAttribute("besoin", besoin);
+            User user = (User)session.getAttribute("user");
+            
+            Service service = user.getService();
+            session.setAttribute("service", service);
+
+            ArrayList<Unity> unitys = Unity.getAll(connex);
+            request.setAttribute("service", service);
+            request.setAttribute("unitys", unitys);
+
+            // Récupérer les indices des profils recherchés
+            List<Integer> lsIndice = wp.getIdWantedProfile(connex);
+            List<String> lsPoste = wp.getPostById(connex);
+            List<DiplomeNote> bestDiplome = dn.findBestDiplome(lsIndice, connex);
+            List<AdresseNote> bestAdresse = an.findBestAdresse(lsIndice, connex);
+            List<SexeNote> bestSexe = sen.findBestSexe(lsIndice, connex);
+            List<ExperienceNote> bestExperience = en.findBestExperience(lsIndice, connex);
+            List<SalaireNote> bestSalaire = san.findBestSalaire(lsIndice, connex);
+            BestCritere bc = new BestCritere(lsIndice, lsPoste, bestDiplome, bestAdresse, bestSexe, bestSalaire, bestExperience);
+            Gson gson = new Gson();
+            String json = gson.toJson(bc);
+            response.setContentType("application/json");
+            response.getWriter().write(json);
+            
+            connex.close();
+        } catch (Exception exe) {
+            request.setAttribute("erreur", exe.getMessage());
+        }
         // dispatch to target servlet
         RequestDispatcher dispatch = request.getRequestDispatcher("./pages/besoin/besoin_insertion.jsp");
         dispatch.forward(request, response);
-        
-    }  
+
+    }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**

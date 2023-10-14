@@ -7,6 +7,7 @@ package model.candidature;
 
 import framework.database.utilitaire.GConnection;
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.Statement;
 
 /**
@@ -41,6 +42,32 @@ public class Candidature {
         this.status = status;
     }
 
+    public int getLastId(Connection con) throws Exception {
+        boolean b = true;
+        int id = 0;
+        try {
+            if (con == null) {
+                con = GConnection.getSimpleConnection();
+                b = false;
+            }
+            String requete = "select max(id_candidature) as id from candidature";
+            System.out.println(requete);
+            Statement s = con.createStatement();
+            s.executeQuery(requete);
+            ResultSet rs = s.executeQuery(requete);
+            while (rs.next()) {
+                id = rs.getInt(1);
+            }
+        } catch (Exception exe) {
+            exe.printStackTrace();
+        } finally {
+            if (con != null && !b) {
+                con.close();
+            }
+        }
+        return id;
+    }
+
     public void create(Connection con, int idWantedProfile, String adresse, int sexe, String experience, String diplome) throws Exception {
         boolean b = true;
         try {
@@ -48,12 +75,12 @@ public class Candidature {
                 con = GConnection.getSimpleConnection();
                 b = false;
             }
-            String requete = "insert into candidature values (DEFAULT, "+ idWantedProfile +", CURRENT_DATE, '"+ this.getPersonnalInformation().getName() 
-                    +"', '"+ this.getPersonnalInformation().getFirstName()+"', '"+ this.getPersonnalInformation().getBirthDate() +"', "
-                    + this.getPersonnalInformation().getAdresse().getIdByName(adresse, null) +", '"+ this.getPersonnalInformation().getEmail() +"', "+
-                    this.getPersonnalInformation().getSexe().getSexe() +", "+ this.getProfessionalCareer().getExperience().getIdByName(experience, null) +", "
-                    + this.getFormationPath().getDiplome().getIdByName(diplome, null)+", '"+ this.getInterestCareer() +"', "+ this.getSalaryExpectation() +", '"+ this.getSelfProfile() +"', '"
-                    + this.getPhoto()+"', '"+ this.getDossier() +"', "+ this.getNote() +", 1)";
+            String requete = "insert into candidature values (DEFAULT, " + idWantedProfile + ", CURRENT_DATE, '" + this.getPersonnalInformation().getName()
+                    + "', '" + this.getPersonnalInformation().getFirstName() + "', '" + this.getPersonnalInformation().getBirthDate() + "', "
+                    + this.getPersonnalInformation().getAdresse().getIdByName(adresse, null) + ", '" + this.getPersonnalInformation().getEmail() + "', "
+                    + this.getPersonnalInformation().getSexe().getSexe() + ", " + this.getProfessionalCareer().getExperience().getIdByName(experience, null) + ", "
+                    + this.getFormationPath().getDiplome().getIdByName(diplome, null) + ", '" + this.getInterestCareer() + "', " + this.getSalaryExpectation() + ", '" + this.getSelfProfile() + "', '"
+                    + this.getPhoto() + "', '" + this.getDossier() + "', " + this.getNote() + ", 1)";
             System.out.println(requete);
             Statement s = con.createStatement();
             s.executeUpdate(requete);

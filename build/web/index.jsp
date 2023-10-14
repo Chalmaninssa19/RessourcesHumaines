@@ -1,3 +1,3 @@
 <% 
-    response.sendRedirect("./quiz-realisation");
+    response.sendRedirect("./home");
 %>

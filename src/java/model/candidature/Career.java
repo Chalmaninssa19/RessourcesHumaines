@@ -4,7 +4,10 @@
  */
 package model.candidature;
 
+import framework.database.utilitaire.GConnection;
+import java.sql.Connection;
 import java.sql.Date;
+import java.sql.Statement;
 import java.util.List;
 
 /**
@@ -59,6 +62,34 @@ public class Career {
 
     public void setTasks(List<String> tasks) {
         this.tasks = tasks;
+    }
+    
+    public String formatTask(){
+        String task = "";
+        for(int i=0; i<this.getTasks().size(); i++){
+            task.concat(this.getTasks().get(i)).concat("-");
+        }
+        return task;
+    }
+
+    public void create(Connection con, int idCandidature) throws Exception {
+        boolean b = true;
+        try {
+            if (con == null) {
+                con = GConnection.getSimpleConnection();
+                b = false;
+            }
+            String requete = "insert into professional_career values (DEFAULT, "+ idCandidature +", '"+ this.getStartDate()+"', '"+ this.getEndDate() +"', '"+ this.getSociety() +"', '"+ this.getPoste() +"', '"+ this.formatTask() +"')";
+            System.out.println(requete);
+            Statement s = con.createStatement();
+            s.executeUpdate(requete);
+        } catch (Exception exe) {
+            throw exe;
+        } finally {
+            if (con != null && !b) {
+                con.close();
+            }
+        }
     }
     
 /// contructor

@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.MultipartConfig;
+import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -27,6 +28,7 @@ import model.candidature.Candidature;
         maxFileSize = 1024 * 1024 * 10, // 10 MB
         maxRequestSize = 1024 * 1024 * 100 // 100 MB
 )
+@WebServlet(name = "PreviewCandidatureServlet", urlPatterns = {"/PreviewCandidatureServlet"})
 public class PreviewCandidatureServlet extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
@@ -70,7 +72,7 @@ public class PreviewCandidatureServlet extends HttpServlet {
         can.setPhoto(photoName);
         can.setDossier(dossierName);
 
-        String baseUploadDirectory = "D:\\ITU\\L3\\Gestion_d'entreprise(MrTovo)\\RessourcesHumaines\\web\\uploads\\";
+        String baseUploadDirectory = "D:\\To\\Etude\\S5\\Mr_Tovo\\RessourcesHumaines\\web\\uploads\\";
 
         String uniqueDossierUploadDirectory = baseUploadDirectory + "dossier" + File.separator + dossierName + File.separator;
         String uniquePhotoUploadDirectory = baseUploadDirectory + "photo" + File.separator + photoName + File.separator;

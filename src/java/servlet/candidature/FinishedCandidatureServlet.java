@@ -8,6 +8,7 @@ package servlet.candidature;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -15,11 +16,14 @@ import jakarta.servlet.http.HttpSession;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.candidature.Candidature;
+import model.candidature.Career;
+import model.candidature.Formation;
 
 /**
  *
  * @author Fy Botas
  */
+@WebServlet(name = "FinishedCandidatureServlet", urlPatterns = {"/FinishedCandidatureServlet"})
 public class FinishedCandidatureServlet extends HttpServlet {
 
     /**
@@ -56,10 +60,18 @@ public class FinishedCandidatureServlet extends HttpServlet {
             Candidature can = (Candidature) session.getAttribute("candidature");
             int wp = (Integer) session.getAttribute("wp");
             can.create(null, wp, can.getPersonnalInformation().getAdresse().getAdresse(), Integer.valueOf(can.getPersonnalInformation().getSexe().getSexe()), can.getProfessionalCareer().getExperience().getExperience(), can.getFormationPath().getDiplome().getDiplome());
+            int id = new Candidature().getLastId(null);
+            System.out.println(id);
+            Career c = new Career();
+            c.create(null, id);
+            Formation f = new Formation();
+            f.create(null, id);
+            
             
             response.sendRedirect("pages/candidature/finished_candidature.jsp");
         } catch (Exception ex) {
             Logger.getLogger(FinishedCandidatureServlet.class.getName()).log(Level.SEVERE, null, ex);
+            ex.printStackTrace();
         }
 
     }

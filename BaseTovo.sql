@@ -310,7 +310,75 @@ INSERT INTO "public".workload( id_workload, id_besoin, id_wanted_profile, quanti
 INSERT INTO "public".workload( id_workload, id_besoin, id_wanted_profile, quantity, id_unity ) VALUES ( 3, 3, 3, 1, 1);
 INSERT INTO "public".workload( id_workload, id_besoin, id_wanted_profile, quantity, id_unity ) VALUES ( 4, 4, 4, 1, 1);
 
--- View pour afficher l'utilisateur avec son service
-CREATE VIEW v_user_service AS
-SELECT u.*, s.service, s.fonction, s.creation_date FROM utilisateur u 
-JOIN service s ON u.id_service = s.id_service;
+create or replace view v_salaire_note as
+select dn.id_wanted_profile, dn.id_salaire, dn.note, d.salaire, d.status
+from salaire_note dn
+join salaire d
+on d.id_salaire = dn.id_salaire
+where d.status = 1;
+
+create or replace view v_sexe_note as
+select dn.id_wanted_profile, dn.id_sexe, dn.note, d.sexe, d.status
+from sexe_note dn
+join sexe d
+on d.id_sexe = dn.id_sexe
+where d.status = 1;
+
+create or replace view v_experience_note as
+select dn.id_wanted_profile, dn.id_experience, dn.note, d.experience, d.status
+from experience_note dn
+join experience d
+on d.id_experience = dn.id_experience
+where d.status = 1;
+
+create or replace view v_adresse_note as
+select dn.id_wanted_profile, dn.id_adresse, dn.note, d.adresse, d.status
+from adresse_note dn
+join adresse d
+on d.id_adresse = dn.id_adresse
+where d.status = 1;
+
+create or replace view v_diplome_note as
+select dn.id_wanted_profile, dn.id_diplome, dn.note, d.diplome, d.status
+from diplome_note dn
+join diplome d
+on d.id_diplome = dn.id_diplome
+where d.status = 1;
+
+create table candidature(
+    id_candidature serial primary key,
+    id_wanted_profile int references wanted_profile(id_wanted_profile),
+    deposit_date date,
+    name varchar(30),
+    first_name varchar(30),
+    birth_date date,
+    id_adresse int references adresse(id_adresse),
+    email varchar(30),
+    id_sexe int references sexe(id_sexe),
+    id_experience int references experience(id_experience),
+    id_diplome int references diplome(id_diplome),
+    interest_center varchar(30),
+    salary_expectation double precision,
+    self_profile varchar(30),
+    photo varchar(20),
+    dossier varchar(30),
+    note double precision,
+    status int 
+);
+
+create table professional_career(
+    id_professional_career serial primary key,
+    id_candidature int references candidature(id_candidature),
+    start_date date,
+    end_date date,
+    society varchar(30),
+    poste varchar(30),
+    task varchar(100)
+);
+create table formation_base(
+    id_formation_base serial primary key,
+    id_candidature int references candidature(id_candidature),
+    year varchar(20),
+    diplome varchar(30),
+    school varchar(50)
+);

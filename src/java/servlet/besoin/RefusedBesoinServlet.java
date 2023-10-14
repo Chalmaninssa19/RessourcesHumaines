@@ -38,7 +38,7 @@ public class RefusedBesoinServlet extends HttpServlet {
           } catch (Exception exe) {
                req.setAttribute("erreur", exe.getMessage());
           }
-          RequestDispatcher dispat = req.getRequestDispatcher("listBesoinsServlet");
+          RequestDispatcher dispat = req.getRequestDispatcher("listBesoins");
           dispat.forward(req, res);
      }
 

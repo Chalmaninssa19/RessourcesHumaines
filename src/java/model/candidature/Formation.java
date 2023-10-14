@@ -4,18 +4,42 @@
  */
 package model.candidature;
 
+import framework.database.utilitaire.GConnection;
+import java.sql.Connection;
+import java.sql.Statement;
+
 /**
  *
  * @author To Mamiarilaza
  */
 public class Formation {
 /// field
+
     int year;
     String diplome;
     String school;
-    
-/// getter and setter
 
+    public void create(Connection con, int idCandidature) throws Exception {
+        boolean b = true;
+        try {
+            if (con == null) {
+                con = GConnection.getSimpleConnection();
+                b = false;
+            }
+            String requete = "insert into formation_base values (DEFAULT, "+ idCandidature +", "+ this.getYear() +", '"+ this.getDiplome() +"', '"+ this.getSchool() +"')";
+            System.out.println(requete);
+            Statement s = con.createStatement();
+            s.executeUpdate(requete);
+        } catch (Exception exe) {
+            throw exe;
+        } finally {
+            if (con != null && !b) {
+                con.close();
+            }
+        }
+    }
+
+/// getter and setter
     public int getYear() {
         return year;
     }
@@ -39,9 +63,8 @@ public class Formation {
     public void setSchool(String school) {
         this.school = school;
     }
-    
-/// constructor
 
+/// constructor
     public Formation(int year, String diplome, String school) {
         this.year = year;
         this.diplome = diplome;
@@ -50,6 +73,5 @@ public class Formation {
 
     public Formation() {
     }
-    
-    
+
 }

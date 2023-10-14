@@ -30,10 +30,11 @@ public class AddWorkLoadServlet extends HttpServlet {
           
           try {
                 Connection conn = GConnection.getSimpleConnection();
-                
-                String poste = req.getParameter("poste");
+
+                        String poste = req.getParameter("poste");
                 String volumeHorraire = req.getParameter("vh");
                 String unitySelect = req.getParameter("unity");
+                System.out.println("unity : "+unitySelect);
                 HttpSession session = req.getSession();
                 Besoin besoin = (Besoin)session.getAttribute("besoin");
                 WantedProfile wp = (WantedProfile)session.getAttribute("profileValided");
@@ -60,9 +61,10 @@ public class AddWorkLoadServlet extends HttpServlet {
           PrintWriter out = res.getWriter();
           try {
                 Connection conn = GConnection.getSimpleConnection();
-                
+                System.out.println("Tafa");
                 String volumeHorraire = req.getParameter("volumeHorraire");
                 String unitySelect = req.getParameter("unitySelect");
+              
                 HttpSession session = req.getSession();
                 Besoin besoin = (Besoin)session.getAttribute("besoin");
                 WantedProfile wp = (WantedProfile)session.getAttribute("profileValided");
@@ -74,6 +76,7 @@ public class AddWorkLoadServlet extends HttpServlet {
                 
                 out.println(wp.getPoste()+"&"+unity.getUnity());
           } catch (Exception exe) {
+              exe.printStackTrace();
                req.setAttribute("erreur", exe.getMessage());
           }
           //RequestDispatcher dispat = req.getRequestDispatcher("pages/besoin/besoin_insertion2.jsp");

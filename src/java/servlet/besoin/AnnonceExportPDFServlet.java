@@ -19,6 +19,7 @@ import java.util.List;
 import javax.imageio.ImageIO;
 import model.gestionBesoin.Besoin;
 import model.gestionBesoin.Task;
+import model.gestionBesoin.WorkLoad;
 import model.gestionProfile.WantedProfile;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
@@ -64,9 +65,7 @@ public class AnnonceExportPDFServlet extends HttpServlet {
             
             List<Task> tasks = Task.getAllTaskBesoin(conn, besoin);
        
-            List<WantedProfile> wantedProfiles = new ArrayList<>();
-            wantedProfiles.add(new WantedProfile("Développeur JAVA", null));
-            wantedProfiles.add(new WantedProfile("Développeur React", null));
+            List<WorkLoad> workLoads = WorkLoad.getAllWorkloadBesoin(conn, besoin);
         
             String dateBesoin = String.valueOf(besoin.getCreationDate());
             String serviceName = besoin.getService().getService();
@@ -123,9 +122,9 @@ public class AnnonceExportPDFServlet extends HttpServlet {
                     outil.writeText(contentStream, 65, dynamicY, "Intégrer notre équipe en étant :");
                     dynamicY -= lineHeight;     // Saut à la ligne
 
-                    for (WantedProfile profile : wantedProfiles) {
+                    for (WorkLoad workLoad : workLoads) {
                         contentStream.setFont(PDType1Font.HELVETICA, 12);
-                        outil.writeText(contentStream, 65, dynamicY, "-  " + profile.getPoste() + " : ");
+                        outil.writeText(contentStream, 65, dynamicY, "-  " + workLoad.getWantedProfile().getPoste() + " : ");
                         dynamicY -= lineHeight;
 
                         contentStream.setFont(PDType1Font.HELVETICA, 10);

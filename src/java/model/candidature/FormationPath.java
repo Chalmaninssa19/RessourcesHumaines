@@ -4,6 +4,9 @@
  */
 package model.candidature;
 
+import framework.database.utilitaire.GConnection;
+import java.sql.Connection;
+import java.sql.Statement;
 import java.util.List;
 import model.gestionProfile.Diplome;
 

@@ -68,7 +68,9 @@ public class AddBesoinServlet extends HttpServlet {
            besoin.setCreationDate(dateActuel);
            besoin.setDescription(description);
            besoin.setStatus(1);
+           System.out.println("Tsy tonga");
            besoin.create(conn);
+           System.out.println("Tonga");
            Besoin lastBesoin = Besoin.getLastBesoin(conn);
            Task.insertListTask(conn, besoin.getTasks(), lastBesoin);
            WorkLoad.insertListWorkLoad(conn, besoin.getWorkLoad(), lastBesoin);
