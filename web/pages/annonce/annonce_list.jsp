@@ -1,4 +1,7 @@
 <!-- <%@ page contentType="text/html; charset=UTF-8" %> -->
+<%@page import=" java.util.ArrayList "%>
+<%@page import=" model.annonce.Annonce "%>
+<%@page import=" model.requis.Service "%>
 <%@include file="../header.jsp" %>
             <!-- partial -->
             <div class="main-panel">
@@ -15,59 +18,36 @@
                             <div class="card">
                                 <div class="card-body">
                                     <h4 class="">Listes des annoces en cours</h4>
-                                    <form class="form mt-3">
+                                    <form action="annonce" method="POST" class="form mt-3">
                                         <div class="form-group d-flex align-items-center mb-2">
                                             <p class="mb-0"><strong>Filtre par service</strong></p>
+                                            <% if(request.getAttribute("services") != null) { 
+                                                ArrayList<Service> services = (ArrayList<Service>)request.getAttribute("services");
+                                            %>
                                             <div class="mx-4">
-                                                <select name="" id="" class="form-select">
-                                                    <option value="">Informatique</option>
-                                                    <option value="">Securite</option>
+                                                <select name="service" id="" class="form-select">
+                                                <% for(int i = 0; i < services.size(); i++) { %>
+                                                    <option value="<%=services.get(i).getIdService() %>"><%=services.get(i).getService() %></option>
+                                                <% } %>
                                                 </select>
                                             </div>
+                                            <% } %>
                                             <div class="mx-4">
                                                 <button class="btn btn-outline-primary btn-sm">Filtrer</button>
                                             </div>
                                         </div>
                                     </form>
+                                    
+                                    <% if(request.getAttribute("annonces") != null) { 
+                                        ArrayList<Annonce> annonces = (ArrayList<Annonce>)request.getAttribute("annonces");
+                                        for(int i = 0; i < annonces.size(); i++) {
+                                    %>
                                     <div class="row mt-3">
                                         <div class="col-md-3 p-3">
                                             <div class="relative-position">
                                                 <button class="btn btn-danger bouton-suppr">X</button>
                                                 <div class="besoin-information">
-                                                    <p class="text-black"> <span class="mx-1">Date : <strong> 10/12/2023 </strong></span><span class="mx-1">Service : <strong> Informatique </strong></span></p>
-                                                </div>
-                                                <div class="pdf-container">
-                                                    <img src="../../../build/web/annonces/2023-01-05_Informatique_annonce.png" class="pdf-image-view" alt="">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-3 p-3">
-                                            <div class="relative-position">
-                                                <button class="btn btn-danger bouton-suppr">X</button>
-                                                <div class="besoin-information">
-                                                    <p class="text-black"> <span class="mx-1">Date : <strong> 10/12/2023 </strong></span><span class="mx-1">Service : <strong> Informatique </strong></span></p>
-                                                </div>
-                                                <div class="pdf-container">
-                                                    <img src="../../../build/web/annonces/2023-01-05_Informatique_annonce.png" class="pdf-image-view" alt="">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-3 p-3">
-                                            <div class="relative-position">
-                                                <button class="btn btn-danger bouton-suppr">X</button>
-                                                <div class="besoin-information">
-                                                    <p class="text-black"> <span class="mx-1">Date : <strong> 10/12/2023 </strong></span><span class="mx-1">Service : <strong> Informatique </strong></span></p>
-                                                </div>
-                                                <div class="pdf-container">
-                                                    <img src="../../../build/web/annonces/2023-01-05_Informatique_annonce.png" class="pdf-image-view" alt="">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-3 p-3">
-                                            <div class="relative-position">
-                                                <button class="btn btn-danger bouton-suppr">X</button>
-                                                <div class="besoin-information">
-                                                    <p class="text-black"> <span class="mx-1">Date : <strong> 10/12/2023 </strong></span><span class="mx-1">Service : <strong> Informatique </strong></span></p>
+                                                    <p class="text-black"> <span class="mx-1">Date : <strong> <%=annonces.get(i).getDateAnnonce() %> </strong></span><span class="mx-1">Service : <strong> <%=annonces.get(i).getService().getService() %> </strong></span></p>
                                                 </div>
                                                 <div class="pdf-container">
                                                     <img src="../../../build/web/annonces/2023-01-05_Informatique_annonce.png" class="pdf-image-view" alt="">
@@ -75,6 +55,7 @@
                                             </div>
                                         </div>
                                     </div>
+                                    <% } } %>
                                 </div>
                             </div>
                         </div>

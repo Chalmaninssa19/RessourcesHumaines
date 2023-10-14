@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 import model.Model;
 import model.gestionBesoin.Besoin;
+import model.gestionBesoin.Task;
 import model.requis.Service;
 
 /**

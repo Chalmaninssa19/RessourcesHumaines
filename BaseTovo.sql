@@ -382,3 +382,35 @@ create table formation_base(
     diplome varchar(30),
     school varchar(50)
 );
+
+create table annonce (
+    id_annonce serial primary key,
+    id_besoin integer,
+    id_service integer,
+    nom_annonce varchar(100),
+    date_annonce date,
+    status integer,
+    foreign key(id_besoin) references besoin(id_besoin),
+    foreign key(id_service) references service(id_service)
+);
+
+insert into annonce(id_annonce, id_besoin, id_service, nom_annonce, date_annonce, status) values(default, 1, 3, '2023-08-30_Transport_annonce.png','2023-08-30', 1);
+insert into annonce(id_annonce, id_besoin, id_service, nom_annonce, date_annonce, status) values(default, 4, 1, '2023-09-30_Securite_annonce.png','2023-09-30', 1);
+insert into annonce(id_annonce, id_besoin, id_service, nom_annonce, date_annonce, status) values(default, 20, 3, '2023-10-14_Ressources humaines_annonce.png','2023-10-14', 1);
+
+create view v_user_service as 
+select u.*, s.service, s.fonction, s.creation_date from utilisateur u 
+join service s on u.id_service = s.id_service;
+
+create view v_diplome_wanted_profile as
+select dn.id_wanted_profile,dn.id_diplome, wp.id_service, d.diplome, dn.note, wp.poste, 
+d.status as status_diplome, wp.status as status_wanted_profile from diplome_note dn 
+join diplome d on dn.id_diplome=d.id_diplome 
+join wanted_profile wp on wp.id_wanted_profile=dn.id_wanted_profile;
+
+create view v_experience_wanted_profile as
+select en.id_wanted_profile, en.id_experience, wp.id_service, e.experience, en.note, wp.poste, 
+e.status as status_experience, wp.status as status_wanted_profile from experience_note en 
+join experience e on en.id_experience=e.id_experience 
+join wanted_profile wp on en.id_wanted_profile=wp.id_wanted_profile;
+

@@ -14,11 +14,15 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.sql.Connection;
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 import javax.imageio.ImageIO;
+import model.annonce.Annonce;
 import model.gestionBesoin.Besoin;
 import model.gestionBesoin.Task;
+import model.gestionBesoin.VDiplomeWantedProfile;
+import model.gestionBesoin.VExperienceWantedProfile;
 import model.gestionBesoin.WorkLoad;
 import model.gestionProfile.WantedProfile;
 import org.apache.pdfbox.pdmodel.PDDocument;
@@ -71,8 +75,10 @@ public class AnnonceExportPDFServlet extends HttpServlet {
             String serviceName = besoin.getService().getService();
             String link = "http://www.huile-de-bongolava.mg/recrutement/postule";
             String societyContact = "034 21 561 26";
+            String nomAnnonce = dateBesoin + "_" + serviceName + "_" + "annonce.png";
             
-            conn.close();
+            Annonce annonce = new Annonce(besoin, besoin.getService(), nomAnnonce, Date.valueOf(dateBesoin), 1);
+            annonce.create(conn);
             
             try (PDDocument document = new PDDocument()) {
                 PDPage page = new PDPage(PDRectangle.A4);
@@ -129,13 +135,19 @@ public class AnnonceExportPDFServlet extends HttpServlet {
 
                         contentStream.setFont(PDType1Font.HELVETICA, 10);
                         // Info a propos du diplome
-                        outil.writeText(contentStream, 75, dynamicY, "-  Titulaire d'un " + "Master en MBDS");
-                        dynamicY -= lineHeight;
+                        ArrayList<VDiplomeWantedProfile> vdwp = VDiplomeWantedProfile.getDiplomeWantedProfile(conn, workLoad.getWantedProfile());
+                        for(int i = 0; i < vdwp.size(); i++) {
+                            outil.writeText(contentStream, 75, dynamicY, "-  Titulaire d'un " + vdwp.get(i).getDiplome().getDiplome());
+                            dynamicY -= lineHeight;
+                        }
 
                         // Info a propos de l'éxpérience
-                        outil.writeText(contentStream, 75, dynamicY, "-  Ayant plus de " + "2 ans d'éxpérience");
-                        dynamicY -= lineHeight;
-                        dynamicY -= lineHeight;
+                        ArrayList<VExperienceWantedProfile> vewp = VExperienceWantedProfile.getExperienceWantedProfile(conn, workLoad.getWantedProfile());
+                        for(int i = 0; i < vewp.size(); i++) {
+                            outil.writeText(contentStream, 75, dynamicY, "-  Ayant plus de " + vewp.get(i).getExperience().getExperience());
+                            dynamicY -= lineHeight;
+                            dynamicY -= lineHeight;
+                        }     
                     }
 
                 // Conclusion text
@@ -168,6 +180,8 @@ public class AnnonceExportPDFServlet extends HttpServlet {
             
             // Affichage a l'écran
             document.save(response.getOutputStream());
+            
+            conn.close();
         } catch (IOException e) {
             e.printStackTrace();
         }   
