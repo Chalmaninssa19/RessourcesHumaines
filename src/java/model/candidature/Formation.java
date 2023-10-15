@@ -81,7 +81,7 @@ public class Formation {
     //Avoir tous les formations
     public static ArrayList<Formation> getFormationCandidat(Connection conn, Integer idCandidat)  throws Exception { 
         Statement work = conn.createStatement();
-        String req = "SELECT * FROM formation_base WHERE id_candidat="+idCandidat;
+        String req = "SELECT * FROM formation_base WHERE id_candidature="+idCandidat;
         ResultSet result = work.executeQuery(req);
         ArrayList<Formation> formations = new ArrayList<>();
 

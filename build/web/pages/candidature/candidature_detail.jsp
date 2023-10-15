@@ -1,8 +1,3 @@
-<%@page import=" java.util.ArrayList "%>
-<%@page import=" java.util.List "%>
-<%@page import=" model.candidature.Candidature "%>
-<%@page import=" model.requis.Service "%>
-<%@page import=" model.gestionProfile.WantedProfile "%>
 <!-- <%@ page contentType="text/html; charset=UTF-8" %> -->
 <!DOCTYPE html>
 <html lang="en">
@@ -15,7 +10,7 @@
 
     <!-- plugins:css -->
     <link rel="stylesheet" href="./assets/vendors/mdi/css/materialdesignicons.min.css">
-    <link rel="stylesheet" href="./assets/css/annonce/annonce-list.css">
+    <link rel="stylesheet" href="./assets/css/candidature/candidature_detail.css">
     <link rel="stylesheet" href="./assets/vendors/css/vendor.bundle.base.css">
     <!-- endinject -->
     <!-- Plugin css for this page -->
@@ -34,11 +29,11 @@
         <nav class="navbar default-layout-navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
             <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
                 <a class="d-flex align-items-center d-navbar-brand brand-logo"
-                    style="text-decoration: none; color: #da8cff;" href="./index.html">
+                    style="text-decoration: none; color: #da8cff;" href="../../index.html">
                     <i class="mdi mdi-account-box" style="font-size: 35px;margin-right: 25px;"></i>
                     <h2 style="margin: 0;">GRH</h2>
                 </a>
-                <a class="navbar-brand brand-logo-mini" href="./index.html"><img
+                <a class="navbar-brand brand-logo-mini" href="../../index.html"><img
                         src="./assets/images/logo-mini.svg" alt="logo" /></a>
             </div>
             <div class="navbar-menu-wrapper d-flex align-items-stretch">
@@ -73,7 +68,7 @@
                                 <i class="mdi mdi-cached me-2 text-success"></i> Activity Log </a>
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="#">
-                                <i class="mdi mdi-logout me-2 text-black"></i> Signout </a>
+                                <i class="mdi mdi-logout me-2 text-primary"></i> Signout </a>
                         </div>
                     </li>
                     <li class="nav-item d-none d-lg-block full-screen-link">
@@ -219,7 +214,7 @@
                             <i class="mdi mdi-bookmark-check text-success nav-profile-badge"></i>
                         </a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item active">
                         <a class="nav-link" href="./index.html">
                             <span class="menu-title">Dashboard</span>
                             <i class="mdi mdi-home menu-icon"></i>
@@ -237,7 +232,7 @@
                                 <li class="nav-item"> <a class="nav-link"
                                         href="pages/ui-features/buttons.html">Besoins
                                         des services</a></li>
-                                <li class="nav-item"> <a class="nav-link"
+                                <li class="nav-item "> <a class="nav-link "
                                         href="pages/ui-features/typography.html">Annonce</a></li>
                                 <li class="nav-item active"> <a class="nav-link active"
                                         href="pages/ui-features/typography.html">Réceptions des CV</a></li>
@@ -261,63 +256,53 @@
                         <h3 class="page-title">
                             <span class="page-title-icon bg-gradient-primary text-white me-2">
                                 <i class="mdi mdi-home"></i>
-                            </span> Listes des candidatures
+                            </span> Detail du candidature
                         </h3>
+                        <nav aria-label="breadcrumb">
+                            <ul class="breadcrumb">
+                                <li class="breadcrumb-item active" aria-current="page">
+                                    <span></span>Overview <i
+                                        class="mdi mdi-alert-circle-outline icon-sm text-primary align-middle"></i>
+                                </li>
+                            </ul>
+                        </nav>
                     </div>
-                    <div class="row">
-                        <div class="col-lg-12 grid-margin stretch-card">
-                            <div class="card">
-                                <div class="card-body">
-                                    <h4 class="">Listes des candidatures reçue</h4>
-                                    <% if(request.getAttribute("services") != null && request.getAttribute("wantedProfiles") != null) { 
-                                        ArrayList<Service> services = (ArrayList<Service>)request.getAttribute("services");
-                                        List<WantedProfile> wps = (List<WantedProfile>)request.getAttribute("wantedProfiles");
-                                    %>
-                                    <form action="candidatureFilter" method="post" class="form mt-3 row">
-                                        <div class="col-md-3 form-group mb-2 px-4">
-                                            <label for="" class="form-label">Service</label>
-                                            <select name="service" id="" class="form-select form-control same-height">
-                                                <% for(int i = 0; i < services.size(); i++) { %>
-                                                <option value="<%=services.get(i).getIdService() %>"><%=services.get(i).getService() %></option>
-                                                <% } %>
-                                            </select>
-                                        </div>
-                                        <div class="col-md-3 form-group mb-2 px-4">
-                                            <label for="" class="form-label">Poste</label>
-                                            <select name="poste" id="" class="form-select form-control same-height">
-                                                <% for(int i = 0; i < wps.size(); i++) { %>
-                                                <option value="<%= wps.get(i).getIdWantedProfile() %>"><%=wps.get(i).getPoste() %></option>
-                                                <% } %>
-                                            </select>
-                                        </div>
-                                        <div class="col-md-3 form-group mb-2 px-4 d-flex align-items-end">
-                                            <button type="submit" class="btn btn-gradient-primary same-height">Filtrer</button>
-                                        </div>
-                                    </form>
-                                    <% } %>
-                                    <div class="row mt-3">
-                                        <% if(request.getAttribute("candidatures") != null) { 
-                                            ArrayList<Candidature> candidatures = (ArrayList<Candidature>)request.getAttribute("candidatures");
-                                            for(int i = 0; i < candidatures.size(); i++) {
-                                        %>
-                                        <div class="col-md-3 p-3">
-                                            <a href="candidatureDetail?idCandidature=<%=candidatures.get(i).getIdCandidature() %>">
-                                                <div class="relative-position">
-                                                    <div class="besoin-information">
-                                                        <p class="text-black"> <span class="mx-1">Date : <strong> <%=candidatures.get(i).getDepositDate() %> </strong></span><span class="mx-1">Service : <strong> <%=candidatures.get(i).getWantedProfile().getService().getService() %> </strong></span></p>
-                                                    </div>
-                                                    <div class="pdf-container">
-                                                        <img src="./build/web/candidatures/2023-01-23_Jean_Couturier_Informatique_candidature.png" class="pdf-image-view" alt="">
-                                                    </div>
-                                                </div>
-                                            </a>
-                                        </div>
-                                      <% } } %>
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-6 p-5">
+                                  <img src="./build/web/candidatures/2023-01-23_Jean_Couturier_Informatique_candidature.png"
+                                    alt="" class="candidature-image">
+                                </div>  
+                                <div class="col-md-6 p-5">
+                                  <h6 class="card-title">Les pièces jointes avec le candidature</h6>
+                                  <form action="" class="form mt-4">
+                                    <div class="form-group mt-4">
+                                      <label class="form-label">Photo d'identite</label>
+                                      <div class="">
+                                          <a href="" class="btn btn-gradient-primary mt-3">Télécharger la photo</a>
+                                      </div>
                                     </div>
+                                    <div class="form-group mt-4">
+                                      <label>Dossier des justificatives</label>
+                                      <div class="">
+                                        <a href="" class="btn btn-gradient-primary mt-3">Télécharger les dossiers</a>
+                                    </div>
+                                    </div>
+                                  </form>
+                                  <hr>
+                                  <div class="">
+                                    <p>Apres avoir analyser la candidature, prenez votre décision maintenant. <br> Nous envoyons le lien d'access au test si vous validez sa candidature</p>
+                                  </div>
+                                  <div class="d-flex mt-4">
+                                    <a href="" class="btn btn-gradient-danger">Refuser</a>
+                                    <a href="" class="btn btn-gradient-success mx-5">Accepter</a>
+                                  </div>
                                 </div>
-                            </div>
+                              </div>
                         </div>
                     </div>
+                    
                 </div>
                 <!-- content-wrapper ends -->
                 <!-- partial:/partials/_footer.html -->

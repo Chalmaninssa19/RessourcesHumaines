@@ -372,6 +372,16 @@ create table candidature(
     status int 
 );
 
+insert into candidature values (default, 1, '2022-02-02', 'Inssa', 'Chalman', '2002-06-19', 1, 'chalman@gmail.com', 1, 1, 3, 'dessiner', 1000000.00, 'Tres hate de vous connaitre', 'maPhoto.png', 'dossier.zip', 6.0, 1);
+insert into candidature values (default, 2, '2022-02-02', 'Inssa', 'Zaid', '2002-06-19', 1, 'zaid@gmail.com', 1, 1, 3, 'manger', 1000000.00, 'Motiver de jour en jour', 'maPhoto.png', 'dossier.zip', 5.0, 1);
+insert into candidature values (default, 3, '2022-02-02', 'Rasoa', 'Miora', '2002-06-19', 1, 'miora@gmail.com', 2, 1, 3, 'etudier', 1000000.00, 'Je veux apprendre encore plus', 'maPhoto.png', 'dossier.zip', 6.0, 1);
+insert into candidature values (default, 4, '2022-02-02', 'Mangany', 'Barbarah', '2002-06-19', 1, 'Barbarah@gmail.com', 2, 1, 3, 'Sport', 1000000.00, 'La joie inspire', 'maPhoto.png', 'dossier.zip', 6.0, 1);
+
+insert into professional_career values (default, 1, '2022-06-10', '2023-05-12', 'inssa studio', 'testeur', 'tester les applications');
+insert into professional_career values (default, 2, '2023-01-23', '2023-07-25', 'Habibo', 'livreur', 'livrer les marchandises chez lez clients');
+insert into professional_career values (default, 3, '2020-03-04', '2023-02-11', 'Helmica', 'developpeur', 'Developper des logiciels');
+insert into professional_career values (default, 4, '2019-03-17', '2023-03-17', 'Grove', 'designer', 'donner des designs aux marchandises');
+
 create table professional_career(
     id_professional_career serial primary key,
     id_candidature int references candidature(id_candidature),

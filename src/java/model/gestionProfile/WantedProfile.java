@@ -13,6 +13,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import model.Model;
+import model.annonce.Annonce;
 import model.gestionBesoin.Besoin;
 import model.gestionBesoin.Task;
 import model.requis.Service;
@@ -287,4 +288,6 @@ public class WantedProfile extends Model {
         
         return wp;
     }
+    
+   
 }

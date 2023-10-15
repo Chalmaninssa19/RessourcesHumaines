@@ -148,7 +148,7 @@ public class Career {
     //Avoir tous les annonces
     public static ArrayList<Career> getCareerCandidat(Connection conn, Integer idCandidat)  throws Exception { 
         Statement work = conn.createStatement();
-        String req = "SELECT * FROM career WHERE id_candidat="+idCandidat;
+        String req = "SELECT * FROM professional_career WHERE id_candidature="+idCandidat;
         ResultSet result = work.executeQuery(req);
         ArrayList<Career> careers = new ArrayList<>();
 

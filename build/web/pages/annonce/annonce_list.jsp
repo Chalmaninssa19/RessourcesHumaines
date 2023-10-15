@@ -50,7 +50,7 @@
                                                     <p class="text-black"> <span class="mx-1">Date : <strong> <%=annonces.get(i).getDateAnnonce() %> </strong></span><span class="mx-1">Service : <strong> <%=annonces.get(i).getService().getService() %> </strong></span></p>
                                                 </div>
                                                 <div class="pdf-container">
-                                                    <img src="../../../build/web/annonces/<%=annonces.get(i).getNomAnnonce() %>" width="100px" height="100px" class="pdf-image-view" alt="">
+                                                    <img src="./build/web/annonces/<%=annonces.get(i).getNomAnnonce() %>" width="100px" height="100px" class="pdf-image-view" alt="">
                                                 </div>
                                             </div>
                                         </div>

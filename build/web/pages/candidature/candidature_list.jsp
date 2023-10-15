@@ -1,3 +1,8 @@
+<%@page import=" java.util.ArrayList "%>
+<%@page import=" java.util.List "%>
+<%@page import=" model.candidature.Candidature "%>
+<%@page import=" model.requis.Service "%>
+<%@page import=" model.gestionProfile.WantedProfile "%>
 <!-- <%@ page contentType="text/html; charset=UTF-8" %> -->
 <!DOCTYPE html>
 <html lang="en">
@@ -29,7 +34,7 @@
         <nav class="navbar default-layout-navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
             <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
                 <a class="d-flex align-items-center d-navbar-brand brand-logo"
-                    style="text-decoration: none; color: #da8cff;" href="../../index.html">
+                    style="text-decoration: none; color: #da8cff;" href="./index.html">
                     <i class="mdi mdi-account-box" style="font-size: 35px;margin-right: 25px;"></i>
                     <h2 style="margin: 0;">GRH</h2>
                 </a>
@@ -203,7 +208,7 @@
                     <li class="nav-item nav-profile">
                         <a href="#" class="nav-link">
                             <div class="nav-profile-image">
-                                <img src="../../assets/images/faces/face1.jpg" alt="profile">
+                                <img src="./assets/images/faces/face1.jpg" alt="profile">
                                 <span class="login-status online"></span>
                                 <!--change to offline or busy as needed-->
                             </div>
@@ -264,31 +269,42 @@
                             <div class="card">
                                 <div class="card-body">
                                     <h4 class="">Listes des candidatures reçue</h4>
-                                    <form class="form mt-3 row">
+                                    <% if(request.getAttribute("services") != null && request.getAttribute("wantedProfiles") != null) { 
+                                        ArrayList<Service> services = (ArrayList<Service>)request.getAttribute("services");
+                                        List<WantedProfile> wps = (List<WantedProfile>)request.getAttribute("wantedProfiles");
+                                    %>
+                                    <form action="candidatureFilter" method="post" class="form mt-3 row">
                                         <div class="col-md-3 form-group mb-2 px-4">
                                             <label for="" class="form-label">Service</label>
-                                            <select name="" id="" class="form-select form-control same-height">
-                                                <option value="">Informatique</option>
-                                                <option value="">Securite</option>
+                                            <select name="service" id="" class="form-select form-control same-height">
+                                                <% for(int i = 0; i < services.size(); i++) { %>
+                                                <option value="<%=services.get(i).getIdService() %>"><%=services.get(i).getService() %></option>
+                                                <% } %>
                                             </select>
                                         </div>
                                         <div class="col-md-3 form-group mb-2 px-4">
                                             <label for="" class="form-label">Poste</label>
-                                            <select name="" id="" class="form-select form-control same-height">
-                                                <option value="">Développeur JAVA</option>
-                                                <option value="">Développeur REACT</option>
+                                            <select name="poste" id="" class="form-select form-control same-height">
+                                                <% for(int i = 0; i < wps.size(); i++) { %>
+                                                <option value="<%= wps.get(i).getIdWantedProfile() %>"><%=wps.get(i).getPoste() %></option>
+                                                <% } %>
                                             </select>
                                         </div>
                                         <div class="col-md-3 form-group mb-2 px-4 d-flex align-items-end">
-                                            <button class="btn btn-gradient-primary same-height">Filtrer</button>
+                                            <button type="submit" class="btn btn-gradient-primary same-height">Filtrer</button>
                                         </div>
                                     </form>
+                                    <% } %>
                                     <div class="row mt-3">
+                                        <% if(request.getAttribute("candidatures") != null) { 
+                                            ArrayList<Candidature> candidatures = (ArrayList<Candidature>)request.getAttribute("candidatures");
+                                            for(int i = 0; i < candidatures.size(); i++) {
+                                        %>
                                         <div class="col-md-3 p-3">
-                                            <a href="">
+                                            <a href="candidatureDetail?idCandidature=<%=candidatures.get(i).getIdCandidature() %>">
                                                 <div class="relative-position">
                                                     <div class="besoin-information">
-                                                        <p class="text-black"> <span class="mx-1">Date : <strong> 10/12/2023 </strong></span><span class="mx-1">Service : <strong> Informatique </strong></span></p>
+                                                        <p class="text-black"> <span class="mx-1">Date : <strong> <%=candidatures.get(i).getDepositDate() %> </strong></span><span class="mx-1">Service : <strong> <%=candidatures.get(i).getWantedProfile().getService().getService() %> </strong></span></p>
                                                     </div>
                                                     <div class="pdf-container">
                                                         <img src="./build/web/candidatures/2023-01-23_Jean_Couturier_Informatique_candidature.png" class="pdf-image-view" alt="">
@@ -296,42 +312,7 @@
                                                 </div>
                                             </a>
                                         </div>
-                                        <div class="col-md-3 p-3">
-                                            <a href="">
-                                                <div class="relative-position">
-                                                    <div class="besoin-information">
-                                                        <p class="text-black"> <span class="mx-1">Date : <strong> 10/12/2023 </strong></span><span class="mx-1">Service : <strong> Informatique </strong></span></p>
-                                                    </div>
-                                                    <div class="pdf-container">
-                                                        <img src="./build/web/candidatures/2023-01-23_Jean_Couturier_Informatique_candidature.png" class="pdf-image-view" alt="">
-                                                    </div>
-                                                </div>
-                                            </a>
-                                        </div>
-                                        <div class="col-md-3 p-3">
-                                            <a href="">
-                                                <div class="relative-position">
-                                                    <div class="besoin-information">
-                                                        <p class="text-black"> <span class="mx-1">Date : <strong> 10/12/2023 </strong></span><span class="mx-1">Service : <strong> Informatique </strong></span></p>
-                                                    </div>
-                                                    <div class="pdf-container">
-                                                        <img src="./build/web/candidatures/2023-01-23_Jean_Couturier_Informatique_candidature.png" class="pdf-image-view" alt="">
-                                                    </div>
-                                                </div>
-                                            </a>
-                                        </div>
-                                        <div class="col-md-3 p-3">
-                                            <a href="">
-                                                <div class="relative-position">
-                                                    <div class="besoin-information">
-                                                        <p class="text-black"> <span class="mx-1">Date : <strong> 10/12/2023 </strong></span><span class="mx-1">Service : <strong> Informatique </strong></span></p>
-                                                    </div>
-                                                    <div class="pdf-container">
-                                                        <img src="./build/web/candidatures/2023-01-23_Jean_Couturier_Informatique_candidature.png" class="pdf-image-view" alt="">
-                                                    </div>
-                                                </div>
-                                            </a>
-                                        </div>
+                                      <% } } %>
                                     </div>
                                 </div>
                             </div>
