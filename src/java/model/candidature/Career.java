@@ -7,8 +7,14 @@ package model.candidature;
 import framework.database.utilitaire.GConnection;
 import java.sql.Connection;
 import java.sql.Date;
+import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.List;
+import model.annonce.Annonce;
+import model.gestionBesoin.Besoin;
+import model.gestionProfile.Adresse;
+import model.requis.Service;
 
 /**
  *
@@ -104,8 +110,55 @@ public class Career {
     
     
 /// methods
-
     public Career() {
+    }
+    
+    
+    //Recuperer une carriere par son id
+    public static Career getById(Connection conn, Integer idCareer) throws Exception {
+        Statement work = conn.createStatement();
+        String req = "select * from professional_career where id_Career = "+idCareer;
+        ResultSet result = work.executeQuery(req);
+        Career career = new Career();
+        
+        while(result.next()) {
+            career.setStartDate(result.getDate("start_date"));
+            career.setEndDate(result.getDate("end_date"));
+            career.setSociety("society");
+            career.setPoste("poste");
+            List<String> tasks = Career.getList(result.getString("task"));
+            career.setTasks(tasks);
+        }
+        
+        return career;
+    }
+    
+    //Tansformer le string en une liste de string
+    public static List<String> getList(String listes) throws Exception {
+        List<String> lists = new ArrayList<>();
+        String [] listesSplitter = listes.split(";");
+        for(int i = 0; i < listesSplitter.length; i++) {
+            lists.add(listesSplitter[i]);
+        }
+        
+        return lists;
+    }
+    
+      
+    //Avoir tous les annonces
+    public static ArrayList<Career> getCareerCandidat(Connection conn, Integer idCandidat)  throws Exception { 
+        Statement work = conn.createStatement();
+        String req = "SELECT * FROM career WHERE id_candidat="+idCandidat;
+        ResultSet result = work.executeQuery(req);
+        ArrayList<Career> careers = new ArrayList<>();
+
+        while(result.next()) {
+            List<String> tasks = Career.getList(result.getString("task"));
+            Career career = new Career(result.getDate("start_date"), result.getDate("end_date"), result.getString("society"), result.getString("poste"), tasks);
+            careers.add(career);
+        }
+        
+        return careers;
     }
 
 }

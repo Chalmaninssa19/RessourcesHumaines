@@ -13,19 +13,27 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import model.Model;
+import model.gestionBesoin.Besoin;
+import model.gestionBesoin.Unity;
+import model.gestionBesoin.WorkLoad;
 
 /**
  *
  * @author Chalman
  */
-public class Adresse extends Model {
-
-    @Champs
+public class Adresse {
+    private Integer idAdresse;
     private String adresse;
-    @Champs
     private Integer status;
 
 ///Getters and setters
+    public Integer getIdAdresse() {
+        return idAdresse;
+    }
+    public void setIdAdresse(Integer idAdresse) {
+        this.idAdresse = idAdresse;
+    }
+    
     public String getAdresse() {
         return adresse;
     }
@@ -47,6 +55,12 @@ public class Adresse extends Model {
     }
 
     public Adresse(String adresse, Integer status) {
+        this.adresse = adresse;
+        this.status = status;
+    }
+
+    public Adresse(Integer idAdresse, String adresse, Integer status) {
+        this.idAdresse = idAdresse;
         this.adresse = adresse;
         this.status = status;
     }
@@ -97,4 +111,21 @@ public class Adresse extends Model {
             }
         }
     }
+    
+    //Recuperer une adresse par son id
+    public static Adresse getById(Connection conn, Integer idAdresse) throws Exception {
+        Statement work = conn.createStatement();
+        String req = "select * from adresse where id_adresse = "+idAdresse;
+        ResultSet result = work.executeQuery(req);
+        Adresse adresse = new Adresse();
+        int i = 1;
+        while(result.next()) {
+            adresse.setIdAdresse(result.getInt("id_adresse"));
+            adresse.setAdresse(result.getString("adresse"));
+            adresse.setStatus(result.getInt("status"));
+        }
+        
+        return adresse;
+    }
+    
 }

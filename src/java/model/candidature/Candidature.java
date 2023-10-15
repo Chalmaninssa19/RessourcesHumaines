@@ -9,6 +9,16 @@ import framework.database.utilitaire.GConnection;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import model.annonce.Annonce;
+import model.gestionBesoin.Besoin;
+import model.gestionProfile.Adresse;
+import model.gestionProfile.Diplome;
+import model.gestionProfile.Experience;
+import model.gestionProfile.Sexe;
+import model.requis.Service;
 
 /**
  *
@@ -184,4 +194,49 @@ public class Candidature {
         this.status = status;
     }
 
+    public static ArrayList<Candidature> getAll(Connection conn) throws Exception {
+        Statement work = conn.createStatement();
+        String req = "SELECT * FROM candidature";
+        ResultSet result = work.executeQuery(req);
+        ArrayList<Candidature> candidats = new ArrayList<>();
+
+        while(result.next()) {
+            //Candidature(int idCandidature, PersonnalInformation PersonnalInformation, ProfessionalCareer ProfessionalCareer, FormationPath FormationPath, String interestCareer, double SalaryExpectation, String selfProfile, String photo, String dossier, double note, int status) {
+            //PersonnalInformation(String name, String firstName, Date birthDate, Adresse adresse, String email, String telephone, Sexe sexe)
+            PersonnalInformation pi = new PersonnalInformation(result.getString("name"), result.getString("first_name"), result.getDate("birh_date"), Adresse.getById(conn, result.getInt("id_adresse")), result.getString("email"), result.getString("telephone"), Sexe.getById(conn, result.getInt("id_sexe")));
+            ProfessionalCareer pc = new ProfessionalCareer(Experience.getById(conn, result.getInt("id_experience")), Career.getCareerCandidat(conn, result.getInt("id_candidature")));
+            FormationPath fp = new FormationPath(Diplome.getById(conn, result.getInt("id_diplome")), Formation.getFormationCandidat(conn, result.getInt("id_candidat")));
+            Candidature candidat = new Candidature(result.getInt("id_candidature"), pi, pc, fp, result.getString("interest_center"), result.getDouble("salary_expectation"), result.getString("self_profile"), result.getString("photo"), result.getString("dosiier"), result.getDouble("note"), result.getInt("status"));
+            candidats.add(candidat);
+        }
+        
+        return candidats;
+    }
+    
+    //Recuperer une candidature par son id
+    public static Candidature getById(Connection conn, Integer idCandidat) throws Exception {
+        Statement work = conn.createStatement();
+        String req = "select * from candidature where id_candidature = "+idCandidat;
+        ResultSet result = work.executeQuery(req);
+        Candidature candidature = new Candidature();
+        
+        while(result.next()) {
+            candidature.setIdCandidature(idCandidat);
+            PersonnalInformation pi = new PersonnalInformation(result.getString("name"), result.getString("first_name"), result.getDate("birh_date"), Adresse.getById(conn, result.getInt("id_adresse")), result.getString("email"), result.getString("telephone"), Sexe.getById(conn, result.getInt("id_sexe")));    
+            candidature.setPersonnalInformation(pi);
+            ProfessionalCareer pc = new ProfessionalCareer(Experience.getById(conn, result.getInt("id_experience")), Career.getCareerCandidat(conn, result.getInt("id_candidature")));            
+            candidature.setProfessionalCareer(pc);
+            FormationPath fp = new FormationPath(Diplome.getById(conn, result.getInt("id_diplome")), Formation.getFormationCandidat(conn, result.getInt("id_candidat")));       
+            candidature.setFormationPath(fp);
+            candidature.setInterestCareer(result.getString("interest_center"));
+            candidature.setSalaryExpectation(result.getDouble("salary_expectation"));
+            candidature.setSelfProfile(result.getString("self_profile"));
+            candidature.setPhoto(result.getString("photo"));
+            candidature.setDossier(result.getString("dossier"));
+            candidature.setNote(result.getDouble("note"));
+            candidature.setStatus(result.getInt("status"));
+        }
+        
+        return candidature;
+    }
 }
