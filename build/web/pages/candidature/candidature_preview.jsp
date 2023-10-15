@@ -52,7 +52,7 @@
                                         <hr>
                                         <p> <%= can.getProfessionalCareer().getExperience().getExperience() %> </p>
                                         <% for(int i=0;i<can.getProfessionalCareer().getCareers().size();i++) { %>
-                                        <p> <%= can.getProfessionalCareer().getCareers().get(i).getStartDate() %> - <%= can.getProfessionalCareer().getCareers().get(i).getEndDate() %></p>
+                                        <p> <%= can.getProfessionalCareer().getCareers().get(i).formatDate(can.getProfessionalCareer().getCareers().get(i).getStartDate()) %> - <%= can.getProfessionalCareer().getCareers().get(i).formatDate(can.getProfessionalCareer().getCareers().get(i).getEndDate()) %></p>
                                         <p> <%= can.getProfessionalCareer().getCareers().get(i).getSociety() %> en tant que <%= can.getProfessionalCareer().getCareers().get(i).getPoste() %> </p>
                                         <h6> Vos taches : </h6>
                                         <% for(int e=0;e<can.getProfessionalCareer().getCareers().get(i).getTasks().size();e++) { %>
@@ -68,12 +68,12 @@
                                         <% } %>
                                     </div>
                                     <div class="col-md-6 p-5">
-                                        <h6 class="card-title">Uploader les dossiers et le photo d'identité ici</h6>
+                                        <h6 class="card-title">Enzipper vos dossiers ici</h6>
                                         <form method="post" action="/RessourceHumaine/PreviewCandidatureServlet" enctype="multipart/form-data">
                                             <div class="form-group">
                                                 <input type="file" name="dossier" />
                                             </div>
-                                            <h6 class="card-title">Uploader vos photo d'identité ici</h6>
+                                            <h6 class="card-title">Uploader votre photo d'identité ici</h6>
 
                                             <div class="form-group">
                                                 <input type="file" name="image" />

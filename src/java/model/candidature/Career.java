@@ -8,6 +8,8 @@ import framework.database.utilitaire.GConnection;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.Statement;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 /**
@@ -16,14 +18,14 @@ import java.util.List;
  */
 public class Career {
 /// field
+
     Date startDate;
     Date endDate;
     String society;
     String poste;
     List<String> tasks;       // Les différentes taches sont séparés par des ";" dans la base et on va devoir les décomposer apres
-    
-/// getter and setter
 
+/// getter and setter
     public Date getStartDate() {
         return startDate;
     }
@@ -63,13 +65,22 @@ public class Career {
     public void setTasks(List<String> tasks) {
         this.tasks = tasks;
     }
-    
-    public String formatTask(){
+
+    public String formatTask() {
         String task = "";
-        for(int i=0; i<this.getTasks().size(); i++){
+        for (int i = 0; i < this.getTasks().size(); i++) {
             task += this.getTasks().get(i).concat(";");
         }
         return task;
+    }
+
+    public String formatDate(Date date) {
+        LocalDate localDate = date.toLocalDate();
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d MMMM yyyy");
+
+        String formattedDate = localDate.format(formatter);
+        return formattedDate;
     }
 
     public void create(Connection con, int idCandidature) throws Exception {
@@ -79,7 +90,7 @@ public class Career {
                 con = GConnection.getSimpleConnection();
                 b = false;
             }
-            String requete = "insert into professional_career values (DEFAULT, "+ idCandidature +", '"+ this.getStartDate()+"', '"+ this.getEndDate() +"', '"+ this.getSociety() +"', '"+ this.getPoste() +"', '"+ this.formatTask() +"')";
+            String requete = "insert into professional_career values (DEFAULT, " + idCandidature + ", '" + this.getStartDate() + "', '" + this.getEndDate() + "', '" + this.getSociety() + "', '" + this.getPoste() + "', '" + this.formatTask() + "')";
             System.out.println(requete);
             Statement s = con.createStatement();
             s.executeUpdate(requete);
@@ -91,9 +102,8 @@ public class Career {
             }
         }
     }
-    
-/// contructor
 
+/// contructor
     public Career(Date startDate, Date endDate, String society, String poste, List<String> tasks) {
         this.startDate = startDate;
         this.endDate = endDate;
@@ -101,10 +111,8 @@ public class Career {
         this.poste = poste;
         this.tasks = tasks;
     }
-    
-    
-/// methods
 
+/// methods
     public Career() {
     }
 

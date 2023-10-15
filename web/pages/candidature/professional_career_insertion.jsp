@@ -103,31 +103,14 @@
                                                                         var donnee = responseData[i];
                                                                         var donneeSpliter = donnee.split(",");
 
-                                                                        var ls = document.createElement("li");
-                                                                        ls.className = "list-remove";
-                                                                        ls.className = "d-flex";
-                                                                        ls.className = "justify-content-between";
-                                                                        ls.className = "align-items-center";
+                                                                        var listItem = document.createElement("li");
+                                                                        listItem.className = "list-remove d-flex justify-content-between align-items-center";
 
-                                                                        var span = document.createElement("span");
-                                                                        var icon = document.createElement("i");
-                                                                        icon.className = "mdi";
-                                                                        icon.className = "mdi-share";
-                                                                        icon.className = "text-primary";
-                                                                        span.appendChild(icon);
-                                                                        span.textContent = donneeSpliter;
-
-                                                                        ls.appendChild(span);
-
-                                                                        var button = document.createElement("button");
-                                                                        button.className = "little-button";
-                                                                        button.className = "btn";
-                                                                        button.className = "btn-gradient-danger";
-                                                                        button.textContent = "X";
-
-                                                                        ls.appendChild(button);
+                                                                        var st = '<span> <i class="mdi mdi-share text-primary"></i> ';
+                                                                        var ts = '</span> <button class="little-button btn btn-gradient-danger">X</button>';
+                                                                        listItem.innerHTML = st + donneeSpliter + ts;
                                                                     }
-                                                                    ul.appendChild(ls);
+                                                                    ul.appendChild(listItem);
                                                                     taskCase.appendChild(ul);
                                                                 } else {
                                                                     alert("Une erreur s'est produite lors de la récupération des données.");
@@ -181,7 +164,7 @@
                                                                     var h5 = document.createElement("h5");
                                                                     h5.className = "career-date";
 
-                                                                    h5.textContent = startDate + "-" + endDate;
+                                                                    h5.textContent = formatDate(startDate) + " - " + formatDate(endDate);
 
                                                                     var icon = document.createElement("i");
                                                                     icon.classeName = "mdi", "mdi-settings", "little-to-left";
@@ -220,6 +203,39 @@
                                                         return false;
                                                     });
                                                 });
+
+                                                function formatDate(dateStr) {
+                                                    var moisAbreviations = {
+                                                        "jan.": "janvier",
+                                                        "févr.": "février",
+                                                        "mars": "mars",
+                                                        "avr.": "avril",
+                                                        "mai": "mai",
+                                                        "juin": "juin",
+                                                        "juil.": "juillet",
+                                                        "août": "août",
+                                                        "sept.": "septembre",
+                                                        "oct.": "octobre",
+                                                        "nov.": "novembre",
+                                                        "déc.": "décembre"
+                                                    };
+                                                    var dateMatch = dateStr.match(/([a-zéû]+)\. (\d+), (\d+)/i);
+                                                    if (dateMatch) {
+                                                        var moisAbrege = dateMatch[1];
+                                                        var jour = dateMatch[2];
+                                                        var annee = dateMatch[3];
+
+                                                        // Utilisez la table de correspondance pour obtenir le nom complet du mois
+                                                        var moisComplet = moisAbreviations[moisAbrege] || moisAbrege;
+
+                                                        // Formate la date
+                                                        var dateFormatee = jour + " " + moisComplet + " " + annee;
+                                                        return dateFormatee;
+                                                    } else {
+                                                        alert("Format de date invalide");
+                                                    }
+
+                                                }
                                             </script>
                                             <div class="mt-5 d-flex justify-content-between half-width align-items-center">
                                                 <div class="">

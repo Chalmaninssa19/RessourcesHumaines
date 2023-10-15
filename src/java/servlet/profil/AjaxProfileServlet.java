@@ -55,46 +55,46 @@ public class AjaxProfileServlet extends HttpServlet {
             HttpSession session = request.getSession();
             WantedProfile wp = (WantedProfile) session.getAttribute("wantedprofile");
             wp.setPoste(poste);
-            wp.setService(new Service(1, 1));
-            wp.createWantedProfile(null);
+            wp.setService(new Service(1, 1)); //l'id du service doit etre remplacer par le session du service
+            wp.createWantedProfile(conn);
 
             //l'id du dernier wantedProfile
-            int lastId = wp.getLastId(null);
+            int lastId = wp.getLastId(conn);
 
             //pour le diplome
             DiplomeNote dn = new DiplomeNote();
             for (int i = 0; i < listeDiplomeNote.size(); i++) {
                 dn.setNote(listeDiplomeNote.get(i).getNote());
-                int idDiplome = new Diplome().getIdByName(listeDiplomeNote.get(i).getDiplome().getDiplome(), null);
-                dn.createDiplomeNote(lastId, idDiplome, null);
+                int idDiplome = new Diplome().getIdByName(listeDiplomeNote.get(i).getDiplome().getDiplome(), conn);
+                dn.createDiplomeNote(lastId, idDiplome, conn);
             }
             //pour l'Adresse
             AdresseNote an = new AdresseNote();
             for (int a = 0; a < listeAdresseNote.size(); a++) {
                 an.setNote(listeAdresseNote.get(a).getNote());
-                int idAdresse = new Adresse().getIdByName(listeAdresseNote.get(a).getAdresse().getAdresse(), null);
-                an.createAdresseNote(lastId, idAdresse, null);
+                int idAdresse = new Adresse().getIdByName(listeAdresseNote.get(a).getAdresse().getAdresse(), conn);
+                an.createAdresseNote(lastId, idAdresse, conn);
             }
             // pour l' experience
             ExperienceNote en = new ExperienceNote();
             for (int e = 0; e < listeExperienceNote.size(); e++) {
                 en.setNote(listeExperienceNote.get(e).getNote());
-                int idExperience = new Experience().getIdByName(listeExperienceNote.get(e).getExperience().getExperience(), null);
-                en.createExperienceNote(lastId, idExperience, null);
+                int idExperience = new Experience().getIdByName(listeExperienceNote.get(e).getExperience().getExperience(), conn);
+                en.createExperienceNote(lastId, idExperience, conn);
             }
             // pour le sexe
             SexeNote sen = new SexeNote();
             for (int u = 0; u < listeSexeNote.size(); u++) {
                 sen.setNote(listeSexeNote.get(u).getNote());
-                int idSexe = new Sexe().getIdByName(listeSexeNote.get(u).getSexe().getSexe(), null);
-                sen.createSexeNote(lastId, idSexe, null);
+                int idSexe = new Sexe().getIdByName(listeSexeNote.get(u).getSexe().getSexe(), conn);
+                sen.createSexeNote(lastId, idSexe, conn);
             }
             // pour le salaire
             SalaireNote san = new SalaireNote();
             for (int s = 0; s < listeSalaireNote.size(); s++) {
                 san.setNote(listeSalaireNote.get(s).getNote());
-                int idSalaire = new Salaire().getIdByName(listeSalaireNote.get(s).getSalaire().getSalaire(), null);
-                san.createSalaireNote(lastId, idSalaire, null);
+                int idSalaire = new Salaire().getIdByName(listeSalaireNote.get(s).getSalaire().getSalaire(), conn);
+                san.createSalaireNote(lastId, idSalaire, conn);
             }
 
         } catch (Exception ex) {
