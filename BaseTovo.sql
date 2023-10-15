@@ -310,6 +310,12 @@ INSERT INTO "public".workload( id_workload, id_besoin, id_wanted_profile, quanti
 INSERT INTO "public".workload( id_workload, id_besoin, id_wanted_profile, quantity, id_unity ) VALUES ( 3, 3, 3, 1, 1);
 INSERT INTO "public".workload( id_workload, id_besoin, id_wanted_profile, quantity, id_unity ) VALUES ( 4, 4, 4, 1, 1);
 
+
+-- View pour afficher l'utilisateur avec son service
+CREATE VIEW v_user_service AS
+SELECT u.*, s.service, s.fonction, s.creation_date FROM utilisateur u 
+JOIN service s ON u.id_service = s.id_service;
+
 create or replace view v_salaire_note as
 select dn.id_wanted_profile, dn.id_salaire, dn.note, d.salaire, d.status
 from salaire_note dn
@@ -359,7 +365,7 @@ create table candidature(
     id_diplome int references diplome(id_diplome),
     interest_center varchar(30),
     salary_expectation double precision,
-    self_profile varchar(30),
+    self_profile varchar(200),
     photo varchar(20),
     dossier varchar(30),
     note double precision,
