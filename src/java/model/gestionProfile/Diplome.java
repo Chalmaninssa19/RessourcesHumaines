@@ -13,19 +13,26 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import model.Model;
+import model.requis.Service;
 
 /**
  *
  * @author Chalman
  */
 public class Diplome extends Model {
-
-    @Champs
+    private Integer idDiplome;
     private String diplome;
-    @Champs
     private Integer status;
 
 ///Getters and setters
+    public Integer getIdDiplome() {
+        return idDiplome;
+    }
+    public void setIdDiplome(Integer id_diplome) {
+        this.idDiplome = id_diplome;
+    }
+    
+    
     public String getDiplome() {
         return diplome;
     }
@@ -47,6 +54,12 @@ public class Diplome extends Model {
     }
 
     public Diplome(String diplome, Integer status) {
+        this.diplome = diplome;
+        this.status = status;
+    }
+
+    public Diplome(Integer id_diplome, String diplome, Integer status) {
+        this.idDiplome = id_diplome;
         this.diplome = diplome;
         this.status = status;
     }
@@ -97,5 +110,20 @@ public class Diplome extends Model {
                 con.close();
             }
         }
+    }
+    
+    //Recuperer un diplome par son id
+    public static Diplome getById(Connection conn, Integer idDiplome) throws Exception {
+        Statement work = conn.createStatement();
+        String req = "select * from diplome where id_diplome = "+idDiplome;
+        ResultSet result = work.executeQuery(req);
+        Diplome diplome = new Diplome();
+        while(result.next()) {
+            diplome.setIdDiplome(result.getInt("id_diplome"));
+            diplome.setDiplome(result.getString("diplome"));
+            diplome.setStatus(result.getInt("status"));
+        }
+        
+        return diplome;
     }
 }

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package servlet.annonce;
+package servlet.candidature;
 
 import framework.database.utilitaire.GConnection;
 import java.io.IOException;
@@ -14,43 +14,44 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.HttpSession;
 import java.sql.Connection;
 import java.util.ArrayList;
-import model.annonce.Annonce;
-import model.gestionBesoin.Besoin;
+import java.util.List;
+import model.candidature.Candidature;
+import model.gestionProfile.WantedProfile;
 import model.requis.Service;
-import model.requis.User;
 
-@WebServlet(name = "AnnonceServlet", urlPatterns = {"/annonce"})
-public class AnnonceServlet extends HttpServlet {
+@WebServlet(name = "ListCandidatureServlet", urlPatterns = {"/listCandidature"})
+public class ListCandidatureServlet extends HttpServlet {
 
      protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
           res.setContentType("text/plain");
           PrintWriter out = res.getWriter();
           
           try {
-              Connection conn = GConnection.getSimpleConnection();
-              
-              HttpSession session = req.getSession();
-              User userConnected = (User)session.getAttribute("user");
-              ArrayList<Service> services = Service.getAll(conn);
-              req.setAttribute("services", services);
+                Connection conn = GConnection.getSimpleConnection();
 
-                if(req.getAttribute("annonces") != null) {
-                    req.setAttribute("annonces", req.getAttribute("annonces"));
+                WantedProfile wp = new WantedProfile();
+
+                ArrayList<Service> services = Service.getAll(conn);
+                List<WantedProfile> wps = wp.getAll(conn);
+                req.setAttribute("services", services);
+                req.setAttribute("wantedProfiles", wps);
+
+                if(req.getAttribute("candidatureList") != null) {
+                    req.setAttribute("candidatures", req.getAttribute("candidatureList"));
                 }
                 else {
-                    ArrayList<Annonce> annonces = Annonce.getAnnonceByStatus(conn, "1", userConnected.getService());
-                    req.setAttribute("annonces", annonces);
-                }             
+                    ArrayList<Candidature> candidatures = Candidature.getAll(conn);
+                    req.setAttribute("candidatures", candidatures);
+                }
               
               conn.close();
           } catch (Exception exe) {
-              exe.printStackTrace();
-               req.setAttribute("erreur", exe.getMessage());
+                exe.printStackTrace();
+                req.setAttribute("erreur", exe.getMessage());
           }
-          RequestDispatcher dispat = req.getRequestDispatcher("./pages/annonce/annonce_list.jsp");
+          RequestDispatcher dispat = req.getRequestDispatcher("./pages/candidature/candidature_list.jsp");
           dispat.forward(req, res);
      }
 
@@ -60,10 +61,7 @@ public class AnnonceServlet extends HttpServlet {
           try {
              Connection conn = GConnection.getSimpleConnection();
             
-            Integer idService = Integer.valueOf(req.getParameter("service"));
-            Service service = Service.getById(conn, idService);
-            ArrayList<Annonce> annonceFilter = Annonce.getAnnonceByStatus(conn, "1", service);
-            req.setAttribute("annonces", annonceFilter);
+          
             
             conn.close();
         } catch (Exception exe) {

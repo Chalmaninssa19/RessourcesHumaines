@@ -5,24 +5,19 @@
  */
 package model.gestionProfile;
 
-import framework.database.annotation.Champs;
 import framework.database.utilitaire.GConnection;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-import model.Model;
 
 /**
  *
  * @author Chalman
  */
-public class Sexe extends Model {
-
-    @Champs
+public class Sexe {
     private String sexe;
-    @Champs
     private Integer status;
 
 ///Getters and setters
@@ -101,5 +96,20 @@ public class Sexe extends Model {
                 con.close();
             }
         }
+    }
+    
+    
+    //Recuperer une sexe par son id
+    public static Sexe getById(Connection conn, Integer idSexe) throws Exception {
+        Statement work = conn.createStatement();
+        String req = "select * from sexe where id_sexe = "+idSexe;
+        ResultSet result = work.executeQuery(req);
+        Sexe sexe = new Sexe();
+        while(result.next()) {
+            sexe.setSexe(result.getString("sexe"));
+            sexe.setStatus(result.getInt("status"));
+        }
+        
+        return sexe;
     }
 }

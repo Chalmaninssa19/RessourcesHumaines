@@ -18,17 +18,11 @@ import java.util.ArrayList;
  */
 public class User extends Model {
     private int idUser;
-    @Champs
     private String name;
-    @Champs( mapcol="id", name="id_service")
     private Service service;
-    @Champs
     private String username;
-    @Champs
     private String password;
-    @Champs
     private String mail;
-    @Champs
     private Integer status;
     
     public int getIdUser() {    
