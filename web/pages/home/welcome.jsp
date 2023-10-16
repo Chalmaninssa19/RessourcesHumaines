@@ -233,10 +233,10 @@
                                     <li class="nav-item"> <a class="nav-link" href="listBesoins">Besoins
                                             des services</a></li>
                                     <li class="nav-item"> <a class="nav-link"
-                                                             href="pages/ui-features/typography.html">Annonce</a></li>
+                                                             href="annonce">Annonce</a></li>
                                     <li class="nav-item"> <a class="nav-link" href="./PersonalInformationInsertionServlet">Insertion d'un candidature</a></li>
                                     <li class="nav-item"> <a class="nav-link"
-                                                             href="pages/ui-features/typography.html">Réceptions des CV</a></li>
+                                                             href="listCandidature">Réceptions des CV</a></li>
                                     <li class="nav-item"> <a class="nav-link"
                                                              href="pages/ui-features/typography.html">Résultats des tests</a></li>
                                     <li class="nav-item"> <a class="nav-link"

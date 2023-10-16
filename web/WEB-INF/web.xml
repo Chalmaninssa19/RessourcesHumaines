@@ -40,6 +40,10 @@
         <servlet-name>FinishedCandidatureServlet</servlet-name>
         <servlet-class>servlet.candidature.FinishedCandidatureServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ListCandidatureServlet</servlet-name>
+        <servlet-class>servlet.candidature.ListCandidatureServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>AjaxProfileServlet</servlet-name>
         <url-pattern>/AjaxProfileServlet</url-pattern>
@@ -79,6 +83,10 @@
     <servlet-mapping>
         <servlet-name>FinishedCandidatureServlet</servlet-name>
         <url-pattern>/FinishedCandidatureServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ListCandidatureServlet</servlet-name>
+        <url-pattern>/listCandidature</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

@@ -19,17 +19,21 @@ import model.Model;
  * @author Chalman
  */
 public class Experience extends Model {
-
-    @Champs
+    private Integer idExperience;
     private String experience;
-    @Champs
     private Integer status;
 
 ///Getters and setters
+    public Integer getIdExperience() {
+        return idExperience;
+    }
+    public void setIdExperience(Integer idExperience) {
+        this.idExperience = idExperience;
+    }
+    
     public String getExperience() {
         return experience;
     }
-
     public void setExperience(String experience) {
         this.experience = experience;
     }
@@ -37,7 +41,6 @@ public class Experience extends Model {
     public Integer getStatus() {
         return status;
     }
-
     public void setStatus(Integer status) {
         this.status = status;
     }
@@ -51,6 +54,11 @@ public class Experience extends Model {
         this.status = status;
     }
 
+    public Experience(Integer idExperience, String experience, Integer status) {
+        this.idExperience = idExperience;
+        this.experience = experience;
+        this.status = status;
+    }
 ///Fonctions
     //avoir l'idCorrespondant au experience choisi
     public int getIdByName(String experience, Connection con) throws Exception {
@@ -96,5 +104,20 @@ public class Experience extends Model {
                 con.close();
             }
         }
+    }
+    
+    //Recuperer une experience par son id
+    public static Experience getById(Connection conn, Integer idExperience) throws Exception {
+        Statement work = conn.createStatement();
+        String req = "select * from experience where id_experience = "+idExperience;
+        ResultSet result = work.executeQuery(req);
+        Experience experience = new Experience();
+        while(result.next()) {
+            experience.setIdExperience(result.getInt("id_experience"));
+            experience.setExperience(result.getString("experience"));
+            experience.setStatus(result.getInt("status"));
+        }
+        
+        return experience;
     }
 }

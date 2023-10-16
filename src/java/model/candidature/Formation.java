@@ -6,7 +6,10 @@ package model.candidature;
 
 import framework.database.utilitaire.GConnection;
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -74,4 +77,19 @@ public class Formation {
     public Formation() {
     }
 
+///fonctions
+    //Avoir tous les formations
+    public static ArrayList<Formation> getFormationCandidat(Connection conn, Integer idCandidat)  throws Exception { 
+        Statement work = conn.createStatement();
+        String req = "SELECT * FROM formation_base WHERE id_candidature="+idCandidat;
+        ResultSet result = work.executeQuery(req);
+        ArrayList<Formation> formations = new ArrayList<>();
+
+        while(result.next()) {
+            Formation formation = new Formation(result.getInt("year"), result.getString("diplome"), result.getString("school"));
+            formations.add(formation);
+        }
+        
+        return formations;
+    }
 }

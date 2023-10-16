@@ -22,8 +22,8 @@ import model.gestionBesoin.Besoin;
 import model.requis.Service;
 import model.requis.User;
 
-@WebServlet(name = "AnnonceServlet", urlPatterns = {"/annonce"})
-public class AnnonceServlet extends HttpServlet {
+@WebServlet(name = "CandidatureDetailServlet", urlPatterns = {"/candidatureDetail"})
+public class CandidatureDetailServlet extends HttpServlet {
 
      protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
           res.setContentType("text/plain");
@@ -32,25 +32,14 @@ public class AnnonceServlet extends HttpServlet {
           try {
               Connection conn = GConnection.getSimpleConnection();
               
-              HttpSession session = req.getSession();
-              User userConnected = (User)session.getAttribute("user");
-              ArrayList<Service> services = Service.getAll(conn);
-              req.setAttribute("services", services);
-
-                if(req.getAttribute("annonces") != null) {
-                    req.setAttribute("annonces", req.getAttribute("annonces"));
-                }
-                else {
-                    ArrayList<Annonce> annonces = Annonce.getAnnonceByStatus(conn, "1", userConnected.getService());
-                    req.setAttribute("annonces", annonces);
-                }             
+                       
               
               conn.close();
           } catch (Exception exe) {
               exe.printStackTrace();
                req.setAttribute("erreur", exe.getMessage());
           }
-          RequestDispatcher dispat = req.getRequestDispatcher("./pages/annonce/annonce_list.jsp");
+          RequestDispatcher dispat = req.getRequestDispatcher("./pages/candidature/candidature_detail.jsp");
           dispat.forward(req, res);
      }
 
@@ -60,11 +49,7 @@ public class AnnonceServlet extends HttpServlet {
           try {
              Connection conn = GConnection.getSimpleConnection();
             
-            Integer idService = Integer.valueOf(req.getParameter("service"));
-            Service service = Service.getById(conn, idService);
-            ArrayList<Annonce> annonceFilter = Annonce.getAnnonceByStatus(conn, "1", service);
-            req.setAttribute("annonces", annonceFilter);
-            
+          
             conn.close();
         } catch (Exception exe) {
             exe.printStackTrace();
