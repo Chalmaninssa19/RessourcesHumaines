@@ -18,3 +18,7 @@ nbproject/ant-deploy.xml
 *.properties
 *.xml
 src/java/framework/database/utilitaire/GConnection.java
+nbproject/genfiles.properties
+*.properties
+*.xml
+*.class
